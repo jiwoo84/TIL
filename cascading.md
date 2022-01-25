@@ -2,8 +2,6 @@
 
 ## 문제점
 
----
-
 ```css
 #login-form input:focus {
   border-color: var(--yellow);
@@ -19,7 +17,6 @@
 
 ## 원인
 
----
 
 css의 cascading
 
@@ -36,7 +33,6 @@ css의 cascading
 
 ## 해결
 
----
 
 ```css
 #login-form input:not([type="submit"]) {
