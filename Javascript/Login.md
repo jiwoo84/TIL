@@ -4,47 +4,25 @@
 
 ---
 
-# #4.0
+## **`input.value`**
 
-- **input.value** = 입력값
-
-form의 input 내용을 가져오려면 value(prop)를 찾아보면 된다
+요소의 입력값 반환
 
 ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/1ee8946e1ebd4ed0bc1abd974af2bc6c/7b802605-34a6-40aa-81db-1387a73f2933.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/1ee8946e1ebd4ed0bc1abd974af2bc6c/7b802605-34a6-40aa-81db-1387a73f2933.png)
 
 ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/aa6cc629-1a82-4043-b521-54112b614321.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/aa6cc629-1a82-4043-b521-54112b614321.png)
 
-# #4.1
+## `obj.length` (prop)
 
-- **** `obj.length = 숫자(값)`
-
-string의 길이 구하기 (prop)
+string의 길이(n) 반환
 
 ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/d7a352b4-716c-471c-bb51-87fa7c7970dd.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/d7a352b4-716c-471c-bb51-87fa7c7970dd.png)
 
 이런식으로 조건문에 활용하기도 한다
 
-- **input 필수입력/ 길이조절**
+## preventDefault (fnc)
 
-js에서 조건문 사용 대신, html의 attr 추가해서
-
-브라우저의 기본기능을 이용할 것
-
-★ input의 유효성 검사 위해 꼭 form 안에 넣을 것
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/366df046-5c4c-40bc-a259-d0f5294cd9b3.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/366df046-5c4c-40bc-a259-d0f5294cd9b3.png)
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/b968eabc-d4b7-4ec4-9701-3a68eb233729.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/b968eabc-d4b7-4ec4-9701-3a68eb233729.png)
-
-값 입력 후, enter | button 클릭
-
-→ 둘 다 값을 자동으로 submit & 새로고침
-
-- —————————————————————————————————
-
-# fnc > preventDefault
-
-`obj.**preventDefault**();`
+`obj.preventDefault();`
 
 - 기본 행동이 발생하는 것은 막음
 - 내가 브라우저의 모든 것을 컨트롤하게 함
