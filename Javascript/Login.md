@@ -22,89 +22,87 @@ string의 길이(n) 반환
 
 ## preventDefault (fnc)
 
-`obj.preventDefault();`
+`event.preventDefault();`
 
-- 기본 행동이 발생하는 것은 막음
-- 내가 브라우저의 모든 것을 컨트롤하게 함
-- 기본 동작 종류
+- 기본 동작의 실행을 막음
+- 적용하면 브라우저의 모든 것을 컨트롤할 수 있음
 
-① form(submit) : 새로고침
+- **기본 동작 종류**
+    - `<form>`의 submit(event) : 새로고침, 값 서버에 전송
+        - `<input>` 필드에서 enter
+        - `<input type="submit">` or `<button>` 클릭
+    - `<a>` 를 click : link로 이동
 
-②  (click) : link로 이동
+```jsx
+const loginForm = document.querySelector("#login-form");
+const loginInput = document.querySelector("#login-form input");
 
-# #4.4
+function onLoginSubmit(event) {
+  event.preventDefault(); // 이렇게 쓰면 input의 값 console된다
+  console.log(loginInput.value);
+}
 
-- **css 이용해서 요소 숨기기**
+loginForm.addEventListener("submit", onLoginSubmit);
+```
 
-(css) `.class-name { **display: none;** }` 추가
+## **css 이용해서 요소 숨기기**
 
-→ 어떤 요소든 class에 hidden 더해주면, 숨기게 됨
+1. (css) `.hidden {display: none;}`
+    - 알아보기 쉽게 classname은 hidden으로 설정
+    - 어떤 요소든 class에 hidden 더해주면, 숨게 됨
+    
+2. 숨어있다가 나온다면
+    - (html) 해당 요소에 `class="hidden"` 작성
+    - (js) 나오는 fnc에 `obj.classList.remove("hidden");` 작성
+    
+    나와있다가 숨는다면
+    
+    - (js) 숨는 fnc에 `obj.classList.add("hidden");` 작성
 
-- **form 입력하면, 숨기고 입력값 출력하기**
+```jsx
+const loginForm = document.querySelector("#login-form");
+const loginInput = document.querySelector("#login-form input");
+const greeting = document.querySelector(".greeting");
 
-① (html) form & 입력하고 나올 요소추가
+const HIDDEN_CLASSNAME = "hidden";
 
-(내용 없이/ `class="**hidden**"`포함)
+function onLoginSubmit(event) {
+  event.preventDefault();
+  loginForm.classList.add(HIDDEN_CLASSNAME);
+  const username = loginInput.value;
+  greeting.classList.remove(HIDDEN_CLASSNAME);
+  greeting.innerText = `Hello {$username}`;
+}
 
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/cb9da114-198e-40c1-b160-e7c09975e760.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/cb9da114-198e-40c1-b160-e7c09975e760.png)
-
-② (css) `.hidden { **display: none;** }` 추가
-
-③ (js) “click” event fnc 작성
-
-- form 기본 동작 막고 `event.preventDefault();`
-- form의 class에 hidden 추가 `.classList.add("hidden");`
-- input 값에 var 할당 `const username = input-name.value;`
-- 차후 요소 명령문 (아래선 obj.innerText = ~; )
-- 차후 요소 “hidden” 삭제 `obj.classList.remove("hidden");`
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/28e76452-fd08-448a-85cb-ad3f38bf28c1.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/28e76452-fd08-448a-85cb-ad3f38bf28c1.png)
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/94af37dd-c511-430d-bc07-6c0c00f47e80.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/94af37dd-c511-430d-bc07-6c0c00f47e80.png)
-
-↳ 중복되는 부분이 있다면, var 할당하는 것이 좋다!
-
-+ string만 포함된 var는 대문자로 표기
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/72abfd04-3ea5-42b7-87e1-4c6237fdb4df.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/72abfd04-3ea5-42b7-87e1-4c6237fdb4df.png)
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/dfff1d95-bacc-46d9-9c7f-9ca5fb4f5d8b.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/dfff1d95-bacc-46d9-9c7f-9ca5fb4f5d8b.png)
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/64e01644-1ddd-430f-9fa3-3def2c605838.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/64e01644-1ddd-430f-9fa3-3def2c605838.png)
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/093fe49c-c25b-4fb7-a148-3870a89b6a21.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/093fe49c-c25b-4fb7-a148-3870a89b6a21.png)
-
-↳ string이 잘 합쳐져서 출력됨
-
-- —————————————————————————————————
-
-# **#4.5**
+loginForm.addEventListener("submit", onLoginSubmit);
+```
 
 # LocalStorage
 
-브라우저에 정보 저장하는 기능 (새로고침해도 남아있는)
+브라우저에 정보 저장 (새로고침해도 남아있음)
 
-array는 저장되지 않는다 → text로 저장됨 (a,b,c…)
+text로 저장 (array는 저장X)
 
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/f3be0839-935b-4bba-a648-e64f8b9ed85f.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/f3be0839-935b-4bba-a648-e64f8b9ed85f.png)
+## 확인하기
 
-- 이미 존재하고, 정의되어 있음
+개발자도구 → console → Application → Local Storage
 
 ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/74e8c271-539d-498c-a5f1-ef92d9e3dcde.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/74e8c271-539d-498c-a5f1-ef92d9e3dcde.png)
 
-- 개발자도구 → console → Application → Local Storage에서 확인
-- **method**
-- `localStorage.**setItem**("key-name", var)` 새로운 항목 세팅
-- `localStorage.**getItem**("key-name")` 위의 set값 불러옴
-- `localStorage.**removeItem**("key-name")` 저장된 값 지우기
+## **method**
 
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/9cb56671-9ff8-40ac-9f95-a8e7f2cf8a11.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/9cb56671-9ff8-40ac-9f95-a8e7f2cf8a11.png)
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/dfc17bcc-e3e2-4654-a3eb-c4dbaaca78f2.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/dfc17bcc-e3e2-4654-a3eb-c4dbaaca78f2.png)
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/05f84fca-8c10-4efb-bb29-ee08596892bc.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/1ee8946e1ebd4ed0bc1abd974af2bc6c/05f84fca-8c10-4efb-bb29-ee08596892bc.png)
-
-- —————————————————————————————————
+- 새로운 항목 세팅
+    
+    `localStorage.setItem("key", 값)` 
+    
+- 저장값 불러옴
+    
+    `localStorage.getItem("key")` 
+    
+- 저장값 삭제
+    
+    `localStorage.removeItem("key")`
+    
 
 # #4.6
 
