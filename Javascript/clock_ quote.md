@@ -141,15 +141,17 @@ setInterval(getClock, 1000);
 
 ---
 
+# js에서 node 추가
+
 ## **createElement**
 
 `document.createElement("tag")`
 
-메서드는 지정한 `tagName`의 HTML 요소를 만들어 반환
+지정한 `tagName`의 HTML 요소를 만들어 반환
 
 js상에 el 생성 (html에 생성 X / 브라우저에 표시 X)
 
-- 변수 할당 한다면 var-name은 추가된 tag를 뜻함
+- 변수 할당 한다면 var은 추가된 tag를 뜻함
     
     `const img = document.createElement("img")`
     
@@ -157,42 +159,25 @@ js상에 el 생성 (html에 생성 X / 브라우저에 표시 X)
     
 - tag에 필수 attribute가 있다면, 추가해 줄 것
     
-    ex) img : img(obj)`.src = img/00.jpg`
+    ex) img : `img(obj).src = "00.jpg"`
     
-- **appendChild / prepend   !!!!!!!!!!!!!!!!!!!!!!!!!!여기 수정중**
 
-el 안에 el 추가함 (부모의 맨 끝에/ 맨 앞)
+## **appendChild / prepend**
 
-`element.**appendChild**(추가할el)`
+node를 해당 node의 자식으로 추가 (부모의 맨 끝에/ 맨 앞)
 
-★보통 두 개 합쳐서 사용
+`element.appendChild(추가할el)`
 
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/e3c995bd4d8c459cacd5026f8d2cf4f1/5e60ca7b-e3f8-42a0-a510-77f5761a0332.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/e3c995bd4d8c459cacd5026f8d2cf4f1/5e60ca7b-e3f8-42a0-a510-77f5761a0332.png)
+### 예시
 
-- **실행 방법**
+```jsx
+const bgImage = document.createElement("img");
 
-① 2개 이상의 img 폴더 준비
+bgImage.src = `img/0.jpg`;
 
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/e3c995bd4d8c459cacd5026f8d2cf4f1/425f1002-e49f-4d7f-8927-fd39ce73d691.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/e3c995bd4d8c459cacd5026f8d2cf4f1/425f1002-e49f-4d7f-8927-fd39ce73d691.png)
+document.body.appendChild(bgImage);
+```
 
-②이미지 이름으로 array 만들기
+![body 맨 끝에 <img> 추가되어 있음](clock_%20quo%20413d1/Untitled.png)
 
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/e3c995bd4d8c459cacd5026f8d2cf4f1/f70cbec8-3055-40d7-851c-70c81098464b.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/e3c995bd4d8c459cacd5026f8d2cf4f1/f70cbec8-3055-40d7-851c-70c81098464b.png)
-
-③랜덤 이미지 var 만들기
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/e3c995bd4d8c459cacd5026f8d2cf4f1/43c94619-ba36-40c8-b292-507623f767c6.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/e3c995bd4d8c459cacd5026f8d2cf4f1/43c94619-ba36-40c8-b292-507623f767c6.png)
-
-④ createElement/ appendChild 이용해서 body에 img 추가
-
-∴ html은 랜덤하게 입력할 수 없기 때문에 js 이용
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/e3c995bd4d8c459cacd5026f8d2cf4f1/d51d4f88-0da1-47df-b91a-e29b3ac873a1.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/e3c995bd4d8c459cacd5026f8d2cf4f1/d51d4f88-0da1-47df-b91a-e29b3ac873a1.png)
-
-+ img 태그 안에 src입력해야 이미지 들어가기 때문에
-
-img.src도 추가해준다
-
-⑤ 브라우저 확인하면, 추가되어 있다!
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/e3c995bd4d8c459cacd5026f8d2cf4f1/a23175fe-a894-4c1e-8130-bc0247258c4b.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/e3c995bd4d8c459cacd5026f8d2cf4f1/a23175fe-a894-4c1e-8130-bc0247258c4b.png)
+body 맨 끝에 <img> 추가되어 있음
