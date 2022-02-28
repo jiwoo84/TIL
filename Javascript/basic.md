@@ -69,14 +69,21 @@ ex) `alert “hello world”` 도 alertAPI를 사용한 것
 
 - `%lt;` : <
 - `<br>` : 줄바꿈
+
 - `alert()` : 알림·경고창 띄움
+    - 뜬 순간 브라우저의 모든 행위를 멈춤
+    - 값을 반환 X ( `undefined` 반환)
+    
 - `console.log()` : 콘솔에 내용 출력 /  `log`가 메소드라서 `,`으로도 string 연결 가능
+
 - `console.dir()` : element까지 자세히 보여줌
     
     ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/26ad00c849fe490da9cb94bb82907b25/00ca200e-d4bb-44bd-abd8-2eccea361b14.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/26ad00c849fe490da9cb94bb82907b25/00ca200e-d4bb-44bd-abd8-2eccea361b14.png)
     
+
 - `element.remove()` : element 삭제
 - 공백 금지에 공백 넣기: [”~ ~”]
+- `element.id = id-name` : html 상의 element에 id 넣기
 
 # html - js 연결
 
@@ -105,7 +112,7 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
         `"string " + var-name` = “string var값”
         
     
-    - 신버전
+    - 신버전 (추천)
         
         ``string ${var-name}`` = “string var값”
         
@@ -120,6 +127,295 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
         
     
 
+## data type 변경
+
+- `type(value)`  :  value의 type 변경 후, 반환
+    
+    
+    - number(~)
+        - `number(null)` = 0
+        - `number(undefined)` = NaN
+        - `number("  2/n")` =  2  (공백 무시됨)
+        
+- **parseInt**
+    
+    `parseInt(~);`
+    
+    string → number로 변환 후, 반환
+    
+    ```jsx
+    const age = parseInt(promt("How old are you?"));
+    
+    // 두 개의 fnc 사용해서 입력값 받고 num로 type 변경
+    ```
+    
+    - 의의
+        - 값의 크기비교 가능 (숫자로 바꾸기 때문)
+        - 숫자 아닌 입력값 인지 (**NaN**으로 뜸)
+        
+    - `number(~)` 와의 차이점
+        
+        
+        - parseInt는 숫자를 찾아내서 반환하는 기능이 있음
+            
+            ex) `parseInt("10회")` = 10
+            
+            `number("10회")` = NaN
+            
+            `parseInt("제10회")`  = NaN  (문자열이 앞에 오는 경우는 X)
+            
+        - parseInt는 정수만 반환
+            
+            ex) `parseInt("2.55")` = 2
+            
+            `number("2.55")` = 2.55
+            
+            `parseFloat("2.55")` = 2.55  (소수는 parseFloat 사용)
+            
+
+## typeof
+
+값의 data type 알아내 반환
+
+- **생성**
+    
+    `typeof val`
+    
+    `typeof(val)`  둘 다 가능
+    
+    ```jsx
+    console.log(typeof 1); // number 
+    console.log(typeof "jw"); // string
+    ```
+    
+
+- **결과값**
+    - string이 무조건 기본값
+    - 숫자로 바꾸려면 parseInt() 사용
+        
+        ![숫자 입력](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/26ad00c849fe490da9cb94bb82907b25/f6431f2b-dce9-4b41-861e-8cc029706cc8.png)
+        
+        숫자 입력
+        
+        ![숫자도 string](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/26ad00c849fe490da9cb94bb82907b25/c6128537-87af-4176-9238-08bb5253694c.png)
+        
+        숫자도 string
+        
+
+## isNaN
+
+NaN(숫자가 아님)을 판별 후, boolean 반환
+
+- **생성**
+    
+    `isNaN(val)` = boolean
+    
+    - isNaN(number) → **false**
+    - isNaN(number X) → **true**
+    
+    ```jsx
+    const age = parseInt(promt("How old are you?"));
+    
+    console.log(isNaN(age));
+    // 입력값에 따라 true or false 뱉어냄
+    ```
+    
+
+# boolean
+
+(text 아닌 data type)
+
+- **true**
+    - truthly
+        
+        falsey 외의 모든 값 
+        
+
+- **false**
+    - falsy (거짓같은 값 / boolean 문맥에서 false로 평가됨)
+        - false
+        - 0 / -0
+        - 0n
+        - “ ” (빈 string)
+        - null
+        - undefined
+        - NaN
+
+- **null**
+    - 텅빈 상태가 아니고 ’없음’으로 채워진 상태
+    - 절대 자연적으로 발생x, 안에 없다는 것을 확실히 하려고 사용
+    
+- **undefined**
+    - 정의되지 않음
+    - 값이 설정되지 않음 (텅빈 상태)
+    
+    ```jsx
+    const a = null;
+    const b;
+    
+    console.log(a,b); // = null, undefined
+    ```
+    
+- **Nan** : (Not a Number) 숫자가 아님
+    - 비교연산자에서 NaN이 피연산자인 경우 항상 false 반환
+
+# 연산자
+
+## 산술 연산자
+
+숫자형의 피연산자만 다루고, 숫자형이 아니면 숫자로 변환 (+만 빼고)
+
+- `%` : (`a%b`) a를 b로 나눈 나머지를 정수로 반환
+- `**` : 거듭제곱
+
+- `+` : 기본 산술 연산자 / 문자열 연결
+    
+    
+    - 피연산자 중 하나가 문자열이면 다른 하나도 문자열로 변환
+        
+        ex) `alert('1' + 2)`  =  “12”
+        
+        `alert(2 + 2 + '1')`  =  “41” (연산이 왼→오로 진행되기 때문에, 숫자가 먼저 더해지고 `‘1’`에 의해 string으로 변환되어 `“41”` 완성)
+        
+        `alert('2' - 1)`  =  1  (+ 빼고 다른 연산자는 숫자 아니면 숫자로 변환)
+        
+    - `++` / `--` (증감연산자)
+        
+        피연산자를 1씩 증가 혹은 1씩 감소시킬 때 사용
+        
+        - `++i` : i+1 먼저 실행
+        - `i++` : 다음 줄로 넘어갈 때 i+1 실행
+        
+    - `+=` (더하기 할당 연산자) : 오른쪽 피연산자의 값을 변수에 더한 결과를 다시 변수에 할당
+    
+    - `int i = 0;`
+        
+        `i = i + 1`  ==  `i+= 1`  == `i++`
+        
+        셋 다 같은 의미
+        
+
+## 논리 연산자
+
+1.  **`&&`** : and
+    - 모두 true = `true`
+    - 하나라도 false = `false`
+    - 피연산자가 boolean 아닌 경우 (원래값 반환)
+        
+        첫 번째 falsy 반환 / (하나도 없다면) 마지막 피연산자
+        
+    
+    ```jsx
+    if (age>=18 && age<=50) {명령문};
+    
+    // 18≤ age ≤50 일 때, 실행 
+    ```
+    
+2.  **`||`** : or
+    
+    하나라도 true = `true`
+    
+    - 피연산자가 boolean 아닌 경우 (원래값 반환)
+        
+        첫 번째 truthy 반환 / (하나도 없다면) 마지막 피연산자
+        
+    
+    ```jsx
+    if (isNaN(age) || age<0) {명령문};
+    
+    // age가 숫자가 아니거나 or 음수 일 때, 실행
+    ```
+    
+
+1. `!` : NOT
+    
+    피연산자를 불린형으로 변환 → 변환된 값의 역을 반환
+    
+    ```jsx
+    alert( !true ); // false
+    alert( !0 ); // true
+    ```
+    
+    - 연달아 사용하면 boolean형으로 변환 가능
+        
+        ```jsx
+        alert( !!"non-empty string" ); // true
+        alert( !!null ); // false
+        ```
+        
+        `Boolean(~)` 와 같은 결과 도출
+        
+2. nullish 병합 연산자 : `??`
+    
+    `a ?? b`
+    
+    - `a`가 `null`도 아니고 `undefined`도 아니면 `a`
+    - 그 외의 경우는 `b`
+    - 여러 피연산자 중 값이 ‘확정 되어있는’ 변수 찾기
+    
+    ```jsx
+    a = null;
+    b = "namjun";
+    
+    const name = a ?? b;
+    alert(name);  // "namjun" 출력
+    ```
+    
+
+## 비교 연산자 **(AND/OR operator)**
+
+`**===**` : ‘같음’ 확인 기호
+
+```jsx
+if (age ===100) {명령문}
+else (age<100) {명령문};
+
+// age=100 아니라면 아래로 내려감
+```
+
+`**!==**` : ‘다름’ 확인 기호 (~가 아니라면 실행)
+
+- `===` & `==` & `=` 차이점
+    
+    
+    - `===` : 값 + data type 비교
+    - `==` : 값만 비교 (binaryCode로 비교)
+    - `=` : value 할당 (’같음’ 비교 기호 아님)
+    
+    - 예시
+        
+        `0 === false` → false (false의 type은 boolean이므로)
+        
+        `0 == false` → true (false는 이진법으로 0 표기)
+        
+    
+- **특별 케이스**
+    
+    ∴ 피연산자에 undefined나 null이 오지 않게 주의할 것
+    
+    - undefined 와 null 비교
+        
+        ```jsx
+        alert(undefined == null) // true
+        alert(undefined === null) // false
+        ```
+        
+        - 동등연산자`==`로 비교하면 특별한 규칙이 적용되어 true가 반환
+        - 하지만 `===`로 더 엄격하게 비교하면 false
+        
+    - 피연산자가 undefined 나 null 일 때, 형변환 X
+        
+        (<, >, ≤, ≥ 는 숫자형으로 변환)
+        
+        ```jsx
+        alert( null == 0 ); // false
+        alert( null > 0 );  // false
+        alert( null >= 0 ); // true
+        // number(null) = 0 이므로 위 결과 나옴
+        ```
+        
+    
+
 # variable
 
 |  | 재선언 | 재할당 |
@@ -128,7 +424,7 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
 | let | X | O |
 | var | O | O |
 
-## **1. const**
+## **1. const (상수)**
 
 `const name = 값;`
 
@@ -136,13 +432,13 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
     
     
 
-## **2. let**
+## **2. let (변수)**
 
 `let name = 값;`
 
 - 값 변경
     
-    (let 생략)  `name = 값;`
+    (let 생략 필수)  `name = 값;`
     
     ```jsx
     let myName = "jiwoo";
@@ -172,31 +468,6 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
     console.log(hisName); // 결과값: rap monster
     ```
     
-
-# boolean
-
-(text 아닌 data type)
-
-- **true**
-
-- **false**
-
-- **null**
-    - 텅빈 상태가 아니고 ’없음’으로 채워진 상태
-    - 절대 자연적으로 발생x, 안에 없다는 것을 확실히 하려고 사용
-    
-- **undefined**
-    - 정의되지 않음
-    - 값이 설정되지 않음 (텅빈 상태)
-    
-    ```jsx
-    const a = null;
-    const b;
-    
-    console.log(a,b); // = null, undefined
-    ```
-    
-- **Nan** : (Not a Number) 숫자가 아님
 
 # array
 
@@ -456,13 +727,13 @@ console.log(plus(2,3));
 
 1. fnc 실행
 
-![Untitled](Basic%2081d4a46fb71941bba1534df9909a25ec/Untitled.png)
+![Untitled](Basic%2081d4a/Untitled.png)
 
 1. 반환값 없기 때문에 `plus(2,3)` 자리에 5 들어가지 못함
     
     그러므로 console창에 undefined이 출력
     
-    ![Untitled](Basic%2081d4a46fb71941bba1534df9909a25ec/Untitled%201.png)
+    ![Untitled](Basic%2081d4a/Untitled%201.png)
     
 
 ∴ fnc은 명령만 시행할 뿐, 값을 바깥으로 내보내지 못함
@@ -513,90 +784,36 @@ fnc의 값 바깥으로 내보내기 가능
 
 - `취소` 클릭 → “null”
 - 입력x `확인` 클릭 → 빈 string (`’’`)
-    
-    
 
 ## **특징**
 
 - 입력할 때까지 로딩중 (js를 일시정지 시킴)
 - 입력창을 꾸미지 못함 → 요즘은 사용x
+- IE에서는 기본값 필수 입력
+    
+    
 
-# typeof
+# confirm
 
-값의 data type 알아내 반환
+`confirm(question)`
 
-## 생성
+매개변수로 받은 question(질문)과 확인 및 취소 버튼이 있는 모달 창 실행
 
-`typeof val`
-
-```jsx
-console.log(typeof 1); // number 
-console.log(typeof "jw"); // string
-```
-
-## 결과값
-
-- string이 무조건 기본값
-- 숫자로 바꾸려면 parseInt() 사용
-
-![숫자 입력](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/26ad00c849fe490da9cb94bb82907b25/f6431f2b-dce9-4b41-861e-8cc029706cc8.png)
-
-숫자 입력
-
-![숫자도 string](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/26ad00c849fe490da9cb94bb82907b25/c6128537-87af-4176-9238-08bb5253694c.png)
-
-숫자도 string
-
-# **parseInt**
-
-string → number로 type 변환 후, 반환
-
-## 생성
-
-`parseInt(val);`
-
-![입력창에 15 입력 시](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/26ad00c849fe490da9cb94bb82907b25/ab76e7a0-c4ad-4c6d-b8a1-be6e1b87565b.png)
-
-입력창에 15 입력 시
-
-![age = string / parseInt(age) = number](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/26ad00c849fe490da9cb94bb82907b25/c6e70f59-296b-4dcc-aeef-ff952a7d23f2.png)
-
-age = string / parseInt(age) = number
-
-## **의의**
-
-- 값의 크기비교 가능 (숫자로 바꾸기 때문)
-- 숫자 아닌 입력값 인지 (**NaN**으로 뜸)
+사용자가 확인버튼를 누르면 `true`, 그 외의 경우는 `false`를 반환
 
 ```jsx
-const age = parseInt(promt("How old are you?"));
+let isBoss = confirm("당신이 주인인가요?");
 
-// 두 개의 fnc 사용해서 입력값 받고 num로 type 변경
-```
-
-# isNaN
-
-NaN(숫자가 아님)을 판별 후, boolean 반환
-
-## 생성
-
-`isNaN(val)` = boolean
-
-- number → **false**
-- number X → **true**
-
-```jsx
-const age = parseInt(promt("How old are you?"));
-
-console.log(isNaN(age));
-// 입력값에 따라 true or false 뱉어냄
+alert( isBoss ); // 확인 버튼을 눌렀다면 true가 출력/ 취소는 false
 ```
 
 # condition
 
 ## 생성
 
-condition=boolean 일 것
+condition=boolean 을 반환
+
+(비어있지 않은 문자열은 모두 true를 반환 ex) “0” )
 
 - **조건 1개**
     
@@ -608,7 +825,7 @@ condition=boolean 일 것
     
     `if (condition) {명령어} else {명령어}`
     
-- **조건 여러 개** (else 생략 가능)
+- **조건 여러 개** (맨 끝 else 생략 가능)
     
     `if (condition) {명령어;}`
     
@@ -625,59 +842,48 @@ condition=boolean 일 것
 
 false가 나오면 아래 조건문으로 점진적으로 내려감
 
-## **조건문 연결 (AND/OR operator)**
-
-1.  **`&&`** : and
-    - 모두 true = `true`
-    - 하나라도 false = `false`
-    
-    ```jsx
-    if (age>=18 && age<=50) {명령문};
-    
-    // 18≤ age ≤50 일 때, 실행 
-    ```
-    
-2.  **`||`** : or
-    
-    하나라도 true = `true`
-    
-    ```jsx
-    if (isNaN(age) || age<0) {명령문};
-    
-    // age가 숫자가 아니거나 or 음수 일 때, 실행
-    ```
-    
-
-1.  `**===**` : ‘같음’ 확인 기호
-    
-    ```jsx
-    if (age ===100) {명령문}
-    else (age<100) {명령문};
-    
-    // age=100 아니라면 아래로 내려감
-    ```
-    
-    - `===` & `==` & `=` 차이점
-        
-        
-        - `===` : 값 + data type 비교
-        - `==` : 값만 비교 (binaryCode로 비교)
-        - `=` : value 할당 (’같음’ 비교 기호 아님)
-        
-        - 예시
-            
-            `0 === false` → false (false의 type은 boolean이므로)
-            
-            `0 == false` → true (false는 이진법으로 0 표기)
-            
-        
-2. `**!==**` : ‘다름’ 확인 기호 (~가 아니라면 실행)
-
 - <음주 가능 나이 계산기> 예시
 
 ![else 안써도 된다](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/26ad00c849fe490da9cb94bb82907b25/53b6ff6f-7514-4e43-8910-a2c5a1f64af4.png)
 
 else 안써도 된다
+
+- **조건부 연산자**  `?` **사용**
+    
+    `condition ? value1 : value2;`
+    
+    condition 만족 시 → value1 반환 / 불만족 → value2 반환
+    
+    - 다중 사용
+        
+        `condition ? value1 :` 
+        
+        `condition ? value2 :`
+        
+        `value 3;`
+        
+    
+    - 조건에 따라 반환값을 달리하려는 목적으로 만들어짐
+        
+        간단한 줄 아니고서는 if 사용이 나음
+        
+    
+    ```jsx
+    let result;
+    
+    if (a + b < 4) {
+      result = '미만';
+    } else {
+      result = '이상';
+    }
+    
+    //
+    
+    let result = (a + b < 4) ? '미만' : '이상';
+    
+    // 두 개의 코드는 같은 결과
+    ```
+    
 
 ## 주의사항
 
@@ -708,3 +914,129 @@ else 안써도 된다
     ```
     
     순서를 바꿔주면 의도한대로 작동
+    
+
+# switch
+
+복수의 if 조건문은 switch문으로 변환 가능
+
+## 생성
+
+```jsx
+switch(value) {
+
+	case value1 : 명령문; //value = value1 이면 실행
+	break;
+	
+	case value2 : 명령문;  //value = value2 면 실행
+	break;
+	…
+	default : 명령문; //위에 해당 안되면 실행 (생략가능)
+
+}
+```
+
+- case문 안에 `break` 없으면 조건에 상관없이 다음 case문 실행
+- case문 묶기 가능
+    
+    ex) `case value 1 :`
+    
+    `case value 2 : 명령문;`
+    
+- case 옆 value에 자료형 정확히 기재해야 실행됨
+
+# loop (반복문)
+
+## while
+
+`while(boolean) { ~ }`
+
+- (조건)이 true라면 중괄호 안의 코드 실행
+- false가 될 때까지 반복 실행
+    
+    ```jsx
+    let i = 0;
+    
+    while (i < 3) {
+      alert(i);
+    	i++
+    }
+    ```
+    
+- **do...while**
+    
+    `do{명령문} while (condition)`
+    
+    - 명령 실행 → 조건 만족시, 명령 재실행 → 반복
+    - 조건에 상관없이 최소한 1번은 실행
+
+## for
+
+`for (선언; 조건; 증감) {명령문}`
+
+선언된 상태 → 조건 확인 → 명령 실행 → 증감 실행 → 조건 확인 → 명령 실행 (반복)
+
+- 구성요소 생략 가능(모두 생략시, 무한 반복)
+
+```jsx
+for(let i = 0; i <3; i++){
+	alert(i);
+}
+```
+
+## 반복문 빠져나오기
+
+`break`
+
+- 속한 명령문이 즉시 종료되고 다음 문으로 프로그램 제어를 넘김
+- 반복문의 시작 지점이나 끝 지점에서 조건을 확인하는 것이 아니라 본문 가운데 혹은 본문 여러 곳에서 조건을 확인해야 하는 경우, '무한 반복문 + `break`' 조합을 사용
+
+```jsx
+let i = 0;
+
+while (i < 6) {
+  if (i === 3) {
+    break;  // = if ( i ===3 ) break;
+  }
+  i = i + 1;
+}
+
+console.log(i);  // 3 출력
+```
+
+## 다음 반복으로 넘어가기
+
+`continue`
+
+반복문을 아예 빠져나가는 것이 아니라, 실행중이던 루프를 빠져나가 다음 반복문을 실행
+
+```jsx
+for(let i = 0; i < 5; i++ ) {
+	if (i === 3) continue; // 3에서 멈추고 4로 넘어감
+	alert(i);
+}
+// 0, 1, 2, 4 출력
+```
+
+- ? 오른쪽에는 `break` / `continue` 사용 불가
+
+## 반복문 label 설정
+
+`labelName : 반복문{~}`
+
+- 반복문에 이름을 부여
+- 중첩 반복문에서 `break` / `continue` 사용해서 빠져나올 때 사용 가능
+
+```jsx
+outer: for (let i = 0; i < 3; i++) {
+
+  for (let j = 0; j < 3; j++) {
+
+    let input = prompt(`(${i},${j})의 값`, '');
+
+    // 사용자가 아무것도 입력하지 않거나 Cancel 버튼을 누르면 두 반복문 모두를 빠져나옵니다.
+    if (!input) break outer; // (*)
+  }
+}
+alert('완료!');
+```
