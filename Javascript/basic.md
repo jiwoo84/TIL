@@ -58,6 +58,13 @@ ex) `alert “hello world”` 도 alertAPI를 사용한 것
     const veryLongVariableName = 0;
     ```
     
+    - 함수 이름에 자주 사용되는 접두어
+        - `“show...”` - 무언가를 보여줌
+        - `"get…"` – 값을 반환함
+        - `"calc…"` – 무언가를 계산함
+        - `"create…"` – 무언가를 생성함
+        - `"check…"` – 무언가를 확인하고 불린값을 반환함
+        
 - string만 포함된 변수- 전체 대문자
     
     ```jsx
@@ -191,7 +198,8 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
 
 - **결과값**
     - string이 무조건 기본값
-    - 숫자로 바꾸려면 parseInt() 사용
+        
+        → 숫자로 바꾸려면 parseInt() 사용
         
         ![숫자 입력](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/26ad00c849fe490da9cb94bb82907b25/f6431f2b-dce9-4b41-861e-8cc029706cc8.png)
         
@@ -201,6 +209,9 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
         
         숫자도 string
         
+    - 예외
+        - `typeof null == "object"` 언어 자체의 오류
+        - `typeof function(){} == "function"` 함수는 특별하게 취급됩니다.
 
 ## isNaN
 
@@ -269,8 +280,6 @@ NaN(숫자가 아님)을 판별 후, boolean 반환
 - `**` : 거듭제곱
 
 - `+` : 기본 산술 연산자 / 문자열 연결
-    
-    
     - 피연산자 중 하나가 문자열이면 다른 하나도 문자열로 변환
         
         ex) `alert('1' + 2)`  =  “12”
@@ -321,7 +330,7 @@ NaN(숫자가 아님)을 판별 후, boolean 반환
         
     
     ```jsx
-    if (isNaN(age) || age<0) {명령문};
+    if (isNaN(age) || age < 0) {명령문};
     
     // age가 숫자가 아니거나 or 음수 일 때, 실행
     ```
@@ -345,12 +354,11 @@ NaN(숫자가 아님)을 판별 후, boolean 반환
         
         `Boolean(~)` 와 같은 결과 도출
         
-2. nullish 병합 연산자 : `??`
+2. **nullish 병합 연산자 : `??`**
     
     `a ?? b`
     
-    - `a`가 `null`도 아니고 `undefined`도 아니면 `a`
-    - 그 외의 경우는 `b`
+    - `a`가 `null`도 아니고 `undefined`도 아니면 `a`그 외의 경우는 `b`
     - 여러 피연산자 중 값이 ‘확정 되어있는’ 변수 찾기
     
     ```jsx
@@ -450,6 +458,10 @@ else (age<100) {명령문};
 
 ## **주의사항**
 
+- 변수 이름
+    - number, string 사용 (첫글자에 num 사용불가)
+    - 특수기호는 `&`, `_` 만 사용 가능
+    
 - 기본적으로 const , 필요에 따라 let 사용
     
     const/ let 에 따라 코드 사용의 의도 알 수 있음
@@ -617,13 +629,18 @@ const 인 obj 값 수정 시 → 오류
 - 반복해서 사용 가능한 코드 조각
 - 내부에서 외부 순서로 실행
 
-## **선언**
+## **선언 (함수 선언식)**
 
-`fuction fnc-name(param) {~;}`
+`fuction fnc-name(param, param, ...) {~;}`
 
-- parameter (매개변수) :  값을 함수 안으로 매개해주는 변수
-    - parm 2개 이상 : `fuction fnc-name(param, param, …) {~;}`
+- **parameter (매개변수)**
+    
+    값을 함수 안으로 매개해주는 변수
+    
     - 다른 data type과 구별해서 작성 (`,` `+` 사용)
+    - 전달 받지 못하면 `undefined` 할당
+        - 기본값 설정 : `(param = 기본값)` (arg 없으면 기본값 할당됨)
+        - 중간에 기본값 설정 가능 [클릭](https://ko.javascript.info/function-basics)
     
     ```jsx
     function combine(word) {
@@ -635,6 +652,133 @@ const 인 obj 값 수정 시 → 오류
     }
     
     // 두 개는 같다
+    
+    function combine(word = "kimbap") {
+    	console.log("I want to eat", word, 2);
+    }
+    
+    combine();  
+    // param 기본값 설정했기 때문에
+    // "I want to eat kim bap 2" 출력
+    ```
+    
+
+- 지역 변수(local variable/함수 내에서 선언한 변수)는 함수 안에서만 접근 가능
+- 전역 변수(global variable/함수 외부에서 선언)는 함수 내에서도 접근 가능
+    
+    (함수 내에서 변수 변경 시, 함수를 호출한 후에 값 변경)
+    
+- **함수 표현식**
+    
+    `var func-name = function() {명령문;}`
+    
+    - js는 함수를 값으로 보기 때문에 할당, 복사, 선언 가능
+    - 선언식은 어디 함수든 접근할 수 있지만, 표현식은 선언된 이후 함수에만 접근 가능 (js에서 먼저 함수 선언식을 읽고, 코드를 실행하기 때문)
+    
+    ```jsx
+    function sayHi() {
+      alert( "Hello" );
+    }
+    
+    let sayHi = function() {
+      alert( "Hello" );
+    };
+    
+    // 둘은 같다
+    
+    let func = sayHi;    // 함수 복사
+    
+    func(); // Hello     // 복사한 함수를 실행(둘이 같다)
+    sayHi(); // Hello
+    ```
+    
+
+- **콜백 함수**
+    
+    이미 등록된 상태에서 어떤 이벤트 발생이나 특점 시점에 호출되는 함수 (문법적 특징 X, 호출 방식에 의한 구분)
+    
+    ```jsx
+    function ask(question, yes, no) {
+      if (confirm(question)) yes()
+      else no();
+    }
+    
+    function showOk() {
+      alert( "동의하셨습니다." );
+    }
+    
+    function showCancel() {
+      alert( "취소 버튼을 누르셨습니다." );
+    }
+    
+    ask("동의하십니까?", showOk, showCancel);
+    // 사용법: 함수 showOk와 showCancel가 ask 함수의 인수로 전달됨
+    ```
+    
+
+- **익명 함수**
+    
+    이름 없이 선언한 함수 (해당 줄 바깥에서는 접근 어려움)
+    
+    ```jsx
+    function ask(question, yes, no) {
+      if (confirm(question)) yes()
+      else no();
+    }
+    
+    ask(
+      "동의하십니까?",
+      function() { alert("동의하셨습니다."); },
+      function() { alert("취소 버튼을 누르셨습니다."); }
+    );
+    // ask문의 함수 두 개 다 익명함수
+    ```
+    
+
+## 화살표 함수
+
+- 매개변수 지정 방법
+    
+    `() ⇒ 명령문`  매개변수 없다면
+    
+    `(param) ⇒ 명령문`  매개변수 한 개 (소괄호 생략 가능)
+    
+    `(param, param) ⇒ 명령문`  매개변수 여러 개
+    
+- 함수 몸체 지정 방법
+    
+    `x => x * x` 
+    
+    = `x => {return x * x }`
+    
+    - 몸체가 한 줄 이면
+        
+        → 중괄호 생략 가능
+        
+        → 암묵적으로 return 됨
+        
+    - 몸체가 여러 줄 이면
+        
+        중괄호 생략 불가 / return 값 표시해야함
+        
+    
+
+```jsx
+function plus(a, b) {
+	return a + b;
+};
+
+let plus = (a, b) => a + b;
+
+// 두 개는 같다
+```
+
+- **method라면**
+    
+    `obj.prop((param)=> 명령문)`
+    
+    ```jsx
+    jw.sayHello((name) => console.log("hi " + name))
     ```
     
 
@@ -643,6 +787,75 @@ const 인 obj 값 수정 시 → 오류
 `fnc-name(arg);` 
 
 - argument (전달인자, 값 value) :  함수로 전달하는 값
+
+## **return**
+
+함수의 반환값을 내보냄
+
+- **return 없다면**
+    
+    fnc 실행 → (호출 한다면)→ `undefined` 반환
+    
+    ```jsx
+    function plus(a, b) {
+    	alert(a + b); 
+    	};
+    
+    console.log(plus(2,3));  
+    // aleart로 5가 뜨고, undefined 출력
+    ```
+    
+    ∴ fnc은 명령만 시행할 뿐, 값을 바깥으로 내보내지 못함
+    
+
+- **return 있다면**
+    
+    fnc의 값 바깥으로 내보내기 가능
+    
+    ```jsx
+    function plus(a, b) {
+    	alert(a + b);
+    	return a + b;  // return
+    	};
+    
+    console.log(plus(2,3));
+    
+    // console창에 5 출력
+    ```
+    
+
+- **주의사항**
+    - return 뒤의 명령어는 실행 X
+    - 무조건 return 값이 반환값
+        
+        ```jsx
+        function plus(a, b) {
+        	alert(a + b);
+        	return hello;
+        	};
+        
+        console.log(plus(2,3));
+        
+        // console창에 hello 출력
+        ```
+        
+    - return에 긴 값을 출력하고 싶다면 같은 줄에 쓸 것 (js는 return문 끝에 ;을 자동으로 넣기 때문)
+        
+        ```jsx
+        return
+        (something + wrong + f(a))
+        // undefined 반환
+        
+        return (something + wrong + f(a))
+        // 의도대로 반환!
+        
+        return (
+        	something + wrong + f(a)
+        ) // 이렇게 써도 됨
+        ```
+        
+
+ 
 
 # Method (메소드)
 
@@ -686,92 +899,6 @@ const jw = {
 jw.sayHello("namjun"); // hi namjun 출력
 ```
 
-## **짧은 fnc 선언**
-
-`(param) ⇒ 명령문`
-
-fnc 이름을 설정할 필요 X , 짧은 fnc일 경우 사용
-
-```jsx
-function sayHello(name) {
-	console.log("hi " + name);
-};
-
-(name) => console.log("hi " + name);
-
-// 두 개는 같다
-```
-
-- **method라면**
-    
-    `obj.prop((param)=> 명령문)`
-    
-    ```jsx
-    jw.sayHello((name) => console.log("hi " + name))
-    ```
-    
-
-# **return**
-
-함수의 반환값을 내보냄
-
-## **return 없다면**
-
-```jsx
-function plus(a, b) {
-	alert(a + b);
-	};
-
-console.log(plus(2,3));
-```
-
-1. fnc 실행
-
-![Untitled](Basic%2081d4a/Untitled.png)
-
-1. 반환값 없기 때문에 `plus(2,3)` 자리에 5 들어가지 못함
-    
-    그러므로 console창에 undefined이 출력
-    
-    ![Untitled](Basic%2081d4a/Untitled%201.png)
-    
-
-∴ fnc은 명령만 시행할 뿐, 값을 바깥으로 내보내지 못함
-
-## return 있다면
-
-```jsx
-function plus(a, b) {
-	alert(a + b);
-	return a + b;  // return
-	};
-
-console.log(plus(2,3));
-
-// console창에 5 출력
-```
-
-fnc의 값 바깥으로 내보내기 가능
-
-- 무조건 return 값이 호출값(반환값)
-    
-    ```jsx
-    function plus(a, b) {
-    	alert(a + b);
-    	return hello;
-    	};
-    
-    console.log(plus(2,3));
-    
-    // console창에 hello 출력
-    ```
-    
-
-- return 뒤의 명령어는 실행 X
-    
-    function은 남아있는 것이 아니라, 실행 후 사라지고 결과만 남김
-    
-
 # **prompt**
 
 안내 메세지 + 입력 창 띄우고, 입력값 저장
@@ -784,6 +911,7 @@ fnc의 값 바깥으로 내보내기 가능
 
 - `취소` 클릭 → “null”
 - 입력x `확인` 클릭 → 빈 string (`’’`)
+- 입력값은 string으로 반환 ex) ‘12’ (숫자 아님)
 
 ## **특징**
 
@@ -837,16 +965,17 @@ condition=boolean 을 반환
     
     `else {명령어;}`
     
-
-![false가 나오면 아래 조건문으로 점진적으로 내려감](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/26ad00c849fe490da9cb94bb82907b25/3fcf5957-353b-4ecf-bca3-2020f56f7f7c.png)
-
-false가 나오면 아래 조건문으로 점진적으로 내려감
+    ![false가 나오면 아래 조건문으로 점진적으로 내려감](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/26ad00c849fe490da9cb94bb82907b25/3fcf5957-353b-4ecf-bca3-2020f56f7f7c.png)
+    
+    false가 나오면 아래 조건문으로 점진적으로 내려감
+    
 
 - <음주 가능 나이 계산기> 예시
-
-![else 안써도 된다](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/26ad00c849fe490da9cb94bb82907b25/53b6ff6f-7514-4e43-8910-a2c5a1f64af4.png)
-
-else 안써도 된다
+    
+    ![else 안써도 된다](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/26ad00c849fe490da9cb94bb82907b25/53b6ff6f-7514-4e43-8910-a2c5a1f64af4.png)
+    
+    else 안써도 된다
+    
 
 - **조건부 연산자**  `?` **사용**
     
