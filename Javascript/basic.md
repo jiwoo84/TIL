@@ -133,6 +133,11 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
         ```
         
     
+    1. 객체(object)
+        - 다양한 데이터를 담을 수 있음
+            
+            이외는 원시형(primitive type) : 하나의 데이터만 담기 가능
+            
 
 ## data type 변경
 
