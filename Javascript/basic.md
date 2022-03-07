@@ -196,8 +196,8 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
     `typeof(val)`  둘 다 가능
     
     ```jsx
-    console.log(typeof 1); // number 
-    console.log(typeof "jw"); // string
+    console.log(typeof 1); // "number" 
+    console.log(typeof "jw"); // "string"
     ```
     
 
@@ -548,7 +548,7 @@ else (age<100) {명령문};
 # object (객체)
 
 - 서로 연관된 변수와 함수(method)를 그룹핑, 이름 붙인 것
-- 개체의 특성에 대해 많은 property 가진 요소
+- 개체의 특성에 대해 많은 property를 가진 요소
 - 순서없이 저장하는 구조
 
 ```jsx
@@ -559,35 +559,73 @@ const jwBirthday = 0804;
 
 ## 선언
 
-`var obj-name = {`
+- **빈 객체 선언**
+    1. `var name = new Object();` '객체 생성자' 문법
+    2. `var name = {};`  '객체 리터럴' 문법 (주로 씀)
 
-`prop:~,` 
-
-`prop:~,`
-
-`};`
-
-```jsx
-const jw = {
-	name: "jiwoo",
-	height: 160,
-	birthday: 0804,
-}
-```
+- **객체값 선언**
+    
+    `var obj-name = {`
+    
+    `key: value,` 
+    
+    `key: value,`
+    
+    `};`
+    
+    key- 문자형/심볼형(아닌 경우 문자형으로 변형됨)
+    
+    value - 모든 자료형 허용
+    
+    ```jsx
+    const jw = {
+    	name: "jiwoo",
+    	height: 160,
+    	birthday: 0804,
+    }
+    ```
+    
+    - 계산된 프로퍼티
+        
+        `[key] : value`
+        
+        프로퍼티 이름을 동적으로 받아옴
+        
+        ```jsx
+        let fruit = prompt("어떤 과일을 구매하시겠습니까?", "apple");
+        
+        let bag = {
+          [fruit]: 5, // 변수 fruit에서 프로퍼티 이름을 동적으로 받아 옵니다.
+        };
+        
+        alert( bag.apple ); // fruit에 "apple"이 할당되었다면, 5가 출력됩니다.
+        ```
+        
+    
+- **프로퍼티 값 단축 구문**
+    
+    변수 = key = value ( `name : name` ) → `name`
+    
+    ```jsx
+    function makeUser(name, age) {
+      return {
+        name, // name: name 과 같음
+        age,  // age: age 와 같음
+        // ...
+      };
+    }
+    ```
+    
 
 ## 호출
 
 `obj-name.prop`
 
-= `obj-name["prop"]`
-
-두 방법 모두 같은 값 호출
+= `obj-name["prop"]` (조합된 키 이름에 사용)
 
 ```jsx
 console.log(jw.name);
-console.log(jw.["name"]);
-
-// 둘의 값은 같다
+console.log(jw["my name"]);
 ```
 
 ## **수정/ 추가**
@@ -614,6 +652,62 @@ console.log(jw.height); // 170 -> 값 변경
 
 = `delete obj-name.['prop']`
 
+## prop 존재 여부 확인
+
+1. `obj.key === undefined`
+    
+    존재하지 않는 프로퍼티 → `undefined` 반환
+    
+    - 값에 undefined가 할당된 경우에는 정확한 존재여부 확인이 불가능하니 아래 방법 사용
+    
+2. `"key" in obj-name`  
+    
+    존재 여부에 따라 boolean 반환
+    
+
+```jsx
+let user = { name: "John", age: 30, height: undefined, };
+
+alert(user.birth === undefined); // user.birth 존재x -> true 출력
+alert(user.height === undefined); // 존재하지만 할당값 일치 -> true 출력
+
+alert("age" in user); // user.age가 존재 -> true 출력
+alert("birth" in user); // user.bl 존재x -> false가 출력
+
+```
+
+## for...in 반복문
+
+`for (key in obj-name) {~;}`
+
+(key는 변경 가능한 변수명)
+
+- 객체의 열거 가능한 prop을 순회해줌
+- 변수를 통해 key에 접근 (value에는 직접 접근 불가)
+- 보통 반복 변수를 선언함 (이유는 이해 못했음 ㅠㅠ)
+    
+    `for (var var-name in obj-name) {~;}`
+    
+- 빈 obj일 시, 실행되지 않고 빠져나감
+
+```jsx
+let user = {
+  name: "John",
+  age: 30,
+  isAdmin: true
+};
+
+for (let key in user) { 
+  alert( key );  // name, age, isAdmin 연거푸 실행
+  alert( user[key] ); // John, 30, true
+}
+```
+
+- 객체의 정렬순서는 추가순이 아님
+    - 정수 prop - 자동 정렬 ([설명](https://ko.javascript.info/object))
+    - 이외 propr - 추가한 순서대로 정렬
+    
+
 ## 주의사항
 
 - **const는 수정이 불가능하지 않나요?**
@@ -628,6 +722,25 @@ console.log(jw.height); // 170 -> 값 변경
 ![const 인 obj 값 수정 시 → 오류](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/26ad00c849fe490da9cb94bb82907b25/fe8a6cd6-139c-4e13-b9fc-6a566089bc57.png)
 
 const 인 obj 값 수정 시 → 오류
+
+- **참조에 의해 저장·복사됨**
+    
+    다른 변수에 obj 할당 → 값 저장 X , 참조값(객체 저장된 메모리 주소) 저장
+    
+    : 원시값(문자열·숫자·불린)은 값 그대로 저장·할당·복사되는데 객체는 저장되어 있는 주소인 ‘참조값’이 저장됨. 고로 값이 저장된 위치는 똑같은데 열어볼 수 있는 키(할당 변수)가 늘어나는 셈.
+    
+    ![Untitled](Basic%20bba86/Untitled.png)
+    
+    ```jsx
+    let user = { name: 'John' };
+    
+    let admin = user;
+    
+    admin.name = 'Pete'; // 'admin' 참조 값에 의해 변경됨
+    
+    alert(user.name); // 'Pete' 출력
+    ```
+    
 
 # function
 
@@ -669,7 +782,8 @@ const 인 obj 값 수정 시 → 오류
     
 
 - 지역 변수(local variable/함수 내에서 선언한 변수)는 함수 안에서만 접근 가능
-- 전역 변수(global variable/함수 외부에서 선언)는 함수 내에서도 접근 가능
+    
+    전역 변수(global variable/함수 외부에서 선언)는 함수 내에서도 접근 가능
     
     (함수 내에서 변수 변경 시, 함수를 호출한 후에 값 변경)
     
@@ -872,7 +986,16 @@ object(객체)에 포함된 function
 
 `prop: function(param) {~;},`
 
-`props: ~; }`
+`}`
+
+- 단축 구문
+    
+    `var obj-name = {`
+    
+    `prop(param) {~;}` 
+    
+    `}`
+    
 
 (단순한 fnc 선언에서 function↔fnc-name 자리 반대)
 
