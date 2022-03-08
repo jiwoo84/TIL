@@ -184,6 +184,10 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
             
             `parseFloat("2.55")` = 2.55  (소수는 parseFloat 사용)
             
+        - 입력받는 값을 정수로만 받고 싶다면 앞에 +붙이기
+            
+            `let number = **+**prompt("숫자 입력","");`
+            
 
 ## typeof
 
@@ -988,7 +992,7 @@ object(객체)에 포함된 function
 
 `}`
 
-- 단축 구문
+- 단축 구문 (위 구문과 객체 상속에 작은 차이가 있음)
     
     `var obj-name = {`
     
@@ -997,7 +1001,7 @@ object(객체)에 포함된 function
     `}`
     
 
-(단순한 fnc 선언에서 function↔fnc-name 자리 반대)
+(단순한 fnc 선언은 function↔fnc-name 자리 반대)
 
 ```jsx
 const jw = {
@@ -1026,6 +1030,111 @@ const jw = {
 
 jw.sayHello("namjun"); // hi namjun 출력
 ```
+
+## this
+
+지정 객체에 접근할 때 사용하는 객체
+
+```jsx
+let user = {
+	name: "jw",
+}
+
+function sayHi() {
+	alert(this.name);
+}
+
+user.sayHi();  //jw 출력(동적으로 참조 객체가 user로 정해짐)
+```
+
+- 객체가 없는 상태에서 this로 호출한다면?
+    
+    (엄격 모드ㅇ) `undefined` 할당됨
+    
+    (엄격 모드 X) `window` 전역 객체 참조
+    
+- 참조 객체가 호출 시 동적으로 정해짐
+    - 화살표 함수는 정적으로 상위 객체를 참조함
+        
+        ```jsx
+        // Good
+        let user = {
+          firstName: "보라",
+          sayHi() {
+            let arrow = () => alert(this.firstName);
+            arrow();
+          }
+        };
+        
+        user.sayHi(); // 보라
+        ```
+        
+        ```jsx
+        // bad
+        let user = {
+          firstName: "보라",
+          sayHi() = () => alert(this.firstName);
+        };
+        
+        user.sayHi(); // undefined 
+        ```
+        
+        상위 객체가 없으면 window를 참조하기 때문에 사용시 주의
+        
+
+# 생성자 함수 & new 연산자
+
+## 생성자 함수
+
+유사한 객체를 효율적으로 만들기 위한 함수
+
+- 관례
+    1. 함수 이름의 첫 글자는 대문자로 시작
+    2. 반드시 `new` 연산자를 붙여 실행
+    
+
+## new 연산자
+
+`new func-name();` (인수 없다면 괄호 생략 가능)
+
+- 함수로 새 객체를 생성해주는 연산자
+- 실행 과정
+    1. 빈 객체를 생성
+    2. 함수 실행해서 prop 채움
+    3. 객체 반환
+        - (안해도 되는데)return을 작성했다면
+            - 객체를 `return` → `this` 대신 객체가 반환
+            - 원시형을 `return` → `return`문이 무시
+
+## 예시
+
+```jsx
+function User(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+let userInfo = new User("재찬", 22);
+
+console.log(userInfo);
+/* userInfo {name: '재찬', age: 22}
+age: 22
+name: "재찬" */
+```
+
+1. 빈 객체를 만듬 ( `this`있다면 할당)
+2. 함수 본문을 실행
+    
+    (`this`에 새로운 프로퍼티를 추가해 `this`를 수정)
+    
+3. `this`를 반환
+
+## new.target
+
+함수가 `new`와 함께 호출되었는지 확인(함수 본문에 작성)
+
+- 맞으면 함수 자체 반환
+- 아니면 `undefined` 반환
 
 # **prompt**
 
