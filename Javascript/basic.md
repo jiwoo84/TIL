@@ -80,6 +80,10 @@ ex) `alert “hello world”` 도 alertAPI를 사용한 것
 - `alert()` : 알림·경고창 띄움
     - 뜬 순간 브라우저의 모든 행위를 멈춤
     - 값을 반환 X ( `undefined` 반환)
+    - 거의 모든 값을 인자로 받을 수 있음
+        
+        (js에서 문자형으로의 암시적 형 변환 해주기 때문 - symbol 제외)
+        
     
 - `console.log()` : 콘솔에 내용 출력 /  `log`가 메소드라서 `,`으로도 string 연결 가능
 
@@ -133,11 +137,18 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
         ```
         
     
-    1. 객체(object)
-        - 다양한 데이터를 담을 수 있음
-            
-            이외는 원시형(primitive type) : 하나의 데이터만 담기 가능
-            
+1. **symbol**
+    
+    `symbol()`  /  `symbol("name")`
+    
+    - 유일성이 보장되는 자료형
+    - 다른 자료형으로 자동 형 변환 X
+        
+        ex) `alert(symbol("name"))`하면 오류남
+        
+        이유: alert하면 js 차원에서 인자를 형 변환하는데 symbol은 불가
+        
+    - symbol
 
 ## data type 변경
 
@@ -149,6 +160,9 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
         - `number(undefined)` = NaN
         - `number("  2/n")` =  2  (공백 무시됨)
         
+- `toString()` : string으로 변경 후, 반환
+    
+    
 - **parseInt**
     
     `parseInt(~);`
@@ -264,6 +278,7 @@ NaN(숫자가 아님)을 판별 후, boolean 반환
 - **null**
     - 텅빈 상태가 아니고 ’없음’으로 채워진 상태
     - 절대 자연적으로 발생x, 안에 없다는 것을 확실히 하려고 사용
+    - 호출 결과가 `null`인 경우, 에러 발생 (`undefined`는 에러x)
     
 - **undefined**
     - 정의되지 않음
@@ -554,6 +569,11 @@ else (age<100) {명령문};
 - 서로 연관된 변수와 함수(method)를 그룹핑, 이름 붙인 것
 - 개체의 특성에 대해 많은 property를 가진 요소
 - 순서없이 저장하는 구조
+- 다양한 데이터를 담을 수 있음
+    
+    (↔ 원시형(primitive type) : 하나의 데이터만 담기 가능)
+    
+- 문자형/ 심볼형
 
 ```jsx
 const jwName = "jiwoo";
@@ -577,9 +597,8 @@ const jwBirthday = 0804;
     
     `};`
     
-    key- 문자형/심볼형(아닌 경우 문자형으로 변형됨)
-    
-    value - 모든 자료형 허용
+    - key- 문자형/심볼형(아닌 경우 문자형으로 변형됨)
+    - value - 모든 자료형 허용
     
     ```jsx
     const jw = {
@@ -1135,6 +1154,43 @@ name: "재찬" */
 
 - 맞으면 함수 자체 반환
 - 아니면 `undefined` 반환
+
+# 옵셔널 체이닝
+
+`?.`을 사용해 프로퍼티가 없는 중첩 객체를 에러 없이 접근
+
+- **필요한 이유**
+    
+    ```jsx
+    let user = {};
+    
+    alert(user.address);  // undiefined 반환 (에러x)
+    
+    alert(user.address.number); // 에러 발생
+    
+    alert( user && user.address && user.address.number );
+    // 이전에 에러를 막기 위해 쓰던 코드
+    ```
+    
+    - objprop를 호출하는 것은 값이 없어도 문제 없지만, 중첩 객체부터는 에러가 발생
+    - 전에는 에러를 막기 위해 아래같이 코드 작성
+        
+        `alert( user && user.address && user.address.number );`
+        
+        : 값 없다면 `undefined` 반환
+        
+
+- `?.`은 `?.`'앞’의 평가 대상이 `undefined`나 `null`이면 평가를 멈추고 `undefined`를 반환
+
+```jsx
+let obj = {
+  age: {
+    name: "jiwoo",
+  },
+};
+
+alert(obj.age?.name); 
+```
 
 # **prompt**
 
