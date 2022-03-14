@@ -108,47 +108,84 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
 
 # Data type
 
+## 원시형
+
 1. **integer** : 숫자 (2)
 
 1. **float :** 소수점 숫자 (1.5)
+    
+    
+    - 숫자 간단 입력
+        - 숫자 + e + n (0의 개수) → 숫자 x 10의 n제곱
+            
+            ex) `7e5` = 700,000
+            
+        - 숫자 + e + -n (1/10xn) → 숫자에서 n만큼 왼쪽으로 소수점 이동
+            
+            ex) `1.2e-6` = 0.0000012
+            
+        - billion(10억) : 1bn = 1e9
+        - 16진수 : 0x진수숫자  ex) `0xff` = 255 (f=15)
+            
+            2진수: 0b진수숫자  ex) `0b111` = 7
+            
+            8진수: 0o진수숫자
+            
 
 1. **string :** 문자, 따옴표 안 `“string”`  `‘string’`
     
     
-- **문자열 합치기**
-    - `“string” + “string” +2` = “stringstring2”
+    - **문자열 합치기**
+        - `“string” + “string” +2` = “stringstring2”
+        
+        - 구버전
+            
+            `"string " + var-name` = “string var값”
+            
+        
+        - 신버전 (추천)
+            
+            ``string ${var-name}`` = “string var값”
+            
+            ``string ${var-name} string`` = “string var값 string”
+            
+            ```jsx
+            const username = jiwoo;
+            
+            "hello" + username;
+            `hello ${username}`; // 둘의 값은 같다
+            ```
+            
+        
     
-    - 구버전
-        
-        `"string " + var-name` = “string var값”
-        
+2. **Symbol**
     
-    - 신버전 (추천)
-        
-        ``string ${var-name}`` = “string var값”
-        
-        ``string ${var-name} string`` = “string var값 string”
-        
-        ```jsx
-        const username = jiwoo;
-        
-        "hello" + username;
-        `hello ${username}`; // 둘의 값은 같다
-        ```
-        
+    `Symbol()`  /  `Symbol("name")` (S는 대문자)
     
-1. **symbol**
-    
-    `symbol()`  /  `symbol("name")`
-    
-    - 유일성이 보장되는 자료형
+    - 유일성이 보장되는 자료형 → 심볼명이 같아도 다른 심볼
     - 다른 자료형으로 자동 형 변환 X
         
         ex) `alert(symbol("name"))`하면 오류남
         
         이유: alert하면 js 차원에서 인자를 형 변환하는데 symbol은 불가
         
-    - symbol
+
+1. **null** 
+    - 텅빈 상태가 아니고 ’없음’으로 채워진 상태
+    - 절대 자연적으로 발생x, 안에 없다는 것을 확실히 하려고 사용
+    - 호출 결과가 `null`인 경우, 에러 발생 (`undefined`는 에러x)
+    
+2. **undefined**
+    - 정의되지 않음
+    - 값이 설정되지 않음 (텅빈 상태)
+    
+    ```jsx
+    const a = null;
+    const b;
+    
+    console.log(a,b); // = null, undefined
+    ```
+    
 
 ## data type 변경
 
@@ -240,6 +277,8 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
 
 NaN(숫자가 아님)을 판별 후, boolean 반환
 
+(NaN은 자신을 포함하여 어떤 값과도 같지 않기 때문에 그 자체로 비교하면 안되고 함수가 필요함 → `isNaN`)
+
 - **생성**
     
     `isNaN(val)` = boolean
@@ -275,22 +314,6 @@ NaN(숫자가 아님)을 판별 후, boolean 반환
         - undefined
         - NaN
 
-- **null**
-    - 텅빈 상태가 아니고 ’없음’으로 채워진 상태
-    - 절대 자연적으로 발생x, 안에 없다는 것을 확실히 하려고 사용
-    - 호출 결과가 `null`인 경우, 에러 발생 (`undefined`는 에러x)
-    
-- **undefined**
-    - 정의되지 않음
-    - 값이 설정되지 않음 (텅빈 상태)
-    
-    ```jsx
-    const a = null;
-    const b;
-    
-    console.log(a,b); // = null, undefined
-    ```
-    
 - **Nan** : (Not a Number) 숫자가 아님
     - 비교연산자에서 NaN이 피연산자인 경우 항상 false 반환
 
@@ -627,7 +650,7 @@ const jwBirthday = 0804;
     
 - **프로퍼티 값 단축 구문**
     
-    변수 = key = value ( `name : name` ) → `name`
+    (변수 = key = value) `name : name` 단축해서 → `name`
     
     ```jsx
     function makeUser(name, age) {
