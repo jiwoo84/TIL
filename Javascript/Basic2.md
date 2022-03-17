@@ -607,8 +607,15 @@ alert(obj.age?.name);
 ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/26ad00c849fe490da9cb94bb82907b25/7aec5df6-4b82-456e-8753-5e8ef0c96f5b.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/26ad00c849fe490da9cb94bb82907b25/7aec5df6-4b82-456e-8753-5e8ef0c96f5b.png)
 
 - `취소` 클릭 → “null”
-- 입력x `확인` 클릭 → 빈 string (`’’`)
-- 입력값은 string으로 반환 ex) ‘12’ (숫자 아님)
+- 입력x `확인` 클릭 → 빈 string (`''`)
+
+- 입력값은 string으로 반환됨  ex) ‘12’ (숫자 아님)
+- 숫자형 값을 받고 싶다면 앞에 + 붙여줌
+    
+    ex) `+prompt("숫자를 입력하세요","")`
+    
+    여기에 숫자 아닌 형태 입력 → `NaN`
+    
 
 ## **특징**
 

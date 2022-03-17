@@ -178,8 +178,8 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
     - 호출 결과가 `null`인 경우, 에러 발생 (`undefined`는 에러x)
     
 2. **undefined**
-    - 정의되지 않음
     - 값이 설정되지 않음 (텅빈 상태)
+    - 정의되지 않음
     
     ```jsx
     const a = null;
@@ -296,6 +296,16 @@ NaN(숫자가 아님)을 판별 후, boolean 반환
     console.log(isNaN(age));
     // 입력값에 따라 true or false 뱉어냄
     ```
+    
+- **주의사항**
+    
+    초기 버전 함수로 혼란스러운 경우가 있음 (isFinite를 사용할 것)
+    
+    `isNaN("")`  ⇒ false
+    
+    `isNaN(null)`  ⇒ false
+    
+    `isNaN(undefined)`  ⇒ true
     
 
 ## isFinite
@@ -798,18 +808,65 @@ arr[3](); // 안녕하세요.
 
 - 마지막 요소 제거 `array.pop()`
 - 첫번째 요소 제거 `array.shift()`
-- 지정 요소 제거 `array.splice(시작위치,제거건수)`
+
+- 요소값만 제거 `delete array[n]`
+    
+    값만 제거하기 때문에 자리는 남아있음
     
     ```jsx
-    // arr = ['a', 'b', 'e', 'f']
-    arr.splice(2, 1); // index 2 부터 1개의 요소('c')를 제거
+    let arr = ["I", "go", "home"];
     
-    // arr = ['a', 'f']
-    arr.splice(1, 2); // index 1 부터 2개의 요소('b', 'e')를 제거
+    delete arr[1]; // "go"를 삭제합니다.
+    
+    alert( arr[1] ); // undefined
+    
+    // delete를 써서 요소를 지우고 난 후 배열 --> arr = ["I",  , "home"];
+    alert( arr.length ); // 3
     ```
     
 
-## **`array.length`**
+- 지정 요소 제거 `**splice**`
+    
+    
+    - `array.splice(시작위치,제거건수)`
+        
+        위치에 음수 인덱스 사용 가능 (맨 뒤에서 첫번째 = -1)
+        
+        ```jsx
+        let arr = ['a', 'b', 'c', 'd']
+        
+        // arr = ['a', 'b', 'd']
+        arr.splice(2, 1); // index 2 부터 1개의 요소('c')를 제거
+        ```
+        
+    
+    - `array.splice(시작위치,제거건수,교체요소)`
+        
+        (`array.splice(시작위치,0,교체요소)` ⇒ 삭제 X, 중간 추가)
+        
+        ```jsx
+        // arr = ['a', 'z', 'b', 'c', 'd']
+        arr.splice(1, 0, 'z'); // 제거 안하고 중간에 추가 가능
+        ```
+        
+    
+    - 삭제된 요소로 구성된 배열을 반환함
+        
+        ```jsx
+        console.log(arr.splice(1, 2)); // ['b', 'c'] 삭제된 요소 배열 반환
+        ```
+        
+
+## 배열 추출
+
+- `arr.slice([start], [end])`
+    
+    start인덱스부터 end인덱스까지의 요소를 복사한 새로운 배열 반환 (end 제외)
+    
+
+## 배열 길이
+
+`array.length`
 
 가장 큰 인덱스 값 + 1 (배열 내 요소의 개수 X)
 
@@ -835,9 +892,11 @@ alert( fruits.length ); // 124
     ```
     
 
-## **`array.toString`**
+## 문자열로 변환
 
-`string(array)` / `array.toString()` ⇒ “value, value, ...”
+`array.toString()` ⇒ “value, value, ...”
+
+(`string(array)`)
 
 배열엔 `toString`메서드가 구현되어 있어 호출하면 요소를 쉼표로 구분한 문자열로 반환함
 
