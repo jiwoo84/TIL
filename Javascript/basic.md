@@ -159,7 +159,6 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
             ```
             
         
-    
 2. **Symbol**
     
     `Symbol()`  /  `Symbol("name")` (S는 대문자)
@@ -188,6 +187,10 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
     console.log(a,b); // = null, undefined
     ```
     
+- **NaN** : (Not a Number) 숫자가 아님
+    - 데이터 타입이 아닌, 전역 객체의 속성
+    - 비교연산자에서 NaN이 피연산자인 경우 항상 false 반환
+    - `NaN === NaN;` // false
 
 ## data type 변경
 
@@ -281,7 +284,12 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
 
 NaN(숫자가 아님)을 판별 후, boolean 반환
 
-(NaN은 자신을 포함하여 어떤 값과도 같지 않기 때문에 그 자체로 비교하면 안되고 함수가 필요함 → `isNaN`)
+- NaN은 자신을 포함하여 어떤 값과도 같지 않음
+    
+    ex) `NaN === NaN` ⇒ false  
+    
+    그래서 그 자체로 비교하면 안되고 함수가 필요함 → `isNaN`
+    
 
 - **생성**
     
@@ -372,12 +380,23 @@ alert( str[str.length - 1] ); // e
 
 1. **문자열 위치 찾기**
     
-    `**str.indexOf(substr, pos)**`
+    `str.indexOf(substr, pos)` (pos 생략 가능)
     
 
-- 문자열 `str`의 `pos`에서부터 시작해, 부분 문자열 `substr`이 어디에 위치하는지를 찾아서 위치 반환
-- 발견 못하면 -1 반환
+(문자열 str의 pos에서부터 시작해) 부분 문자열 substr이 어디에 위치하는지를 찾아서 위치 반환, 발견 못하면 -1 반환
+
 - 대소문자 구별함
+- 역순으로 검색 `str.lastIndexOf(substr, pos)`
+- 요소 검색시, `===` 를 사용하기 때문에 NaN 찾지 못함
+    
+    (`NaN === NaN`  ⇒ false)
+    
+- 배열도 사용 가능
+    
+    `arr.indexOf(item, from)` 
+    
+    인덱스 from부터 시작해 item(요소) 찾고 발견 시 해당 요소의 인덱스 반환, 못하면 -1 반환 (lastIndex도)
+    
 
 ```jsx
 let str = 'Widget with id';
@@ -390,19 +409,20 @@ alert( str.indexOf("id") ); // 1, "id"는 첫 번째 위치에서 발견됨 (Wid
 
 1. **문자열 포함 여부**
     
-    `**str.includes(substr, pos)**`
+    `str.includes(substr, pos)` ****(pos 생략 가능)
     
-    str 안에 부분 문자열 substr 포함 여부를 boolean으로 반환
+    str 안에 부분 문자열 substr 포함 여부 boolean 반환
     
-    (대소문자 구별함)
-    
+    - 대소문자 구별함
+    - `indexOf` 와 똑같이 검색 시 `===` 사용하지만, NaN를 제대로 찾을 수 있음
+    - 배열도 사용 가능 `arr.includes(item,from)`
 
 1. **문자열 시작/끝 여부**
-    - `**str.starsWith(substr)**`
+    - `str.starsWith(substr)`
         
         str이 해당 문자열로  시작하는지 여부 boolean 반환
         
-    - `**str.endsWith(substr)**`
+    - `str.endsWith(substr)`
         
         str이 해당 문자열로  끝나는지 여부 boolean 반환
         
@@ -537,9 +557,6 @@ alert( str.indexOf("id") ); // 1, "id"는 첫 번째 위치에서 발견됨 (Wid
         - null
         - undefined
         - NaN
-
-- **Nan** : (Not a Number) 숫자가 아님
-    - 비교연산자에서 NaN이 피연산자인 경우 항상 false 반환
 
 # 연산자
 
@@ -857,11 +874,64 @@ arr[3](); // 안녕하세요.
         ```
         
 
-## 배열 추출
+## 새로운 배열 만들기
 
-- `arr.slice([start], [end])`
+- **slice**
+    
+    `arr.slice([start], [end])`
     
     start인덱스부터 end인덱스까지의 요소를 복사한 새로운 배열 반환 (end 제외)
+    
+    ```jsx
+    let arr = ["t", "e", "s", "t"];
+    
+    alert( arr.slice(1, 3) ); // e,s 
+    
+    alert( arr.slice(-2) ); // s,t
+    ```
+    
+
+- **concat**
+    
+    `arr.concat(arg1, arg2...)`
+    
+    기존 배열에 새 요소를 복사·추가(맨 끝에) → 새로운 배열 반환
+    
+    (arg에는 값, 배열, 객체 가능 / 개수 제한 X)
+    
+    - arg - 배열
+        
+        배열의 모든 요소가 복사·추가
+        
+        (배열 아닌 단순 값인 경우도 마찬가지)
+        
+        ```jsx
+        let arr = [1, 2];
+        
+        console.log( arr.concat(3, 4) ); // [1,2,3,4]
+        console.log( arr.concat([3, 4]) ); // [1,2,3,4] 위 값과 같음
+        console.log( arr.concat([3, 4], 5, 6) ); // [1,2,3,4,5,6]
+        ```
+        
+    
+    - arg - 객체
+        
+        분해되지 않고 통으로 복사·추가
+        
+        (특수한 prop - symbol 있으면 객체를 배열로 취급해서 객체 전체가 아닌 값만 더해짐 완벽 이해는 못함)
+        
+        ```jsx
+        let arr = [1, 2];
+        
+        let arrayLike = {
+          name: "jw",
+        	age: 100
+        };
+        
+        console.log( arr.concat(arrayLike) ); 
+        // [1,2,{name: "jw", age: 100}]
+        ```
+        
     
 
 ## 배열 길이
@@ -952,4 +1022,36 @@ for (const element of array1) {
 // expected output: "b"
 // expected output: "c"
 
+```
+
+## forEach 반복작업
+
+함수를 배열 요소 각각에 실행
+
+- 기본형
+    
+    `arr.forEach(fnc-name)`
+    
+    배열 요소 각각에 fnc 실행 (요소값이 기본 arg)
+    
+- 매개변수 (당연히 변수명 변경 가능)
+    
+    `arr.forEach(fnc-name(item, index, array))`
+    
+    1. item : 처리할 현재 요소
+    2. index : 처리할 현재 요소의 인덱스
+    3. array : forEach를 호출한 배열 01068556803 
+        
+        
+
+```jsx
+["a", "b", "c"].forEach(alert); // 세 요소 차례대로 출력
+
+["a", "b", "c"].forEach((item, index, array) => {
+  alert(`${item} is at index ${index} in ${array}`);
+});
+
+// a is at index 0 in a,b,c
+// b is at index 1 in a,b,c
+// c is at index 2 in a,b,c  
 ```
