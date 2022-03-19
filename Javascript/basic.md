@@ -386,7 +386,6 @@ alert( str[str.length - 1] ); // e
 (문자열 str의 pos에서부터 시작해) 부분 문자열 substr이 어디에 위치하는지를 찾아서 위치 반환, 발견 못하면 -1 반환
 
 - 대소문자 구별함
-- 역순으로 검색 `str.lastIndexOf(substr, pos)`
 - 요소 검색시, `===` 를 사용하기 때문에 NaN 찾지 못함
     
     (`NaN === NaN`  ⇒ false)
@@ -397,6 +396,7 @@ alert( str[str.length - 1] ); // e
     
     인덱스 from부터 시작해 item(요소) 찾고 발견 시 해당 요소의 인덱스 반환, 못하면 -1 반환 (lastIndex도)
     
+- 역순으로 검색 : `str.lastIndexOf(substr, pos)`
 
 ```jsx
 let str = 'Widget with id';
@@ -510,10 +510,14 @@ alert( str.indexOf("id") ); // 1, "id"는 첫 번째 위치에서 발견됨 (Wid
 
 ## 문자열끼리 비교
 
-- UTF-16을 베이스로 글자가 숫자 코드와 매칭됨
-- 같은 형태(소문자, 대문자) 안에서는 알파벳 순서대로 비교됨
+- 유니코드를 베이스로 글자가 숫자 코드와 매칭됨
+- 같은 형태일 경우, 사전순(Alphabetically)으로 비교됨
     
-    ex)  `'a' < 'b'` 
+    (사전편집(elxciographical) 순이라고도 불림)
+    
+    ex)  `'a' < 'b'`
+    
+    `‘15’ < ‘2’`  사전순이므로 앞자리 먼저 보고 판단
     
 - 이외의 경우
     - 소문자 > 대문자
@@ -1030,17 +1034,17 @@ for (const element of array1) {
 
 - 기본형
     
-    `arr.forEach(fnc-name)`
+    `arr.forEach(function)`
     
     배열 요소 각각에 fnc 실행 (요소값이 기본 arg)
     
 - 매개변수 (당연히 변수명 변경 가능)
     
-    `arr.forEach(fnc-name(item, index, array))`
+    `arr.forEach(function(item, index, array))`
     
     1. item : 처리할 현재 요소
     2. index : 처리할 현재 요소의 인덱스
-    3. array : forEach를 호출한 배열 01068556803 
+    3. array : forEach를 호출한 배열
         
         
 
@@ -1055,3 +1059,115 @@ for (const element of array1) {
 // b is at index 1 in a,b,c
 // c is at index 2 in a,b,c  
 ```
+
+## 배열 탐색하기
+
+1. **요소 = 단순값**
+    
+    (문자형에도 사용가능이라 설명 자세히 있음)
+    
+    - `arr.indexOf(item, from)`
+        
+        인덱스 from부터 시작해 요소(item) 찾음
+        
+        발견: 요소의 인덱스 반환 / 발견 X : `-1` 반환
+        
+    - `arr.lastIndexOf(item, from)`
+        
+        indexOf와 동일한 기능, 검색을 끝에서부터 시작
+        
+    - `arr.includes(item, from)`
+        
+        인덱스 from부터 시작해 요소 존재 여부 boolean 반환
+        
+2. **요소 = 객체**
+    
+    (단순값에도 사용 가능, but 위 세 개는 객체 찾기 불가)
+    
+    - `arr.find(function(item, index, array))`
+        
+        발견: 해당 요소 반환 / 발견X : `undefined` 반환
+        
+        - 전달되는 인자
+        1. item : 처리할 현재 요소
+        2. index : 처리할 현재 요소의 인덱스
+        3. array : forEach를 호출한 배열
+            
+            
+        - 인자 item만 가지고 `item => item.id == 1` 형태의 함수가 실무에 많이 사용됨
+    
+    ```jsx
+    let users = [
+      {id: 1, name: "John"},
+      {id: 2, name: "Pete"},
+      {id: 3, name: "Mary"}
+    ];
+    
+    let user = users.find(item => item.id == 1);
+    
+    alert(user.name); // John
+    ```
+    
+    - `arr.findIndex(function(item, index, array))`
+        
+        발견 : 요소의 인덱스 반환 / 발견 X : `-1` 반환
+        
+    - 조건에 맞는 요소가 여러개라면?
+        
+        `arr.filter(function(item, index, array))`
+        
+        찾은 요소 전체를 담은 배열 반환 / 발견 X : 빈 배열 반환
+        
+
+## 배열을 변형하는 메서드
+
+- **map** (중요)
+    
+    `arr.map(function(item, index, array))`
+    
+    요소 전체를 대상으로 함수 호출, 결과를 배열로 반환
+    
+    ```jsx
+    let result = ["Bilbo", "Gandalf", "Nazgul"].map(item => item.length);
+    console.log(result); // [5,7,6]
+    ```
+    
+- **sort**
+    
+    `arr.sort(compareFunction)`
+    
+    배열의 요소 재정렬/ 재정렬된 배열 반환 
+    
+    (but 이미 배열 자체가 수정되었기에 반환값 잘 사용x)
+    
+    - compareFunction(정렬 함수) : 정렬 순서를 정의하는 함수
+        - 생략시 `arr.sort()`
+        
+        ```jsx
+        let arr = [ 1, 2, 15 ];
+        
+        arr.sort(); // arr 내부가 재 정렬됨
+        
+        alert( arr );  // 1, 15, 2
+        ```
+        
+        요소가 문자열로 취급되어 재정렬됨
+        
+        → 문자열 비교는 사전편집 순으로 진행
+        
+        → 2는 15보다 큰 값으로 취급 (`"2" > "15"`)
+        
+        ∴ 의도대로 정렬되지 않을 수 있음
+        
+        - compare 함수의 형식
+            
+            반드시 인수로 값 두 개를 비교 / 반환 값도 있어야 함
+            
+        
+        ```jsx
+        function compare(a, b) {
+          if (a > b) return 1; // 첫 번째 값이 두 번째 값보다 큰 경우
+          if (a == b) return 0; // 두 값이 같은 경우
+          if (a < b) return -1; //  첫 번째 값이 두 번째 값보다 작은 경우
+        }
+        ```
