@@ -1141,33 +1141,55 @@ for (const element of array1) {
     (but 이미 배열 자체가 수정되었기에 반환값 잘 사용x)
     
     - compareFunction(정렬 함수) : 정렬 순서를 정의하는 함수
+        
+        
         - 생략시 `arr.sort()`
-        
-        ```jsx
-        let arr = [ 1, 2, 15 ];
-        
-        arr.sort(); // arr 내부가 재 정렬됨
-        
-        alert( arr );  // 1, 15, 2
-        ```
-        
-        요소가 문자열로 취급되어 재정렬됨
-        
-        → 문자열 비교는 사전편집 순으로 진행
-        
-        → 2는 15보다 큰 값으로 취급 (`"2" > "15"`)
-        
-        ∴ 의도대로 정렬되지 않을 수 있음
-        
-        - compare 함수의 형식
             
-            반드시 인수로 값 두 개를 비교 / 반환 값도 있어야 함
+            ```jsx
+            let arr = [ 1, 2, 15 ];
+            
+            arr.sort(); // arr 내부가 재 정렬됨
+            
+            alert( arr );  // 1, 15, 2
+            ```
+            
+            요소가 문자열로 취급되어 재정렬됨
+            
+            → 문자열 비교는 사전편집 순으로 진행
+            
+            → 2는 15보다 큰 값으로 취급 (`"2" > "15"`)
+            
+            ∴ 의도대로 정렬되지 않을 수 있음
             
         
-        ```jsx
-        function compare(a, b) {
-          if (a > b) return 1; // 첫 번째 값이 두 번째 값보다 큰 경우
-          if (a == b) return 0; // 두 값이 같은 경우
-          if (a < b) return -1; //  첫 번째 값이 두 번째 값보다 작은 경우
-        }
-        ```
+        - compare 함수 형식
+            - 반드시 인수로 값 두 개를 비교
+            - 반환 값 있어야 함
+                
+                반환값 < 0 ⇒ a가 b보다 앞에 오도록 정렬
+                
+                반환값 > 0 ⇒ b가 a보다 앞에 오도록 정렬
+                
+            
+            ```jsx
+             function compare(a, b) {
+              if (a > b) return 1; // 첫 번째 값이 두 번째 값보다 큰 경우
+              if (a == b) return 0; // 두 값이 같은 경우
+              if (a < b) return -1; //  첫 번째 값이 두 번째 값보다 작은 경우
+            }
+            
+            function compare(a, b) {
+            	return a - b
+            }
+            // 이렇게 단순화도 가능
+            ```
+            
+            - 다양한 언어가 사용된 문자열 arr에는 localeCompare 메소드를 사용
+                
+                ```jsx
+                let countries = ['Österreich', 'Andorra', 'Vietnam'];
+                
+                alert( countries.sort( (a, b) => a > b ? 1 : -1) ); // Andorra, Vietnam, Österreich (제대로 정렬이 되지 않았습니다.)
+                
+                alert( countries.sort( (a, b) => a.localeCompare(b) ) ); // Andorra,Österreich,Vietnam (제대로 정렬되었네요!)
+                ```
