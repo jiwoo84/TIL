@@ -264,7 +264,7 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
     
 
 - **결과값**
-    - string이 무조건 기본값
+    - prompt 같은 입력값은 string이 기본값
         
         → 숫자로 바꾸려면 parseInt() 사용
         
@@ -275,6 +275,13 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
         ![숫자도 string](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/26ad00c849fe490da9cb94bb82907b25/c6128537-87af-4176-9238-08bb5253694c.png)
         
         숫자도 string
+        
+    
+    - `typeof {}` = `typeof []` = object
+        
+        객체와 배열은 둘 다 객체형에 속함
+        
+        ∴ 배열은 `arr.isArray()` 로 배열 여부 판별할 것
         
     - 예외
         - `typeof null == "object"` 언어 자체의 오류
@@ -442,7 +449,7 @@ alert( str.indexOf("id") ); // 1, "id"는 첫 번째 위치에서 발견됨 (Wid
     - `**str.slice**`
         
         
-        - `star.slice(start, end)`
+        - `str.slice(start, end)`
             
             문자열의 start부터 end까지 반환 (end부분 미포함)
             
@@ -794,6 +801,34 @@ else (age<100) {명령문};
 
 숫자형 키를 사용해서 순서가 있게 한 특별한 객체
 
+## 요약
+
+- 요소를 더하거나 지우기
+    - `push(...items)` – 맨 끝에 요소 추가하기
+    - `pop()` – 맨 끝 요소 추출하기
+    - `shift()` – 첫 요소 추출하기
+    - `unshift(...items)` – 맨 앞에 요소 추가하기
+    - `splice(pos, deleteCount, ...items)` – `pos`부터 `deleteCount`개의 요소를 지우고, `items` 추가하기
+    - `slice(start, end)` – `start`부터 `end` 바로 앞까지의 요소를 복사해 새로운 배열을 만듦
+    - `concat(...items)` – 배열의 모든 요소를 복사하고 `items`를 추가해 새로운 배열을 만든 후 이를 반환함. `items`가 배열이면 이 배열의 인수를 기존 배열에 더해줌
+- 원하는 요소 찾기
+    - `indexOf/lastIndexOf(item, pos)` – `pos`부터 원하는 `item`을 찾음. 찾게 되면 해당 요소의 인덱스를, 아니면 `1`을 반환함
+    - `includes(value)` – 배열에 `value`가 있으면 `true`를, 그렇지 않으면 `false`를 반환함
+    - `find/filter(func)` – `func`의 반환 값을 `true`로 만드는 첫 번째/전체 요소를 반환함
+    - `findIndex`는 `find`와 유사함. 다만 요소 대신 인덱스를 반환함
+- 배열 전체 순회하기
+    - `forEach(func)` – 모든 요소에 `func`을 호출함. 결과는 반환되지 않음
+- 배열 변형하기
+    - `map(func)` – 모든 요소에 `func`을 호출하고, 반환된 결과를 가지고 새로운 배열을 만듦
+    - `sort(func)` – 배열을 정렬하고 정렬된 배열을 반환함
+    - `reverse()` – 배열을 뒤집어 반환함
+    - `split/join` – 문자열을 배열로, 배열을 문자열로 변환함
+    - `reduce(func, initial)` – 요소를 차례로 돌면서 `func`을 호출함. 반환값은 다음 함수 호출에 전달함. 최종적으로 하나의 값이 도출됨
+- 기타
+    - `Array.isArray(arr)` – `arr`이 배열인지 여부를 판단함
+
+`sort`, `reverse`, `splice`는 기존 배열을 변형시킨다는 점에 주의하시기 바랍니다.
+
 ## 선언
 
 `var arr-name = [~, ~, ~]`
@@ -1040,11 +1075,11 @@ for (const element of array1) {
     
 - 매개변수 (당연히 변수명 변경 가능)
     
-    `arr.forEach(function(item, index, array))`
+    `arr.forEach(function(item, index, array){…})`
     
     1. item : 처리할 현재 요소
-    2. index : 처리할 현재 요소의 인덱스
-    3. array : forEach를 호출한 배열
+    2. index : 처리할 현재 요소의 인덱스 (optional)
+    3. array : forEach를 호출한 배열 (optional)
         
         
 
@@ -1084,14 +1119,14 @@ for (const element of array1) {
     
     (단순값에도 사용 가능, but 위 세 개는 객체 찾기 불가)
     
-    - `arr.find(function(item, index, array))`
+    - `arr.find(function(item, index, array){…})`
         
         발견: 해당 요소 반환 / 발견X : `undefined` 반환
         
         - 전달되는 인자
         1. item : 처리할 현재 요소
-        2. index : 처리할 현재 요소의 인덱스
-        3. array : forEach를 호출한 배열
+        2. index : 처리할 현재 요소의 인덱스(optional)
+        3. array : forEach를 호출한 배열(optional)
             
             
         - 인자 item만 가지고 `item => item.id == 1` 형태의 함수가 실무에 많이 사용됨
@@ -1108,22 +1143,66 @@ for (const element of array1) {
     alert(user.name); // John
     ```
     
-    - `arr.findIndex(function(item, index, array))`
+    - `arr.findIndex(function(item, index, array){…})`
+        
+        발견 : 요소의 인덱스 반환 / 발견 X : `-1` 반환
+        
+    - `arr.findIndex(function(item, index, array){…})`
         
         발견 : 요소의 인덱스 반환 / 발견 X : `-1` 반환
         
     - 조건에 맞는 요소가 여러개라면?
         
-        `arr.filter(function(item, index, array))`
+        `arr.filter(function(item, index, array){…})` 
         
-        찾은 요소 전체를 담은 배열 반환 / 발견 X : 빈 배열 반환
+        - 찾은 요소 전체를 담은 배열 반환 / 발견 X : 빈 배열 반환
+        - `arr.filter(function, thisArg)`
+            
+            ⇒ 함수에 this를 넣어줘야 할 때, thisArg자세한 설명 밑에
+            
         
+3. **추가 메서드**
+    
+    
+    - arr.some(fn)
+        
+        `arr.some(function(item[, index[, array]])`
+        
+        모든 요소 대상으로 판별fn 호출 → 참인 값 1개라도 있으면 → `true` / 하나도 없다면 `false` 반환
+        
+    - arr. every(fn)
+        
+        `arr.some(function(item[, index[, array]])`
+        
+        some과 동일, but 요소가 모두 참이어야 `true`
+        
+    
+    - arr.fill(fn)
+        
+        `arr.fill(value[, start[, end]])`
+        
+        인덱스(start~end(미포함))에 value를 채워 변형한 배열 반환
+        
+    - arr.copyWithin
+        
+        `arr.copyWithin(target[, start[, end]])`
+        
+        target(인덱스)에 start ~ end(미포함) 요소 복사 붙여넣기
+        
+        - `arr.copyWithin(target)`
+            
+            배열 전체 복사 → target에 붙여넣기 (length에 맞춰 잘림)
+            
+        - `arr.copyWithin(target, start)`
+            
+            start부터 끝까지 복사 → target에 붙여넣기
+            
 
 ## 배열을 변형하는 메서드
 
 - **map** (중요)
     
-    `arr.map(function(item, index, array))`
+    `arr.map(function(item[, index, array]))`
     
     요소 전체를 대상으로 함수 호출, 결과를 배열로 반환
     
@@ -1178,9 +1257,7 @@ for (const element of array1) {
               if (a < b) return -1; //  첫 번째 값이 두 번째 값보다 작은 경우
             }
             
-            function compare(a, b) {
-            	return a - b
-            }
+            arr.sort( (a, b) => a - b );
             // 이렇게 단순화도 가능
             ```
             
@@ -1193,3 +1270,142 @@ for (const element of array1) {
                 
                 alert( countries.sort( (a, b) => a.localeCompare(b) ) ); // Andorra,Österreich,Vietnam (제대로 정렬되었네요!)
                 ```
+                
+- reverse
+    
+    `arr.reverse`
+    
+    요소를 역순으로 재정렬 (배열 자체를 수정)
+    
+- split
+    
+    `str.split(separator, limit)`
+    
+    문자열을 특정 부분에서 끊어 나누어 만든 배열 반환
+    
+    - separator : 문자열을 끊어야 할 부분을 나타내는 문자열
+        - `""` (빈 string) : 각각의 문자가 원소가 됨 (`[s,t,a,r]`)
+        - 생략 or 발견X : 원본 str을 유일한 원소로 가진 배열 반환
+    - limit : 배열의 최대 요소 갯수
+    
+    ```jsx
+    let names = 'Bilbo, Gandalf, Nazgul';
+    
+    let arr = names.split(', '); // [Bilbo, Gandalf, Nazgul]
+    ```
+    
+
+- join
+    
+    `arr.join([separator])`
+    
+    split과 반대 역할, 나눠진 요소를 하나로 합쳐준다
+    
+    - `separator`
+        
+        각 요소를 구분할 문자열 지정
+        
+        - 입력시, 중간 중간에 껴넣어짐
+        - 생략시, 배열의 요소들이 쉼표로 구분됨
+        - `''`입력시, 아무 문자도 없이 연결됨
+    
+    )
+    
+    ```jsx
+    const elements = ['Fire', 'Air', 'Water'];
+    
+    console.log(elements.join());
+    // expected output: "Fire,Air,Water" 쉼표까지 포함됨
+    
+    console.log(elements.join(''));
+    // expected output: "FireAirWater"
+    
+    console.log(elements.join('-'));
+    // expected output: "Fire-Air-Water"
+    ```
+    
+
+- reduce
+    
+    `arr.reduce(fucntion(accumulator, item, index, array)` 
+    
+    `{~}, initial)`
+    
+    각 요소에 함수 반복 실행, 결과를 누적시켜 하나의 값을 도출
+    
+    (`reduceRight`는 동일한 기능/ 배열의 오른쪽부터 연산 실행)
+    
+    - `accmulator` : 이전 함수 호출 결과 (결과값이 누적된 누전기)
+    - `initial` : 함수 최초 호출시 사용되는 초깃값
+        
+        initial(초깃값)은 생략 가능
+        
+        BUT 배열이 비어있으면 에러 → 쓰는 걸 권장(초깃값 반환)
+        
+    - `item` : 현재 배열의 요소
+    - `index` : 현재 요소의 인덱스
+    - `array` : 배열
+    
+    ```jsx
+    let arr = [1, 2, 3, 4, 5];
+    
+    let result = arr.reduce((sum, current) => sum + current, 0);
+    
+    alert(result); // 15
+    ```
+    
+
+## thisArg
+
+`arr.method(func, thisArg)`
+
+- thisArg를 인자로 넘기면 호출 함수를 실행 시, this로 설정됨
+- 선택적으로 사용 가능한 마지막 인수
+- 함수를 호출하는 대부분의 배열 메소드가 매개변수로 받을 수 있음(`find`, `filter`, `map` 등/ `sort` 제외)
+
+```jsx
+let army = {
+  minAge: 18,
+  maxAge: 27,
+  canJoin(user) {
+    return user.age >= this.minAge && user.age < this.maxAge;
+  }
+};
+
+let users = [
+  {age: 16},
+  {age: 20},
+  {age: 23},
+  {age: 30}
+];
+
+// army.canJoin 호출 시 참을 반환해주는 user를 찾음
+let soldiers = users.filter(army.canJoin, army);
+// users.filter(user => army.canJoin(user)) 도 가능하나 위 방식이 이해가 더 쉬움
+
+alert(soldiers.length); // 2
+alert(soldiers[0].age); // 20
+alert(soldiers[1].age); // 23
+```
+
+- thisArg 사용 안 했다면?
+    
+    `let soldiers = users.filter(army.canJoin)`
+    
+    : `army.canJoin`은 단독 함수처럼 취급되고, 함수 본문 내 `this`
+    는 `undefined`가 되어 에러 발생
+    
+
+## isArray
+
+`arr.isArray()`
+
+배열인지 아닌지 판별해서 boolean 반환
+
+(배열은 객체형이기 때문에 typeof()로 판별 불가함)
+
+```jsx
+alert(Array.isArray({})); // false
+
+alert(Array.isArray([])); // true
+```
