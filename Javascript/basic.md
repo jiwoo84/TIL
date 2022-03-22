@@ -1044,7 +1044,7 @@ alert( matrix[1][1] ); // 5, 중심에 있는 요소
 
 ## for...of 반복문
 
-`for(var value of iterable)`
+`for(var value of iterable){…}`
 
 반복가능한 객체의 속성값에 접근해서 명령어 반복 수행
 
@@ -1063,9 +1063,9 @@ for (const element of array1) {
 
 ```
 
-## forEach 반복작업
+## forEach 메소드
 
-함수를 배열 요소 각각에 실행
+함수를 배열 요소 각각에 실행 → `undefined` 반환
 
 - 기본형
     
@@ -1082,6 +1082,7 @@ for (const element of array1) {
     3. array : forEach를 호출한 배열 (optional)
         
         
+- undefined를 반환하기 때문에 `break`,  `continue`,  `return` 구문을 사용해서 함수를 벗어날 수 없다.
 
 ```jsx
 ["a", "b", "c"].forEach(alert); // 세 요소 차례대로 출력
@@ -1094,109 +1095,6 @@ for (const element of array1) {
 // b is at index 1 in a,b,c
 // c is at index 2 in a,b,c  
 ```
-
-## 배열 탐색하기
-
-1. **요소 = 단순값**
-    
-    (문자형에도 사용가능이라 설명 자세히 있음)
-    
-    - `arr.indexOf(item, from)`
-        
-        인덱스 from부터 시작해 요소(item) 찾음
-        
-        발견: 요소의 인덱스 반환 / 발견 X : `-1` 반환
-        
-    - `arr.lastIndexOf(item, from)`
-        
-        indexOf와 동일한 기능, 검색을 끝에서부터 시작
-        
-    - `arr.includes(item, from)`
-        
-        인덱스 from부터 시작해 요소 존재 여부 boolean 반환
-        
-2. **요소 = 객체**
-    
-    (단순값에도 사용 가능, but 위 세 개는 객체 찾기 불가)
-    
-    - `arr.find(function(item, index, array){…})`
-        
-        발견: 해당 요소 반환 / 발견X : `undefined` 반환
-        
-        - 전달되는 인자
-        1. item : 처리할 현재 요소
-        2. index : 처리할 현재 요소의 인덱스(optional)
-        3. array : forEach를 호출한 배열(optional)
-            
-            
-        - 인자 item만 가지고 `item => item.id == 1` 형태의 함수가 실무에 많이 사용됨
-    
-    ```jsx
-    let users = [
-      {id: 1, name: "John"},
-      {id: 2, name: "Pete"},
-      {id: 3, name: "Mary"}
-    ];
-    
-    let user = users.find(item => item.id == 1);
-    
-    alert(user.name); // John
-    ```
-    
-    - `arr.findIndex(function(item, index, array){…})`
-        
-        발견 : 요소의 인덱스 반환 / 발견 X : `-1` 반환
-        
-    - `arr.findIndex(function(item, index, array){…})`
-        
-        발견 : 요소의 인덱스 반환 / 발견 X : `-1` 반환
-        
-    - 조건에 맞는 요소가 여러개라면?
-        
-        `arr.filter(function(item, index, array){…})` 
-        
-        - 찾은 요소 전체를 담은 배열 반환 / 발견 X : 빈 배열 반환
-        - `arr.filter(function, thisArg)`
-            
-            ⇒ 함수에 this를 넣어줘야 할 때, thisArg자세한 설명 밑에
-            
-        
-3. **추가 메서드**
-    
-    
-    - arr.some(fn)
-        
-        `arr.some(function(item[, index[, array]])`
-        
-        모든 요소 대상으로 판별fn 호출 → 참인 값 1개라도 있으면 → `true` / 하나도 없다면 `false` 반환
-        
-    - arr. every(fn)
-        
-        `arr.some(function(item[, index[, array]])`
-        
-        some과 동일, but 요소가 모두 참이어야 `true`
-        
-    
-    - arr.fill(fn)
-        
-        `arr.fill(value[, start[, end]])`
-        
-        인덱스(start~end(미포함))에 value를 채워 변형한 배열 반환
-        
-    - arr.copyWithin
-        
-        `arr.copyWithin(target[, start[, end]])`
-        
-        target(인덱스)에 start ~ end(미포함) 요소 복사 붙여넣기
-        
-        - `arr.copyWithin(target)`
-            
-            배열 전체 복사 → target에 붙여넣기 (length에 맞춰 잘림)
-            
-        - `arr.copyWithin(target, start)`
-            
-            start부터 끝까지 복사 → target에 붙여넣기
-            
 
 ## 배열을 변형하는 메서드
 
@@ -1354,6 +1252,111 @@ for (const element of array1) {
     alert(result); // 15
     ```
     
+
+## 배열 탐색하기
+
+1. **요소 = 단순값**
+    
+    (문자형에도 사용가능이라 설명 자세히 있음)
+    
+    - `arr.indexOf(item, from)`
+        
+        인덱스 from부터 시작해 요소(item) 찾음
+        
+        발견: 요소의 인덱스 반환 / 발견 X : `-1` 반환
+        
+    - `arr.lastIndexOf(item, from)`
+        
+        indexOf와 동일한 기능, 검색을 끝에서부터 시작
+        
+    - `arr.includes(item, from)`
+        
+        인덱스 from부터 시작해 요소 존재 여부 boolean 반환
+        
+2. **요소 = 객체**
+    
+    (단순값에도 사용 가능, but 위 세 개는 객체 찾기 불가)
+    
+    - `arr.find(function(item, index, array){…})`
+        
+        발견: 해당 요소 반환 / 발견X : `undefined` 반환
+        
+        - 전달되는 인자
+        1. item : 처리할 현재 요소
+        2. index : 처리할 현재 요소의 인덱스(optional)
+        3. array : forEach를 호출한 배열(optional)
+            
+            
+        - 인자 item만 가지고 `item => item.id == 1` 형태의 함수가 실무에 많이 사용됨
+    
+    ```jsx
+    let users = [
+      {id: 1, name: "John"},
+      {id: 2, name: "Pete"},
+      {id: 3, name: "Mary"}
+    ];
+    
+    let user = users.find(item => item.id == 1);
+    
+    alert(user.name); // John
+    ```
+    
+    - `arr.findIndex(function(item, index, array){…})`
+        
+        발견 : 요소의 인덱스 반환 / 발견 X : `-1` 반환
+        
+    - `arr.findIndex(function(item, index, array){…})`
+        
+        발견 : 요소의 인덱스 반환 / 발견 X : `-1` 반환
+        
+    - 조건에 맞는 요소가 여러개라면?
+        
+        `arr.filter(function(item, index, array){…})` 
+        
+        - 찾은 요소 전체를 담은 배열 반환 / 발견 X : 빈 배열 반환
+        - `arr.filter(function, thisArg)`
+            
+            ⇒ 함수에 this를 넣어줘야 할 때, thisArg자세한 설명 밑에
+            
+        
+3. **추가 메서드**
+    
+    
+    - arr.some(fn)
+        
+        `arr.some(function(item[, index[, array]])`
+        
+        모든 요소 대상으로 판별fn 호출 → 참인 값 1개라도 있으면 → `true` / 하나도 없다면 `false` 반환
+        
+    - arr. every(fn)
+        
+        `arr.some(function(item[, index[, array]])`
+        
+        some과 동일, but 요소가 모두 참이어야 `true`
+        
+    
+    - arr.fill(fn)
+        
+        `arr.fill(value[, start[, end]])`
+        
+        인덱스(start~end(미포함))에 value를 채워 변형한 배열 반환
+        
+    - arr.copyWithin
+        
+        `arr.copyWithin(target[, start[, end]])`
+        
+        target(인덱스)에 start ~ end(미포함) 요소 복사 붙여넣기
+        
+        원 배열 자체를 수정
+        
+        - `arr.copyWithin(target)`
+            
+            배열 전체 복사 → target에 붙여넣기 (length에 맞춰 잘림)
+            
+        - `arr.copyWithin(target, start)`
+            
+            start부터 끝까지 복사 → target에 붙여넣기
+            
 
 ## thisArg
 

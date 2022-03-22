@@ -27,13 +27,13 @@ const jwBirthday = 0804;
     
     `var obj-name = {`
     
-    `key: value,` 
+    `prop: value,` 
     
-    `key: value,`
+    `prop: value,`
     
     `};`
     
-    - key- 문자형/심볼형(아닌 경우 문자형으로 변형됨)
+    - property (key) - 문자형/심볼형(아닌 경우 문자형으로 변형됨)
     - value - 모든 자료형 허용
     
     ```jsx
@@ -46,7 +46,7 @@ const jwBirthday = 0804;
     
     - 계산된 프로퍼티
         
-        `[key] : value`
+        `[prop] : value`
         
         프로퍼티 이름을 동적으로 받아옴
         
@@ -178,7 +178,7 @@ const 인 obj 값 수정 시 → 오류
 
 `fuction fnc-name(param, param, ...) {~;}`
 
-- **parameter (매개변수)**
+- **parameter (인자, 매개변수)**
     
     값을 함수 안으로 매개해주는 변수
     
@@ -332,7 +332,7 @@ let plus = (a, b) => a + b;
 
 `fnc-name(arg);` 
 
-- argument (전달인자, 값 value) :  함수로 전달하는 값
+- argument (인수, 전달인자, 값 value) :  함수로 전달하는 값
 
 ## **return**
 
