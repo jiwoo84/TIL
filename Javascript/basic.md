@@ -171,7 +171,7 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
         이유: alert하면 js 차원에서 인자를 형 변환하는데 symbol은 불가
         
 
-1. **null** 
+1. **null**
     - 텅빈 상태가 아니고 ’없음’으로 채워진 상태
     - 절대 자연적으로 발생x, 안에 없다는 것을 확실히 하려고 사용
     - 호출 결과가 `null`인 경우, 에러 발생 (`undefined`는 에러x)
@@ -191,6 +191,7 @@ body 속 맨 밑에 `<script scr="파일명.js"></script>` 작성
     - 데이터 타입이 아닌, 전역 객체의 속성
     - 비교연산자에서 NaN이 피연산자인 경우 항상 false 반환
     - `NaN === NaN;` // false
+    
 
 ## data type 변경
 
@@ -812,7 +813,7 @@ else (age<100) {명령문};
     - `slice(start, end)` – `start`부터 `end` 바로 앞까지의 요소를 복사해 새로운 배열을 만듦
     - `concat(...items)` – 배열의 모든 요소를 복사하고 `items`를 추가해 새로운 배열을 만든 후 이를 반환함. `items`가 배열이면 이 배열의 인수를 기존 배열에 더해줌
 - 원하는 요소 찾기
-    - `indexOf/lastIndexOf(item, pos)` – `pos`부터 원하는 `item`을 찾음. 찾게 되면 해당 요소의 인덱스를, 아니면 `1`을 반환함
+    - `indexOf/lastIndexOf(item, pos)` – `pos`부터 원하는 `item`을 찾음. 찾게 되면 해당 요소의 인덱스를, 아니면 `-1`을 반환함
     - `includes(value)` – 배열에 `value`가 있으면 `true`를, 그렇지 않으면 `false`를 반환함
     - `find/filter(func)` – `func`의 반환 값을 `true`로 만드는 첫 번째/전체 요소를 반환함
     - `findIndex`는 `find`와 유사함. 다만 요소 대신 인덱스를 반환함
@@ -1096,6 +1097,19 @@ for (const element of array1) {
 // c is at index 2 in a,b,c  
 ```
 
+- `for…of`와의 차이점
+    
+    
+    |  | forEach | for…of |
+    | --- | --- | --- |
+    | 종류 | 함수(메소드) | 반복문 |
+    | 사용대상 | 배열 | iterable한 객체 |
+    | 반환값 | undefined
+    (return 사용불가) | return값 |
+    
+    iterable : 순회 가능한 자료구조
+    
+
 ## 배열을 변형하는 메서드
 
 - **map** (중요)
@@ -1113,7 +1127,7 @@ for (const element of array1) {
     
     `arr.sort(compareFunction)`
     
-    배열의 요소 재정렬/ 재정렬된 배열 반환 
+    배열의 요소 재정렬/ 재정렬된 배열 반환
     
     (but 이미 배열 자체가 수정되었기에 반환값 잘 사용x)
     
@@ -1197,7 +1211,7 @@ for (const element of array1) {
     
     `arr.join([separator])`
     
-    split과 반대 역할, 나눠진 요소를 하나로 합쳐준다
+    split과 반대 역할, 나눠진 요소를 하나로 합쳐서 문자열로 반환
     
     - `separator`
         
