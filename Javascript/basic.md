@@ -804,142 +804,159 @@ else (age<100) {명령문};
 
 ## 요약
 
-- 요소를 더하거나 지우기
+- **요소를 더하거나 지우기**
     - `push(...items)` – 맨 끝에 요소 추가하기
     - `pop()` – 맨 끝 요소 추출하기
     - `shift()` – 첫 요소 추출하기
     - `unshift(...items)` – 맨 앞에 요소 추가하기
     - `splice(pos, deleteCount, ...items)` – `pos`부터 `deleteCount`개의 요소를 지우고, `items` 추가하기
+    
+- **새로운 배열 만들기**
     - `slice(start, end)` – `start`부터 `end` 바로 앞까지의 요소를 복사해 새로운 배열을 만듦
-    - `concat(...items)` – 배열의 모든 요소를 복사하고 `items`를 추가해 새로운 배열을 만든 후 이를 반환함. `items`가 배열이면 이 배열의 인수를 기존 배열에 더해줌
-- 원하는 요소 찾기
-    - `indexOf/lastIndexOf(item, pos)` – `pos`부터 원하는 `item`을 찾음. 찾게 되면 해당 요소의 인덱스를, 아니면 `-1`을 반환함
-    - `includes(value)` – 배열에 `value`가 있으면 `true`를, 그렇지 않으면 `false`를 반환함
+    - `concat(arg1, arg2..)` – 배열의 모든 요소를 복사하고 `arg`를 추가해 새로운 배열을 만든 후 이를 반환함. `items`가 배열이면 이 배열의 인수를 기존 배열에 더해줌
+    
+- **원하는 요소 찾기**
+    - `indexOf/lastIndexOf(item, pos)` - `pos`부터 원하는 `item`을 찾음. 찾게 되면 해당 요소의 인덱스를, 아니면 `-1`을 반환함
+    - `includes(value)` - 배열에 `value`가 있으면 `true`를, 그렇지 않으면 `false`를 반환함
     - `find/filter(func)` – `func`의 반환 값을 `true`로 만드는 첫 번째/전체 요소를 반환함
     - `findIndex`는 `find`와 유사함. 다만 요소 대신 인덱스를 반환함
-- 배열 전체 순회하기
-    - `forEach(func)` – 모든 요소에 `func`을 호출함. 결과는 반환되지 않음
-- 배열 변형하기
+    
+- **배열 전체 순회하기**
+    - `forEach(func)` – 모든 요소에 `func`을 호출함. 결과는 반환되지 않음(undefined)
+    - `for…of(func)` - 모든 요소에 func 호출. return 사용 가능
+    
+- **배열 변형하기**
     - `map(func)` – 모든 요소에 `func`을 호출하고, 반환된 결과를 가지고 새로운 배열을 만듦
     - `sort(func)` – 배열을 정렬하고 정렬된 배열을 반환함
     - `reverse()` – 배열을 뒤집어 반환함
     - `split/join` – 문자열을 배열로, 배열을 문자열로 변환함
     - `reduce(func, initial)` – 요소를 차례로 돌면서 `func`을 호출함. 반환값은 다음 함수 호출에 전달함. 최종적으로 하나의 값이 도출됨
+    
 - 기타
     - `Array.isArray(arr)` – `arr`이 배열인지 여부를 판단함
+    
 
 `sort`, `reverse`, `splice`는 기존 배열을 변형시킨다는 점에 주의하시기 바랍니다.
 
-## 선언
+## 입출력
 
-`var arr-name = [~, ~, ~]`
-
-`var arr-name = new Array()` (잘 사용x)
-
-- 배열 요소의 자료형은 제약 없음 (다 가능)
-
-```jsx
-// 요소에 여러 가지 자료형이 섞여 있습니다.
-let arr = [ '사과', { name: '이보라' }, true, function() { alert('안녕하세요.'); } ];
-
-// 인덱스가 1인 요소(객체)의 name 프로퍼티를 출력합니다.
-alert( arr[1].name ); // 이보라
-
-// 인덱스가 3인 요소(함수)를 실행합니다.
-arr[3](); // 안녕하세요.
-```
-
-## 값 출력
-
-`array[n]` : array 중 n번째 값
-
-- 0부터 세기 시작한다
-
-## **값 추가**
-
-- `array.push()` : 맨 끝에 값 추가
-- `arry.unshift()` : 맨 앞에 값 추가
-- `array[n] = ~;` : 원하는 위치에 값 변경/추가
-
-## 값 삭제
-
-- 마지막 요소 제거 `array.pop()`
-- 첫번째 요소 제거 `array.shift()`
-
-- 요소값만 제거 `delete array[n]`
+- **선언**
     
-    값만 제거하기 때문에 자리는 남아있음
+    `var arr-name = [~, ~, ~]`
+    
+    `var arr-name = new Array()` (잘 사용x)
+    
+    배열 요소의 자료형은 제약 없음 (다 가능)
     
     ```jsx
-    let arr = ["I", "go", "home"];
+    // 요소에 여러 가지 자료형이 섞여 있습니다.
+    let arr = [ '사과', { name: '이보라' }, true, function() { alert('안녕하세요.'); } ];
     
-    delete arr[1]; // "go"를 삭제합니다.
+    // 인덱스가 1인 요소(객체)의 name 프로퍼티를 출력합니다.
+    alert( arr[1].name ); // 이보라
     
-    alert( arr[1] ); // undefined
-    
-    // delete를 써서 요소를 지우고 난 후 배열 --> arr = ["I",  , "home"];
-    alert( arr.length ); // 3
+    // 인덱스가 3인 요소(함수)를 실행합니다.
+    arr[3](); // 안녕하세요.
     ```
     
 
-- 지정 요소 제거 `**splice**`
+- 출력
     
+    `array[n]` (array 중 n번째 값)
     
-    - `array.splice(시작위치,제거건수)`
+    인덱스는 0부터 세기 시작한다
+    
+
+## **요소를 더하거나 지우기**
+
+- **추가**
+    - `array.push()` : 맨 끝에 값 추가
+    - `arry.unshift()` : 맨 앞에 값 추가
+    - `array[n] = ~;` : 원하는 위치에 값 변경/추가
+    
+- **제거**
+    - `array.pop()` 마지막 요소 제거
+    - `array.shift()` 첫번째 요소 제거
+    - `delete array[n]` 요소값만 제거
         
-        위치에 음수 인덱스 사용 가능 (맨 뒤에서 첫번째 = -1)
+        값만 제거하기 때문에 자리는 남아있음
         
         ```jsx
-        let arr = ['a', 'b', 'c', 'd']
+        let arr = ["I", "go", "home"];
         
-        // arr = ['a', 'b', 'd']
-        arr.splice(2, 1); // index 2 부터 1개의 요소('c')를 제거
+        delete arr[1]; // "go"를 삭제합니다.
+        
+        alert( arr[1] ); // undefined
+        
+        // delete를 써서 요소를 지우고 난 후 배열 --> arr = ["I",  , "home"];
+        alert( arr.length ); // 3
         ```
         
     
-    - `array.splice(시작위치,제거건수,교체요소)`
+    - `**splice`** 지정 요소 제거
         
-        (`array.splice(시작위치,0,교체요소)` ⇒ 삭제 X, 중간 추가)
+        `array.splice(시작위치 [,제거건수[,추가요소]])`
         
-        ```jsx
-        // arr = ['a', 'z', 'b', 'c', 'd']
-        arr.splice(1, 0, 'z'); // 제거 안하고 중간에 추가 가능
-        ```
+        시작 인덱스부터 제거건수만큼 제거 → 추가요소 추가
         
-    
-    - 삭제된 요소로 구성된 배열을 반환함
+        - 위치에 음수 인덱스 사용 가능 (맨 뒤에서 첫번째 = `-1`)
+        - `array.splice(시작위치,0,추가요소)`
+            
+            ⇒ 삭제 X , 해당 인덱스 위치에 요소 추가
+            
+        - 반환값: 제거한 요소를 담은 배열
+            
+            ```jsx
+            let arr = ['a', 'b', 'c', 'd']
+            
+            arr.splice(2, 1); // index 2 부터 1개의 요소('c')를 제거
+            // arr = ['a', 'b', 'd']
+            
+            arr.splice(1, 0, 'z'); // 제거 안하고 중간에 추가 가능
+            // arr = ['a', 'z', 'b', 'd']
+            
+            alert(arr.splice(1,2));
+            // 'z,b' 출력
+            
+            ```
+            
+
+- 자료구조
+    - 큐 : 선입선출(First-In-First-Out, FIFO)
+    - 스택 : 후입선출(Last-In-First-Out, LIFO)
+    - `shift`/ `unshift` 가 `pop` / `push` 보다 느림
         
-        ```jsx
-        console.log(arr.splice(1, 2)); // ['b', 'c'] 삭제된 요소 배열 반환
-        ```
+        ⇒ 앞 요소 제거/추가 후 앞으로 요소 이동해야하기 때문)
         
 
 ## 새로운 배열 만들기
 
 - **slice**
     
-    `arr.slice([start], [end])`
+    `arr.slice([start [, end]])`
     
     start인덱스부터 end인덱스까지의 요소를 복사한 새로운 배열 반환 (end 제외)
     
     ```jsx
     let arr = ["t", "e", "s", "t"];
     
-    alert( arr.slice(1, 3) ); // e,s 
+    arr.slice(1, 3); // ["e", "s"]
     
-    alert( arr.slice(-2) ); // s,t
+    arr.slice(-2); // ["s", "t"]
+    
+    arr.slice(); // ["t", "e", "s", "t"]
     ```
     
 
 - **concat**
     
-    `arr.concat(arg1, arg2...)`
+    `arr.concat([arg1[, arg2[, ...]]])`
     
-    기존 배열에 새 요소를 복사·추가(맨 끝에) → 새로운 배열 반환
+    배열 맨 끝에 새 요소를 추가 → 새로운 배열 반환
     
     (arg에는 값, 배열, 객체 가능 / 개수 제한 X)
     
-    - arg - 배열
+    - arg = 배열
         
         배열의 모든 요소가 복사·추가
         
@@ -972,299 +989,6 @@ arr[3](); // 안녕하세요.
         // [1,2,{name: "jw", age: 100}]
         ```
         
-    
-
-## 배열 길이
-
-`array.length`
-
-가장 큰 인덱스 값 + 1 (배열 내 요소의 개수 X)
-
-```jsx
-let fruits = [];
-fruits[123] = "사과";
-
-alert( fruits.length ); // 124
-```
-
-- 수동으로 감소시킬 수 있음 BUT 잘린 만큼 배열이 날아감
-    
-    (증가/복구 불가)
-    
-    ```jsx
-    let arr = [1, 2, 3, 4, 5];
-    
-    arr.length = 2; // 요소 2개만 남기고 잘라봅시다.
-    alert( arr ); // [1, 2]
-    
-    arr.length = 5; // 본래 길이로 되돌려 봅시다.
-    alert( arr[3] ); // undefined: 삭제된 기존 요소들이 복구되지 않습니다.
-    ```
-    
-
-## 문자열로 변환
-
-`array.toString()` ⇒ “value, value, ...”
-
-(`string(array)`)
-
-배열엔 `toString`메서드가 구현되어 있어 호출하면 요소를 쉼표로 구분한 문자열로 반환함
-
-```jsx
-alert( [] + 1 ); // "1"
-alert( [1] + 1 ); // "11"
-alert( [1,2] + 1 ); // "1,21"
-```
-
-## 다차원 배열
-
-```jsx
-let matrix = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9]
-];
-
-alert( matrix[1][1] ); // 5, 중심에 있는 요소
-```
-
-## 자료구조
-
-- 큐 : 선입선출(First-In-First-Out, FIFO)
-- 스택 : 후입선출(Last-In-First-Out, LIFO)
-
-- 배열 끝에 작동하는 메서드
-    - `pop`  배열 끝 요소 제거 → 반환
-    - `push`  배열 끝에 요소 추가
-    
-- 배열 앞에 작동하는 메서드
-    - `shift`  배열 앞 요소 제거 → 반환
-    - `unshift`  배열 앞 요소 추가
-    - (`pop` / `push` 보다 느림 ⇒ 앞 요소 제거/추가 후 앞으로 요소 이동해야하기 때문)
-    
-
-## for...of 반복문
-
-`for(var value of iterable){…}`
-
-반복가능한 객체의 속성값에 접근해서 명령어 반복 수행
-
-(for...in 문법은 되도록 사용X)
-
-```jsx
-const array1 = ['a', 'b', 'c'];
-
-for (const element of array1) {
-  console.log(element);
-}
-
-// expected output: "a"
-// expected output: "b"
-// expected output: "c"
-
-```
-
-## forEach 메소드
-
-함수를 배열 요소 각각에 실행 → `undefined` 반환
-
-- 기본형
-    
-    `arr.forEach(function)`
-    
-    배열 요소 각각에 fnc 실행 (요소값이 기본 arg)
-    
-- 매개변수 (당연히 변수명 변경 가능)
-    
-    `arr.forEach(function(item, index, array){…})`
-    
-    1. item : 처리할 현재 요소
-    2. index : 처리할 현재 요소의 인덱스 (optional)
-    3. array : forEach를 호출한 배열 (optional)
-        
-        
-- undefined를 반환하기 때문에 `break`,  `continue`,  `return` 구문을 사용해서 함수를 벗어날 수 없다.
-
-```jsx
-["a", "b", "c"].forEach(alert); // 세 요소 차례대로 출력
-
-["a", "b", "c"].forEach((item, index, array) => {
-  alert(`${item} is at index ${index} in ${array}`);
-});
-
-// a is at index 0 in a,b,c
-// b is at index 1 in a,b,c
-// c is at index 2 in a,b,c  
-```
-
-- `for…of`와의 차이점
-    
-    
-    |  | forEach | for…of |
-    | --- | --- | --- |
-    | 종류 | 함수(메소드) | 반복문 |
-    | 사용대상 | 배열 | iterable한 객체 |
-    | 반환값 | undefined
-    (return 사용불가) | return값 |
-    
-    iterable : 순회 가능한 자료구조
-    
-
-## 배열을 변형하는 메서드
-
-- **map** (중요)
-    
-    `arr.map(function(item[, index, array]))`
-    
-    요소 전체를 대상으로 함수 호출, 결과를 배열로 반환
-    
-    ```jsx
-    let result = ["Bilbo", "Gandalf", "Nazgul"].map(item => item.length);
-    console.log(result); // [5,7,6]
-    ```
-    
-- **sort**
-    
-    `arr.sort(compareFunction)`
-    
-    배열의 요소 재정렬/ 재정렬된 배열 반환
-    
-    (but 이미 배열 자체가 수정되었기에 반환값 잘 사용x)
-    
-    - compareFunction(정렬 함수) : 정렬 순서를 정의하는 함수
-        
-        
-        - 생략시 `arr.sort()`
-            
-            ```jsx
-            let arr = [ 1, 2, 15 ];
-            
-            arr.sort(); // arr 내부가 재 정렬됨
-            
-            alert( arr );  // 1, 15, 2
-            ```
-            
-            요소가 문자열로 취급되어 재정렬됨
-            
-            → 문자열 비교는 사전편집 순으로 진행
-            
-            → 2는 15보다 큰 값으로 취급 (`"2" > "15"`)
-            
-            ∴ 의도대로 정렬되지 않을 수 있음
-            
-        
-        - compare 함수 형식
-            - 반드시 인수로 값 두 개를 비교
-            - 반환 값 있어야 함
-                
-                반환값 < 0 ⇒ a가 b보다 앞에 오도록 정렬
-                
-                반환값 > 0 ⇒ b가 a보다 앞에 오도록 정렬
-                
-            
-            ```jsx
-             function compare(a, b) {
-              if (a > b) return 1; // 첫 번째 값이 두 번째 값보다 큰 경우
-              if (a == b) return 0; // 두 값이 같은 경우
-              if (a < b) return -1; //  첫 번째 값이 두 번째 값보다 작은 경우
-            }
-            
-            arr.sort( (a, b) => a - b );
-            // 이렇게 단순화도 가능
-            ```
-            
-            - 다양한 언어가 사용된 문자열 arr에는 localeCompare 메소드를 사용
-                
-                ```jsx
-                let countries = ['Österreich', 'Andorra', 'Vietnam'];
-                
-                alert( countries.sort( (a, b) => a > b ? 1 : -1) ); // Andorra, Vietnam, Österreich (제대로 정렬이 되지 않았습니다.)
-                
-                alert( countries.sort( (a, b) => a.localeCompare(b) ) ); // Andorra,Österreich,Vietnam (제대로 정렬되었네요!)
-                ```
-                
-- reverse
-    
-    `arr.reverse`
-    
-    요소를 역순으로 재정렬 (배열 자체를 수정)
-    
-- split
-    
-    `str.split(separator, limit)`
-    
-    문자열을 특정 부분에서 끊어 나누어 만든 배열 반환
-    
-    - separator : 문자열을 끊어야 할 부분을 나타내는 문자열
-        - `""` (빈 string) : 각각의 문자가 원소가 됨 (`[s,t,a,r]`)
-        - 생략 or 발견X : 원본 str을 유일한 원소로 가진 배열 반환
-    - limit : 배열의 최대 요소 갯수
-    
-    ```jsx
-    let names = 'Bilbo, Gandalf, Nazgul';
-    
-    let arr = names.split(', '); // [Bilbo, Gandalf, Nazgul]
-    ```
-    
-
-- join
-    
-    `arr.join([separator])`
-    
-    split과 반대 역할, 나눠진 요소를 하나로 합쳐서 문자열로 반환
-    
-    - `separator`
-        
-        각 요소를 구분할 문자열 지정
-        
-        - 입력시, 중간 중간에 껴넣어짐
-        - 생략시, 배열의 요소들이 쉼표로 구분됨
-        - `''`입력시, 아무 문자도 없이 연결됨
-    
-    )
-    
-    ```jsx
-    const elements = ['Fire', 'Air', 'Water'];
-    
-    console.log(elements.join());
-    // expected output: "Fire,Air,Water" 쉼표까지 포함됨
-    
-    console.log(elements.join(''));
-    // expected output: "FireAirWater"
-    
-    console.log(elements.join('-'));
-    // expected output: "Fire-Air-Water"
-    ```
-    
-
-- reduce
-    
-    `arr.reduce(fucntion(accumulator, item, index, array)` 
-    
-    `{~}, initial)`
-    
-    각 요소에 함수 반복 실행, 결과를 누적시켜 하나의 값을 도출
-    
-    (`reduceRight`는 동일한 기능/ 배열의 오른쪽부터 연산 실행)
-    
-    - `accmulator` : 이전 함수 호출 결과 (결과값이 누적된 누전기)
-    - `initial` : 함수 최초 호출시 사용되는 초깃값
-        
-        initial(초깃값)은 생략 가능
-        
-        BUT 배열이 비어있으면 에러 → 쓰는 걸 권장(초깃값 반환)
-        
-    - `item` : 현재 배열의 요소
-    - `index` : 현재 요소의 인덱스
-    - `array` : 배열
-    
-    ```jsx
-    let arr = [1, 2, 3, 4, 5];
-    
-    let result = arr.reduce((sum, current) => sum + current, 0);
-    
-    alert(result); // 15
-    ```
     
 
 ## 배열 탐색하기
@@ -1333,44 +1057,358 @@ for (const element of array1) {
             ⇒ 함수에 this를 넣어줘야 할 때, thisArg자세한 설명 밑에
             
         
-3. **추가 메서드**
+
+## 배열 전체 순회하기
+
+- **for...of 반복문**
+
+`for(var value of iterable){…}`
+
+반복가능한 객체의 속성값에 접근해서 명령어 반복 수행
+
+(for...in 문법은 되도록 사용X)
+
+```jsx
+const array1 = ['a', 'b', 'c'];
+
+for (const element of array1) {
+  console.log(element);
+}
+
+// expected output: "a"
+// expected output: "b"
+// expected output: "c"
+
+```
+
+- **forEach 메소드**
     
+    함수를 배열 요소 각각에 실행 → `undefined` 반환
     
-    - arr.some(fn)
+    - 기본형
         
-        `arr.some(function(item[, index[, array]])`
+        `arr.forEach(function)`
         
-        모든 요소 대상으로 판별fn 호출 → 참인 값 1개라도 있으면 → `true` / 하나도 없다면 `false` 반환
-        
-    - arr. every(fn)
-        
-        `arr.some(function(item[, index[, array]])`
-        
-        some과 동일, but 요소가 모두 참이어야 `true`
+        배열 요소 각각에 fnc 실행 (요소값이 기본 arg)
         
     
-    - arr.fill(fn)
+    - 매개변수 (당연히 변수명 변경 가능)
         
-        `arr.fill(value[, start[, end]])`
+        `arr.forEach(function(item, index, array){…})`
         
-        인덱스(start~end(미포함))에 value를 채워 변형한 배열 반환
-        
-    - arr.copyWithin
-        
-        `arr.copyWithin(target[, start[, end]])`
-        
-        target(인덱스)에 start ~ end(미포함) 요소 복사 붙여넣기
-        
-        원 배열 자체를 수정
-        
-        - `arr.copyWithin(target)`
+        1. item : 처리할 현재 요소
+        2. index : 처리할 현재 요소의 인덱스 (optional)
+        3. array : forEach를 호출한 배열 (optional)
             
-            배열 전체 복사 → target에 붙여넣기 (length에 맞춰 잘림)
             
-        - `arr.copyWithin(target, start)`
+    - undefined를 반환하기 때문에 `break`,  `continue`,  `return` 구문을 사용해서 함수를 벗어날 수 없다.
+        
+        ```jsx
+        ["a", "b", "c"].forEach(alert); // 세 요소 차례대로 출력
+        
+        ["a", "b", "c"].forEach((item, index, array) => {
+          alert(`${item} is at index ${index} in ${array}`);
+        });
+        
+        // a is at index 0 in a,b,c
+        // b is at index 1 in a,b,c
+        // c is at index 2 in a,b,c  
+        ```
+        
+        - `for…of`와의 차이점
             
-            start부터 끝까지 복사 → target에 붙여넣기
             
+            |  | forEach | for…of |
+            | --- | --- | --- |
+            | 종류 | 함수(메소드) | 반복문 |
+            | 사용대상 | 배열 | iterable한 객체 |
+            | 반환값 | undefined
+            (return 사용불가) | return값 |
+            
+            iterable : 순회 가능한 자료구조
+            
+
+## 배열 변형하기
+
+- **map** (중요)
+    
+    `arr.map(function(item[, index, array]))`
+    
+    요소 전체를 대상으로 함수 호출, 반환값을 배열로 반환
+    
+    ```jsx
+    let result = ["Bilbo", "Gandalf", "Nazgul"].map(item => item.length);
+    console.log(result); // [5,7,6]
+    ```
+    
+    - 반환값 객체로 만들기
+        
+        `arr.map(item ⇒ ({key: value, key: value, …}))`
+        
+        = `arr.map(function(item) {`
+        
+        `let obj = {};`
+        
+        `obj.key = value;`
+        
+        `return obj;`
+        
+        `}`
+        
+    
+    - 활용
+        
+        `name`을 나타내는 프로퍼티를 가진 객체 `user`가 담긴 배열이 있습니다. `name`의 값만 담은 새로운 배열을 만들어주는 코드를 작성하시오.
+        
+        ```jsx
+        let john = { name: "John", age: 25 };
+        let pete = { name: "Pete", age: 30 };
+        let mary = { name: "Mary", age: 28 };
+        
+        let users = [ john, pete, mary ];
+        
+        let names = users.map(item => item.name);
+        
+        alert( names ); // John, Pete, Mary
+        ```
+        
+
+- **sort**
+    
+    `arr.sort(compareFunction)`
+    
+    배열의 요소 재정렬/ 재정렬된 배열 반환
+    
+    (but 이미 배열 자체가 수정되었기에 반환값 잘 사용x)
+    
+    - compareFunction(정렬 함수) : 정렬 순서를 정의하는 함수
+        
+        
+        - 생략시 `arr.sort()`
+            
+            ```jsx
+            let arr = [ 1, 2, 15 ];
+            
+            arr.sort(); // arr 내부가 재 정렬됨
+            
+            alert( arr );  // 1, 15, 2
+            ```
+            
+            요소가 문자열로 취급되어 재정렬됨
+            
+            → 문자열 비교는 사전편집 순으로 진행
+            
+            → 2는 15보다 큰 값으로 취급 (`"2" > "15"`)
+            
+            ∴ 의도대로 정렬되지 않을 수 있음
+            
+        
+        - compare 함수 형식
+            - 반드시 인수로 값 두 개를 비교
+            - 반환 값 있어야 함
+                
+                반환값 < 0 ⇒ a가 b보다 앞에 오도록 정렬
+                
+                반환값 > 0 ⇒ b가 a보다 앞에 오도록 정렬
+                
+            
+            ```jsx
+             function compare(a, b) {
+              if (a > b) return 1; // 첫 번째 값이 두 번째 값보다 큰 경우
+              if (a == b) return 0; // 두 값이 같은 경우
+              if (a < b) return -1; //  첫 번째 값이 두 번째 값보다 작은 경우
+            }
+            
+            arr.sort( (a, b) => a - b );
+            // 이렇게 단순화도 가능
+            ```
+            
+            - 다양한 언어가 사용된 문자열 arr에는 localeCompare 메소드를 사용
+                
+                ```jsx
+                let countries = ['Österreich', 'Andorra', 'Vietnam'];
+                
+                alert( countries.sort( (a, b) => a > b ? 1 : -1) ); // Andorra, Vietnam, Österreich (제대로 정렬이 되지 않았습니다.)
+                
+                alert( countries.sort( (a, b) => a.localeCompare(b) ) ); // Andorra,Österreich,Vietnam (제대로 정렬되었네요!)
+                ```
+                
+- **reverse**
+    
+    `arr.reverse`
+    
+    요소를 역순으로 재정렬 (배열 자체를 수정)
+    
+- **split**
+    
+    `str.split(separator, limit)`
+    
+    문자열 → 배열
+    
+    - separator : 문자열을 끊어야 할 부분을 나타내는 문자열
+        - `""` (빈 string) : 각각의 문자가 원소가 됨 (`[s,t,a,r]`)
+        - 생략 or 발견X : 원본 str을 유일한 원소로 가진 배열 반환
+    - limit : 배열의 최대 요소 갯수
+    
+    ```jsx
+    let names = 'Bilbo, Gandalf, Nazgul';
+    
+    let arr = names.split(', '); // [Bilbo, Gandalf, Nazgul]
+    ```
+    
+
+- **join**
+    
+    `arr.join([separator])`
+    
+    배열 → 문자열
+    
+    나눠진 요소를 하나로 합쳐서 문자열로 반환
+    
+    - `separator`
+        
+        각 요소를 구분할 문자열 지정
+        
+        - 입력시, 중간 중간에 껴넣어짐
+        - 생략시, 배열의 요소들이 쉼표로 구분됨
+        - `''`입력시, 아무 문자도 없이 연결됨
+    
+    ```jsx
+    const elements = ['Fire', 'Air', 'Water'];
+    
+    console.log(elements.join());
+    // expected output: "Fire,Air,Water" 쉼표까지 포함됨
+    
+    console.log(elements.join(''));
+    // expected output: "FireAirWater"
+    
+    console.log(elements.join('-'));
+    // expected output: "Fire-Air-Water"
+    ```
+    
+
+- **reduce**
+    
+    `arr.reduce(fucntion(accumulator, item, index, array)` 
+    
+    `{~}, initial)`
+    
+    각 요소에 함수 반복 실행, 결과를 누적시켜 하나의 값을 도출
+    
+    (`reduceRight`는 동일한 기능/ 배열의 오른쪽부터 연산 실행)
+    
+    - `accmulator` : 이전 함수 호출 결과 (결과값이 누적된 누전기)
+    - `initial` : 함수 최초 호출시 사용되는 초깃값
+        
+        initial(초깃값)은 생략 가능
+        
+        BUT 배열이 비어있으면 에러 → 쓰는 걸 권장(초깃값 반환)
+        
+    - `item` : 현재 배열의 요소
+    - `index` : 현재 요소의 인덱스
+    - `array` : 배열
+    
+    ```jsx
+    let arr = [1, 2, 3, 4, 5];
+    
+    let result = arr.reduce((sum, current) => sum + current, 0);
+    
+    alert(result); // 15
+    ```
+    
+
+## 기타 **메서드**
+
+- **arr.some**
+    
+    `arr.some(function(item[, index[, array]])`
+    
+    모든 요소 대상으로 판별fn 호출 → 참인 값 1개라도 있으면 → `true` / 하나도 없다면 `false` 반환
+    
+- **arr. every**
+    
+    `arr.some(function(item[, index[, array]])`
+    
+    some과 동일, but 요소가 모두 참이어야 `true`
+    
+
+- **arr.fill**
+    
+    `arr.fill(value[, start[, end]])`
+    
+    인덱스(start~end(미포함))에 value를 채워 변형한 배열 반환
+    
+- **arr.copyWithin**
+    
+    `arr.copyWithin(target[, start[, end]])`
+    
+    target(인덱스)에 start ~ end(미포함) 요소 복사 붙여넣기
+    
+    원 배열 자체를 수정
+    
+    - `arr.copyWithin(target)`
+        
+        배열 전체 복사 → target에 붙여넣기 (length에 맞춰 잘림)
+        
+    - `arr.copyWithin(target, start)`
+        
+        start부터 끝까지 복사 → target에 붙여넣기
+        
+- **arr.isArray**
+    
+    `arr.isArray()`
+    
+    배열인지 아닌지 판별해서 boolean 반환
+    
+    (배열은 객체형이기 때문에 typeof()로 판별 불가함)
+    
+    ```jsx
+    alert(Array.isArray({})); // false
+    
+    alert(Array.isArray([])); // true
+    ```
+    
+
+- **array.length**
+    
+    가장 큰 인덱스 값 + 1 (배열 내 요소의 개수 X)
+    
+    ```jsx
+    let fruits = [];
+    fruits[123] = "사과";
+    
+    alert( fruits.length ); // 124
+    ```
+    
+    - 수동으로 감소시킬 수 있음 BUT 잘린 만큼 배열이 날아감
+        
+        (증가/복구 불가)
+        
+        ```jsx
+        let arr = [1, 2, 3, 4, 5];
+        
+        arr.length = 2; // 요소 2개만 남기고 잘라봅시다.
+        alert( arr ); // [1, 2]
+        
+        arr.length = 5; // 본래 길이로 되돌려 봅시다.
+        alert( arr[3] ); // undefined: 삭제된 기존 요소들이 복구되지 않습니다.
+        ```
+        
+
+- arr.toString
+    
+    `array.toString()` ⇒ “value, value, ...”
+    
+    (`string(array)`)
+    
+    배열엔 `toString`메서드가 구현되어 있어 호출하면 요소를 쉼표로 구분한 문자열로 반환함
+    
+    ```jsx
+    alert( [] + 1 ); // "1"
+    alert( [1] + 1 ); // "11"
+    alert( [1,2] + 1 ); // "1,21"
+    ```
+    
 
 ## thisArg
 
@@ -1413,16 +1451,14 @@ alert(soldiers[1].age); // 23
     는 `undefined`가 되어 에러 발생
     
 
-## isArray
-
-`arr.isArray()`
-
-배열인지 아닌지 판별해서 boolean 반환
-
-(배열은 객체형이기 때문에 typeof()로 판별 불가함)
+## 다차원 배열
 
 ```jsx
-alert(Array.isArray({})); // false
+let matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
 
-alert(Array.isArray([])); // true
+alert( matrix[1][1] ); // 5, 중심에 있는 요소
 ```
