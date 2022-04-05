@@ -29,13 +29,67 @@ fnc이 n(ms) 후에 실행 (1번)
 "hello".padEnd(10,"x");  // "helloxxxxx"
 ```
 
-# 시간
+# **Date 객체**
 
-## **Date**
+## 객체 생성
 
-- `new Date()`  현재 요일/ 월/ 일/ 년/ 시:분:초/ 위치
+인수에 따라 결과값이 달라짐
+
+- `**new Date()`**
+    
+    현재 요일/ 월/ 일/ 년/ 시:분:초/ 위치
     
     ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/e3c995bd4d8c459cacd5026f8d2cf4f1/8562a51d-498f-4be4-9d6f-b19c4f1d4642.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/e3c995bd4d8c459cacd5026f8d2cf4f1/8562a51d-498f-4be4-9d6f-b19c4f1d4642.png)
+    
+- `**new Date(timestamp)**`
+    - `timestamp`(타임스탬프) : 1970년 1월 1일 0시 0분 0초(UTO+0)을 기준으로 흘러간 밀리초(1/1000 초)를 나타내는 정수
+    - 1970년 첫날에서 타임스탬프 이후 시점의 `Date`객체가 반환
+    - 음수는 이전 날짜를 반환
+    
+    ```jsx
+    // 1970년 1월 1일 0시 0분 0초(UTC+0)를 나타내는 객체
+    let Jan01_1970 = new Date(0);
+    
+    // 1970년 1월 1일의 24시간 후는 1970년 1월 2일(UTC+0)임
+    // 24시간 = 24 * 3600(60분 60초) * 1000 (밀리초*1000=1초)
+    let Jan02_1970 = new Date(24 * 3600 * 1000);
+    
+    // 31 Dec 1969
+    let Dec31_1969 = new Date(-24 * 3600 * 1000);
+    ```
+    
+- `**new date(datestring)**`
+    
+    `Date.parse`의 알고리즘이 적용되어 문자열이 자동으로 구문 분석되어 객체가 반환
+    
+    ```jsx
+    let date = new Date("2017-01-26");
+    alert(date);
+    // 인수로 시간은 지정하지 않았기 때문에 GMT 자정이라고 가정하고
+    // 코드가 실행되는 시간대(timezone)에 따라 출력 문자열이 바뀝니다.
+    // 따라서 얼럿 창엔
+    // Thu Jan 26 2017 11:00:00 GMT+1100 (Australian Eastern Daylight Time)
+    // 혹은
+    // Wed Jan 25 2017 16:00:00 GMT-0800 (Pacific Standard Time)등이 출력됩니다.
+    ```
+    
+- **`new Date(year, month, date, hours, minutes, seconds, ms)`**
+    
+    주어진 인수를 조합해 만들 수 있는 날짜가 저장된 객체가 반환(지역 시간대 기준)
+    
+    - 인수 (year, month만 필수)
+    • `year` : 반드시 네 자리 숫자
+    • `month` :  `0`(1월)부터 `11`(12월) 사이의 숫자
+    • `date` : 값이 없는 경우엔 1일로 처리
+    • `hours/minutes/seconds/ms` : 값이 없는 경우엔 `0`으로 처리 최소 정밀도는 밀리초(1/1000초)
+    
+    ```jsx
+    new Date(2011, 0, 1, 0, 0, 0, 0); // 2011년 1월 1일, 00시 00분 00초
+    new Date(2011, 0, 1); // hours를 비롯한 인수는 기본값이 0이므로 위와 동일
+    
+    // 2011년 1월 1일, 02시 03분 04.567초
+    let date = new Date(2011, 0, 1, 2, 3, 4, 567);
+    ```
     
 - `new Date().getDate()`  일
 - `new Date().getDay()`  요일 ( 0 = 일요일)
@@ -43,6 +97,10 @@ fnc이 n(ms) 후에 실행 (1번)
 - `new Date().getHours()`  시간
 - `new Date().getMinutes()`  분
 - `new Date().getSecond()`  초
+- `date.now`
+    
+    1970년 1월 1일 00:00:00 UTC로부터 지난 시간을 밀리초 단위의 숫자 값으로 반환. 윤초는 무시함.
+    
 
 ## **시:분:초 출력**
 
@@ -88,6 +146,14 @@ setInterval(getClock, 1000);
 - `Math.round()`  숫자를 반올림
 - `Math.ceil()` 숫자를 올림
 - `Math.floor()`  숫자를 내림
+- `Math.trunc()`  소수부를 무시 (IE에서 지원X)
+
+( `toFixed(n)`소수점 n번째 수까지 어림수를 구한 후, 문자형으로 반환)
+
+- `Math.random()`  0과 1 사이의 난수를 반환
+- `Math.max()` / `Math.min()`  인수 중 최대/최솟값 반환
+- `Math.pow(n, power)`  n을 power번 거듭제곱한 값 반환
+- `Math.abs(n)` n의 절대값 반환
 
 ## **랜덤 정수(integer) 얻기**
 
