@@ -91,12 +91,19 @@ fnc이 n(ms) 후에 실행 (1번)
     let date = new Date(2011, 0, 1, 2, 3, 4, 567);
     ```
     
-- `new Date().getDate()`  일
-- `new Date().getDay()`  요일 ( 0 = 일요일)
-- `new Date().getFullYear()`  년도
-- `new Date().getHours()`  시간
-- `new Date().getMinutes()`  분
-- `new Date().getSecond()`  초
+
+## 날짜 구성요소 얻기
+
+`new Date().get메서드`
+
+- `getFullYear()`  년도(네 자릿수)
+- `getMonth()`  월 (0~11)
+- `getDay()`  요일을 나타내는 숫자 0~6 ( 0 = 일요일)
+- `getDate()`  일
+- `getHours()`  시간
+- `getMinutes()`  분
+- `getSecond()`  초
+- `getMilliseconds()`  밀리초
 - `date.now`
     
     1970년 1월 1일 00:00:00 UTC로부터 지난 시간을 밀리초 단위의 숫자 값으로 반환. 윤초는 무시함.
@@ -154,6 +161,10 @@ setInterval(getClock, 1000);
 - `Math.max()` / `Math.min()`  인수 중 최대/최솟값 반환
 - `Math.pow(n, power)`  n을 power번 거듭제곱한 값 반환
 - `Math.abs(n)` n의 절대값 반환
+- `Math.sqrt(x)`  주어진 숫자에 루트(**√** )를 씌운 수 반환
+    
+    만약 숫자가 음수이면 `NaN` 반환
+    
 
 ## **랜덤 정수(integer) 얻기**
 
