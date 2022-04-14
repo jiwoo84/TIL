@@ -1,4 +1,4 @@
-# clock_ quote
+# Date / Math
 
 [→ Open in Slid](https://slid.cc/docs/e3c995bd4d8c459cacd5026f8d2cf4f1)
 
@@ -16,34 +16,31 @@ fnc이 n(ms)마다 실행 (1000ms = 1s(초))
 
 fnc이 n(ms) 후에 실행 (1번)
 
-## **padStart / padEnd**
-
-`~.padStart(n,…)` / `~.padEnd(n,…)`
-
-~(string)이 n자리가 안된다면 앞/뒤에 …(string) 추가
-
-- string 만 가능
-
-```jsx
-"1".padstart(2,"0");  // "01"
-"hello".padEnd(10,"x");  // "helloxxxxx"
-```
-
 # **Date 객체**
 
-## 객체 생성
+## 생성
 
 인수에 따라 결과값이 달라짐
 
 - `**new Date()`**
     
-    현재 요일/ 월/ 일/ 년/ 시:분:초/ 위치
+    현재 요일/ 월/ 일/ 년/ 시:분:초/ 위치 반환
     
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/e3c995bd4d8c459cacd5026f8d2cf4f1/8562a51d-498f-4be4-9d6f-b19c4f1d4642.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/e3c995bd4d8c459cacd5026f8d2cf4f1/8562a51d-498f-4be4-9d6f-b19c4f1d4642.png)
+    - 항상 날짜와 시간이 함께 호출됨
+    - 숫자형으로 변경시 타임스탬프 호출됨
+        
+        ex) `+new Date()` ⇒ (1224665~)타임스탬프
+        
     
+    ```jsx
+    new Date();
+    // Thu Apr 14 2022 21:44:18 GMT+0900 (한국 표준시)
+    ```
+    
+
 - `**new Date(timestamp)**`
-    - `timestamp`(타임스탬프) : 1970년 1월 1일 0시 0분 0초(UTO+0)을 기준으로 흘러간 밀리초(1/1000 초)를 나타내는 정수
     - 1970년 첫날에서 타임스탬프 이후 시점의 `Date`객체가 반환
+    - `timestamp`(타임스탬프) : 1970년 1월 1일 0시 0분 0초(UTO+0)을 기준으로 흘러간 밀리초(1/1000 초)를 나타내는 정수
     - 음수는 이전 날짜를 반환
     
     ```jsx
@@ -73,7 +70,26 @@ fnc이 n(ms) 후에 실행 (1번)
     // Wed Jan 25 2017 16:00:00 GMT-0800 (Pacific Standard Time)등이 출력됩니다.
     ```
     
-- **`new Date(year, month, date, hours, minutes, seconds, ms)`**
+    - Date.parse
+        
+        `Date.parse(YYYY[-MM-DDTHH:mm:ss.sssZ])`
+        
+        문자열에서 날짜 읽어와서 그 날부터의 타임스탬프 반환 (형식에 안 맞으면 NaN)
+        
+        - 인수
+            - `YYYY-MM-DD` – 날짜(연-월-일)
+            - `"T"` – 구분 기호로 쓰임
+            - `HH:mm:ss.sss` – 시:분:초.밀리초
+            - `'Z'`(옵션) – `+-hh:mm` 형식의 시간대를 나타냄. `Z` 한 글자인 경우엔 UTC+0을 나타냄
+        
+        ```jsx
+        let ms = Date.parse('2012-01-26T13:51:50.417-07:00');
+        
+        alert(ms); // 1327611110417  (타임스탬프)
+        ```
+        
+    
+- **`new Date(year, month [, date, hours, minutes, seconds, ms])`**
     
     주어진 인수를 조합해 만들 수 있는 날짜가 저장된 객체가 반환(지역 시간대 기준)
     
@@ -96,49 +112,74 @@ fnc이 n(ms) 후에 실행 (1번)
 
 `new Date().get메서드`
 
-- `getFullYear()`  년도(네 자릿수)
-- `getMonth()`  월 (0~11)
-- `getDay()`  요일을 나타내는 숫자 0~6 ( 0 = 일요일)
-- `getDate()`  일
-- `getHours()`  시간
-- `getMinutes()`  분
-- `getSecond()`  초
-- `getMilliseconds()`  밀리초
-- `date.now`
+(아래 메서드 모두 위치한 현지 시간 기준 요소 반환
+
+표준시간대(UTC+0, 일광 절약 시간제를 적용하지 않은 런던 시간)를 얻기 위해서는 UTO 넣을 것
+
+ex) `getUTCFullYear()` , `getUTCMonth()` )
+
+- 현지 시간
+    - `getFullYear()`  년도(네 자릿수)
+    - `getMonth()`  월 (0~11)
+    - `getDay()`  요일을 나타내는 숫자 0~6 ( 0 = 일요일)
+    - `getDate()`  일
+    - `getHours()`  시간
+    - `getMinutes()`  분
+    - `getSecond()`  초
+    - `getMilliseconds()`  밀리초
+
+- 이외
+    - `getTimezoneOffset()`  현지 시간과 표준 시간의 차이(분)을 반환
+    - `getTime()`  타임스탬프 반환
+
+- `Date.now()` : 타임스탬프 반환
     
-    1970년 1월 1일 00:00:00 UTC로부터 지난 시간을 밀리초 단위의 숫자 값으로 반환. 윤초는 무시함.
+    `new Date().getTime()`과 의미론적으로 동일하지만 중간에 Date객체를 만들지 않아서 성능에 좋음
     
 
-## **시:분:초 출력**
+## 날짜 구성요소 설정하기
 
-(`const date = new Date();`)
+`new Date().set메서드`
 
-``${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;`
+- `setFullYear(year, [month], [date])`
+- `setMonth(month, [date])`
+- `setDate(date)`
+- `setHours(hour, [min], [sec], [ms])`
+- `setMinutes(min, [sec], [ms])`
+- `setSeconds(sec, [ms])`
+- `setMilliseconds(ms)`
+- `setTime(milliseconds)`
+
+- 유의사항
+    - return값 : UTC와 주어진 날짜 사이의 밀리 초
+    - `setTime()`을 제외한 모든 메서드가 `setUTCHours()` 같이 표준시에 따라 날짜 구성 요소를 설정해주는 메서드가 있음
 
 ```jsx
-const clock = document.querySelector("#clock");
+let today = new Date();
 
-function getClock() {
-  const date = new Date();
-  clock.innerText = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-}
+today.setHours(0);
+alert(today); // 날짜는 변경되지 않고 시만 0으로 변경됩니다.
 
-getClock(); // 안 써주면 새로고침하고 1초 후에 시간 뜬다
-setInterval(getClock, 1000);
+today.setHours(0, 0, 0, 0);
+alert(today); // 날짜는 변경되지 않고 시, 분, 초가 모두 변경됩니다(00시 00분 00초).
 ```
 
-- **00:00:00 형태로 시간 출력**
+## Date
+
+## 특이사항
+
+- 자동 고침 기능
     
-    ```jsx
-    const date = new Date();
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
-    clock.innerText = `${hours}:${minutes}:${seconds}`;
-    ```
+    말이 안되는 값이면 알아서 고쳐줌
     
-    `date.getHours()`이 num이기 때문에 string으로 변환 후, padstart 적용
-    
+    - 32일, 70초 같이 초과한 값
+        
+        `let date = new Date(2013, 0, 32)` ⇒ 2013.02.01
+        
+    - 음수값
+        
+        `new Date(2016, 0, 1).setDate(-2)` 설정 후 ⇒ 2015.12.29 
+        
 
 # Math
 
@@ -255,6 +296,6 @@ bgImage.src = `img/0.jpg`;
 document.body.appendChild(bgImage);
 ```
 
-![body 맨 끝에 <img> 추가되어 있음](clock_%20quo%20413d1/Untitled.png)
+![body 맨 끝에 <img> 추가되어 있음](Date%20Math%20413d1/Untitled.png)
 
 body 맨 끝에 <img> 추가되어 있음
