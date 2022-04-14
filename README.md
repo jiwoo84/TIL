@@ -8,12 +8,12 @@
 - 무의미한 커밋만을 위해 작성하지 않는다
 - 그렇다고 많은 시간을 할애해서도 안된다 (기록을 위한 기록x)
 
-## HTML
+## 분류
 
----
-
-## CSS
-
----
-
+### HTML & css
 - cascading에 관하여
+
+### Javascript
+* 모던 JavaScript 튜토리얼 정복 프로젝트
+  * 진행일: 2/23 ~  진행중
+  * [💡 진행상황 보기](https://www.notion.so/JavaScript-ca806d4b37004128894e5aee4bed57ad)
