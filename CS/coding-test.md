@@ -1,4 +1,4 @@
-# 코딩테스트
+# coding test
 
 # 프로그래머스
 
@@ -95,7 +95,7 @@
     }
     ```
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled.png)
+    ![Untitled](coding%20tes%20f41b2/Untitled.png)
     
 
 - 다른 풀이
@@ -107,7 +107,7 @@
     }
     ```
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%201.png)
+    ![Untitled](coding%20tes%20f41b2/Untitled%201.png)
     
     효율성은 내가 쓴 코드가 더 좋음
     
@@ -176,7 +176,7 @@
     }
     ```
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%202.png)
+    ![Untitled](coding%20tes%20f41b2/Untitled%202.png)
     
 1. **문자열 내 p와 y의 개수**
     
@@ -212,7 +212,7 @@
     }
     ```
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%203.png)
+    ![Untitled](coding%20tes%20f41b2/Untitled%203.png)
     
 
 - 다른 풀이
@@ -248,7 +248,7 @@
     }
     ```
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%204.png)
+    ![Untitled](coding%20tes%20f41b2/Untitled%204.png)
     
 - 다른 풀이
     
@@ -293,7 +293,7 @@
         }
         ```
         
-        ![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%205.png)
+        ![Untitled](coding%20tes%20f41b2/Untitled%205.png)
         
     - 다른 풀이
         
@@ -337,7 +337,7 @@
         
         ```
         
-        ![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%206.png)
+        ![Untitled](coding%20tes%20f41b2/Untitled%206.png)
         
     
     - 다른 풀이
@@ -400,9 +400,9 @@
     
     머릿속에서 그려보는데 굉장히 고생했다...
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%207.png)
+    ![Untitled](coding%20tes%20f41b2/Untitled%207.png)
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%208.png)
+    ![Untitled](coding%20tes%20f41b2/Untitled%208.png)
     
     화살표 함수로 간단히 줄이면,,,
     
@@ -612,7 +612,7 @@ function solution(n) {
 }
 ```
 
-![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%209.png)
+![Untitled](coding%20tes%20f41b2/Untitled%209.png)
 
 - 해답
 
@@ -629,7 +629,7 @@ function solution(n) {
 }
 ```
 
-![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%2010.png)
+![Untitled](coding%20tes%20f41b2/Untitled%2010.png)
 
 1. 제일 작은 수 제거하기
 
@@ -659,7 +659,7 @@ function solution(n) {
     }
     ```
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%2011.png)
+    ![Untitled](coding%20tes%20f41b2/Untitled%2011.png)
     
     ```jsx
     function solution(arr) {
@@ -675,7 +675,7 @@ function solution(n) {
     }
     ```
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%90%E1%85%A6%E1%84%89%E1%85%B3%E1%84%90%20f41b2/Untitled%2012.png)
+    ![Untitled](coding%20tes%20f41b2/Untitled%2012.png)
     
 
 1. 최소공배수와 최대공배수
@@ -702,3 +702,216 @@ function solution(n) {
             
         - 최대공약수 = e(n)
         - 최소공배수 = (max * min) /e(n)
+            
+            
+    - 나의 풀이
+    
+    ```jsx
+    function solution(n, m) {
+        // 두 수의 [최대공약수, 최소공배수] 배열 반환
+        
+        // max = 큰값 , min = 작은값
+        let max = Math.max(n,m);
+        let min = Math.min(n,m);
+        // a = 최대공약수 , b = 최소공배수
+        
+        // 최대공약수 (유클리드의 호제법)
+        function u(i, j) {
+            let e = i % j;
+            if (e === 0) return j;
+            return u(j, e);
+            }
+        
+        // 최대공배수
+        // max * min / u(max, min)
+        
+        return [u(max,min), max * min / u(max,min)];
+    }
+    ```
+    
+    - 간단한 풀이
+    
+    ```jsx
+    function solution(n, m) {
+      function u(n, m) { return m % n ? u(m % n, n) : n; }
+      const gcd = u(n, m);
+      return [gcd, n * m / gcd];
+    }
+    ```
+    
+
+### 콜라츠 추측
+
+1937년 Collatz란 사람에 의해 제기된 이 추측은, 주어진 수가 1이 될때까지 다음 작업을 반복하면, 모든 수를 1로 만들 수 있다는 추측입니다. 작업은 다음과 같습니다.
+
+`1-1. 입력된 수가 짝수라면 2로 나눕니다. 
+1-2. 입력된 수가 홀수라면 3을 곱하고 1을 더합니다.
+2. 결과로 나온 수에 같은 작업을 1이 될 때까지 반복합니다.`
+
+예를 들어, 입력된 수가 6이라면 6→3→10→5→16→8→4→2→1 이 되어 총 8번 만에 1이 됩니다. 위 작업을 몇 번이나 반복해야하는지 반환하는 함수, solution을 완성해 주세요. 단, 작업을 500번을 반복해도 1이 되지 않는다면 –1을 반환해 주세요.
+
+- 제한 사항
+    
+    입력된 수, `num`은 1 이상 8000000 미만인 정수입니다.
+    
+
+- 나의 풀이
+    
+    ```jsx
+    function solution(num) {
+        
+      // let sum = 0; 
+      // 함수 p
+      // 과정마다 sum + 1;
+      // if (num === 1) return sum;
+      // if (num 짝수) => return p(num / 2)
+      // if (num 홀수) => return p(num * 3 + 1)
+    
+      let sum = -1;
+      
+      function p(num) {
+    
+          sum++;
+    
+          if (sum === 500) return -1;
+          else if (num === 1) return sum;
+          else if (num % 2 === 0) return p(num / 2);
+          else if (num % 2 !== 0) return p(num * 3 + 1);
+          }
+      
+      return p(num);
+    }
+    ```
+    
+    ![Untitled](coding%20tes%20f41b2/Untitled%2013.png)
+    
+- 다른 풀이
+    
+    ```jsx
+    function solution(num, count = 0) {
+        return count === 500 
+            ? -1 
+            : num === 1
+                ? count
+                : solution(num % 2 ? num * 3 + 1 : num / 2, count + 1);
+    }
+    ```
+    
+
+### 하샤드 수
+
+양의 정수 x가 하샤드 수이려면 x의 자릿수의 합으로 x가 나누어져야 합니다. 예를 들어 18의 자릿수 합은 1+8=9이고, 18은 9로 나누어 떨어지므로 18은 하샤드 수입니다. 자연수 x를 입력받아 x가 하샤드 수인지 아닌지 검사하는 함수, solution을 완성해주세요.
+
+- 제한 조건
+    
+    `x`는 1 이상, 10000 이하인 정수입니다.
+    
+- 나의 풀이
+    
+    ```jsx
+    function solution(x) {
+        
+        // 자릿수 합 / X = 0 => true
+        
+        // 자릿수 합 구하기
+        // // x -> 문자열 -> 배열 -> 모든값 더하기
+        // x % 자릿수 합 == 0 => return true;
+        return x % String(x).split("").reduce((sum, e) => sum + (+e), 0) ? false : true;
+        
+    }
+    ```
+    
+    e를 꼭 숫자형으로 바꿔줘야 한다
+    
+- 다른 풀이
+    
+    ```jsx
+    function solution(x) {
+        return !(x % String(x).split('').reduce((a, c) => a + c * 1, 0));
+    }
+    ```
+    
+
+### 핸드폰 번호 가리기
+
+프로그래머스 모바일은 개인정보 보호를 위해 고지서를 보낼 때 고객들의 전화번호의 일부를 가립니다.전화번호가 문자열 phone_number로 주어졌을 때, 전화번호의 뒷 4자리를 제외한 나머지 숫자를 전부 `*`으로 가린 문자열을 리턴하는 함수, solution을 완성해주세요.
+
+- 제한 조건
+    
+    phone_number는 길이 4 이상, 20이하인 문자열입니다.
+    
+- 나의 풀이
+    
+    ```jsx
+    function solution(num) {
+        // 뒤 4자리만 빼고 *처리한 문자열 반환
+        
+        // str -> arr -> 인덱스 -5부터 -arr.length까지 *로 변경 -> str
+        let arr = num.split('')
+        
+        for (let i = -5; i >= -arr.length; i--) {
+           arr.splice(i, 1 , "*");
+        }
+        
+        return arr.join("");
+    }
+    ```
+    
+
+### x만큼 간격이 있는 n개의 숫자
+
+함수 solution은 정수 x와 자연수 n을 입력 받아, x부터 시작해 x씩 증가하는 숫자를 n개 지니는 리스트를 리턴해야 합니다. 다음 제한 조건을 보고, 조건을 만족하는 함수, solution을 완성해주세요.
+
+- **제한 조건**
+    - x는 -10000000 이상, 10000000 이하인 정수입니다.
+    - n은 1000 이하인 자연수입니다.
+
+- 나의 풀이
+    
+    ```jsx
+    function solution(x, n) {
+        //  return 배열[x의 배수 n개]
+        
+        // reduce. (1 < i <= n) * x 배열에 push
+        let arr = [];
+        
+        for(let i = 1; i <= n; i++) {
+            arr.push(x * i);
+        }
+       
+        return arr;
+    }
+    ```
+    
+
+### 2016년
+
+2016년 1월 1일은 금요일입니다. 2016년 a월 b일은 무슨 요일일까요? 두 수 a ,b를 입력받아 2016년 a월 b일이 무슨 요일인지 리턴하는 함수, solution을 완성하세요. 요일의 이름은 일요일부터 토요일까지 각각 `SUN,MON,TUE,WED,THU,FRI,SAT`
+
+입니다. 예를 들어 a=5, b=24라면 5월 24일은 화요일이므로 문자열 "TUE"를 반환하세요.
+
+- 제한 조건
+    - 2016년은 윤년입니다.
+    - 2016년 a월 b일은 실제로 있는 날입니다. (13월 26일이나 2월 45일같은 날짜는 주어지지 않습니다)
+    
+- 나의 풀이
+    
+    ```jsx
+    function solution(a, b) {
+        // new date()로 날짜 얻기 -> getDay()로 요일 -> 글자로 반환
+        let week = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+        return week[new Date(2016, a-1, b).getDay()];
+    }
+    ```
+    
+    ![Untitled](coding%20tes%20f41b2/Untitled%2014.png)
+    
+
+- 다른 풀이
+    
+    ```jsx
+    function getDayName(a,b){
+      let date = new Date(2016, (a - 1), b);
+        return date.toString().slice(0, 3).toUpperCase();
+    }
+    ```
