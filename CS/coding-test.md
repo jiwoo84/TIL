@@ -915,3 +915,199 @@ function solution(n) {
         return date.toString().slice(0, 3).toUpperCase();
     }
     ```
+    
+
+## 숫자열과 영단어
+
+네오와 프로도가 숫자놀이를 하고 있습니다. 네오가 프로도에게 숫자를 건넬 때 일부 자릿수를 영단어로 바꾼 카드를 건네주면 프로도는 원래 숫자를 찾는 게임입니다.다음은 숫자의 일부 자릿수를 영단어로 바꾸는 예시입니다.
+
+- 1478 → "one4seveneight"
+- 234567 → "23four5six7"
+- 10203 → "1zerotwozero3"
+
+이렇게 숫자의 일부 자릿수가 영단어로 바뀌어졌거나, 혹은 바뀌지 않고 그대로인 문자열 `s`가 매개변수로 주어집니다. `s`가 의미하는 원래 숫자를 return 하도록 solution 함수를 완성해주세요.
+
+참고로 각 숫자에 대응되는 영단어는 다음 표와 같습니다.
+
+- 제한사항
+    - 1 ≤ `s`의 길이 ≤ 50
+    - `s`가 "zero" 또는 "0"으로 시작하는 경우는 주어지지 않습니다.
+    - return 값이 1 이상 2,000,000,000 이하의 정수가 되는 올바른 입력만 `s`로 주어집니다.
+    
+- 풀이
+    
+    ```jsx
+    function solution(s) {
+        
+        let numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+        
+        // 변수에 초기 s 저장
+        let result = s;
+        
+        // for문
+        for(let i = 0; i < numbers.length; i++) {
+            
+        // 문자열 찾아서 분리된 배열 생성
+            let arr = result.split(numbers[i]);
+            
+        // 배열 -> 문자열 result에 저장
+            result = arr.join(i);
+        }
+    
+        return Number(result);
+        }
+    ```
+    
+
+## 없는 숫자 더하기
+
+0부터 9까지의 숫자 중 일부가 들어있는 정수 배열 `numbers`가 매개변수로 주어집니다. `numbers`에서 찾을 수 없는 0부터 9까지의 숫자를 모두 찾아 더한 수를 return 하도록 solution 함수를 완성해주세요.
+
+- 제한사항
+    
+    1 ≤ `numbers`의 길이 ≤ 9
+    
+    - 0 ≤ `numbers`의 모든 원소 ≤ 9
+    - `numbers`의 모든 원소는 서로 다릅니다.
+    
+- 나의 풀이
+    
+    ```jsx
+    function solution(numbers) {
+        // 0~9 중 없는 숫자 더한 값 반환
+        let list = [0,1,2,3,4,5,6,7,8,9]
+        
+        // list에서 numbers의 값 하나씩 지우기
+        for (let i = 0; i < numbers.length; i++) {
+                    
+            list.splice(list.indexOf(numbers[i]), 1)
+    
+            }
+        
+        // 요소 전체 더하기
+        return list.reduce((sum,e) => sum += e, 0);
+        }
+    ```
+    
+    ![Untitled](coding%20tes%20f41b2/Untitled%2015.png)
+    
+- 다른 풀이
+    
+    ```jsx
+    function solution(numbers) {
+        return 45 - numbers.reduce((cur, acc) => cur + acc, 0);
+    }
+    ```
+    
+    총 합을 빼주면 됐었는데... 이럴수가
+    
+    ```jsx
+    function solution(numbers) {
+        let answer = 0;
+    
+        for(let i = 0; i <= 9; i++) {
+            if(!numbers.includes(i)) answer += i;
+        }
+    
+        return answer;
+    }
+    ```
+    
+
+## 소수 만들기
+
+주어진 숫자 중 3개의 수를 더했을 때 소수가 되는 경우의 개수를 구하려고 합니다. 숫자들이 들어있는 배열 nums가 매개변수로 주어질 때, nums에 있는 숫자들 중 서로 다른 3개를 골라 더했을 때 소수가 되는 경우의 개수를 return 하도록 solution 함수를 완성해주세요.
+
+- 제한사항
+    - nums에 들어있는 숫자의 개수는 3개 이상 50개 이하입니다.
+    - nums의 각 원소는 1 이상 1,000 이하의 자연수이며, 중복된 숫자가 들어있지 않습니다.
+    
+- 나의 풀이
+    
+    ```jsx
+    function solution(nums) {
+        
+        let answer = 0;
+        // for: 세 개의 숫자 더하기 (모든 경우의 수 반복)
+        //  변수 => index
+        for(let i = 0; i < nums.length; i++) {
+            for(let j = i + 1; j < nums.length; j++) {
+                for (let k = j + 1; k < nums.length; k++) {
+                    
+                    let sum = nums[i] + nums[j] + nums[k];
+                    
+                    // 더한 수가 소수인지 확인
+                    for(let l = 2; l < sum; l++) {
+                        //  소수x -> continue;
+                        if (sum % l === 0) break;
+                         //  소수 -> answer + 1
+                        else if (l === sum -1) answer+= 1;
+                    }
+                }
+            }
+        }
+        return answer;
+    }
+    ```
+    
+    ![Untitled](coding%20tes%20f41b2/Untitled%2016.png)
+    
+    ```jsx
+    function solution(nums) {
+        
+        let answer = 0;
+        // for: 세 개의 숫자 더하기 (모든 경우의 수 반복)
+        //  변수 => index
+        for(let i = 0; i < nums.length; i++) {
+            for(let j = i + 1; j < nums.length; j++) {
+                for (let k = j + 1; k < nums.length; k++) {
+                    
+                    let sum = nums[i] + nums[j] + nums[k];
+                    
+                    // 더한 수가 소수인지 확인
+                    if(isPrime(sum)) answer += 1;
+                    }
+                }
+            }
+    		return answer;
+        
+        function isPrime(n) { // 소수 판별 함수
+            for(let i = 2; i < n; i++) {
+                if(n % i === 0) return false;
+            }
+            return true;
+        }
+    }
+    ```
+    
+    ![Untitled](coding%20tes%20f41b2/Untitled%2017.png)
+    
+    ```jsx
+    function solution(nums) {
+        
+        let answer = 0;
+        // for: 세 개의 숫자 더하기 (모든 경우의 수 반복)
+        //  변수 => index
+        for(let i = 0; i < nums.length; i++) {
+            for(let j = i + 1; j < nums.length; j++) {
+                for (let k = j + 1; k < nums.length; k++) {
+                    
+                    let sum = nums[i] + nums[j] + nums[k];
+                    
+                    // 더한 수가 소수인지 확인
+                    if(isPrime(sum)) answer += 1;
+                    }
+                }
+            }
+    		return answer;
+        
+        function isPrime(n) { // 소수 판별 함수
+            for(let i = 2; i <= Math.sqrt(n); i++) {
+                if(n % i === 0) return false;
+            }
+            return true;
+        }
+    }
+    ```
+    
+    ![Untitled](coding%20tes%20f41b2/Untitled%2018.png)
