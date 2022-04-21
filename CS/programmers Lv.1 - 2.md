@@ -2,12 +2,6 @@
 
 ### 하샤드 수
 
-양의 정수 x가 하샤드 수이려면 x의 자릿수의 합으로 x가 나누어져야 합니다. 예를 들어 18의 자릿수 합은 1+8=9이고, 18은 9로 나누어 떨어지므로 18은 하샤드 수입니다. 자연수 x를 입력받아 x가 하샤드 수인지 아닌지 검사하는 함수, solution을 완성해주세요.
-
-- 제한 조건
-    
-    `x`는 1 이상, 10000 이하인 정수입니다.
-    
 - 나의 풀이
     
     ```jsx
@@ -36,12 +30,6 @@
 
 ### 핸드폰 번호 가리기
 
-프로그래머스 모바일은 개인정보 보호를 위해 고지서를 보낼 때 고객들의 전화번호의 일부를 가립니다.전화번호가 문자열 phone_number로 주어졌을 때, 전화번호의 뒷 4자리를 제외한 나머지 숫자를 전부 `*`으로 가린 문자열을 리턴하는 함수, solution을 완성해주세요.
-
-- 제한 조건
-    
-    phone_number는 길이 4 이상, 20이하인 문자열입니다.
-    
 - 나의 풀이
     
     ```jsx
@@ -61,12 +49,6 @@
     
 
 ### x만큼 간격이 있는 n개의 숫자
-
-함수 solution은 정수 x와 자연수 n을 입력 받아, x부터 시작해 x씩 증가하는 숫자를 n개 지니는 리스트를 리턴해야 합니다. 다음 제한 조건을 보고, 조건을 만족하는 함수, solution을 완성해주세요.
-
-- **제한 조건**
-    - x는 -10000000 이상, 10000000 이하인 정수입니다.
-    - n은 1000 이하인 자연수입니다.
 
 - 나의 풀이
     
@@ -88,14 +70,6 @@
 
 ### 2016년
 
-2016년 1월 1일은 금요일입니다. 2016년 a월 b일은 무슨 요일일까요? 두 수 a ,b를 입력받아 2016년 a월 b일이 무슨 요일인지 리턴하는 함수, solution을 완성하세요. 요일의 이름은 일요일부터 토요일까지 각각 `SUN,MON,TUE,WED,THU,FRI,SAT`
-
-입니다. 예를 들어 a=5, b=24라면 5월 24일은 화요일이므로 문자열 "TUE"를 반환하세요.
-
-- 제한 조건
-    - 2016년은 윤년입니다.
-    - 2016년 a월 b일은 실제로 있는 날입니다. (13월 26일이나 2월 45일같은 날짜는 주어지지 않습니다)
-    
 - 나의 풀이
     
     ```jsx
@@ -105,8 +79,6 @@
         return week[new Date(2016, a-1, b).getDay()];
     }
     ```
-    
-    ![Untitled](programmers%20Lv%201%20-%202%20b336b660ba4f434b97a1d8a40fa2b7ee/Untitled.png)
     
 
 - 다른 풀이
@@ -121,21 +93,6 @@
 
 ## 숫자열과 영단어
 
-네오와 프로도가 숫자놀이를 하고 있습니다. 네오가 프로도에게 숫자를 건넬 때 일부 자릿수를 영단어로 바꾼 카드를 건네주면 프로도는 원래 숫자를 찾는 게임입니다.다음은 숫자의 일부 자릿수를 영단어로 바꾸는 예시입니다.
-
-- 1478 → "one4seveneight"
-- 234567 → "23four5six7"
-- 10203 → "1zerotwozero3"
-
-이렇게 숫자의 일부 자릿수가 영단어로 바뀌어졌거나, 혹은 바뀌지 않고 그대로인 문자열 `s`가 매개변수로 주어집니다. `s`가 의미하는 원래 숫자를 return 하도록 solution 함수를 완성해주세요.
-
-참고로 각 숫자에 대응되는 영단어는 다음 표와 같습니다.
-
-- 제한사항
-    - 1 ≤ `s`의 길이 ≤ 50
-    - `s`가 "zero" 또는 "0"으로 시작하는 경우는 주어지지 않습니다.
-    - return 값이 1 이상 2,000,000,000 이하의 정수가 되는 올바른 입력만 `s`로 주어집니다.
-    
 - 풀이
     
     ```jsx
@@ -163,15 +120,6 @@
 
 ## 없는 숫자 더하기
 
-0부터 9까지의 숫자 중 일부가 들어있는 정수 배열 `numbers`가 매개변수로 주어집니다. `numbers`에서 찾을 수 없는 0부터 9까지의 숫자를 모두 찾아 더한 수를 return 하도록 solution 함수를 완성해주세요.
-
-- 제한사항
-    
-    1 ≤ `numbers`의 길이 ≤ 9
-    
-    - 0 ≤ `numbers`의 모든 원소 ≤ 9
-    - `numbers`의 모든 원소는 서로 다릅니다.
-    
 - 나의 풀이
     
     ```jsx
@@ -190,8 +138,6 @@
         return list.reduce((sum,e) => sum += e, 0);
         }
     ```
-    
-    ![Untitled](programmers%20Lv%201%20-%202%20b336b660ba4f434b97a1d8a40fa2b7ee/Untitled%201.png)
     
 - 다른 풀이
     
@@ -218,12 +164,6 @@
 
 ## 소수 만들기
 
-주어진 숫자 중 3개의 수를 더했을 때 소수가 되는 경우의 개수를 구하려고 합니다. 숫자들이 들어있는 배열 nums가 매개변수로 주어질 때, nums에 있는 숫자들 중 서로 다른 3개를 골라 더했을 때 소수가 되는 경우의 개수를 return 하도록 solution 함수를 완성해주세요.
-
-- 제한사항
-    - nums에 들어있는 숫자의 개수는 3개 이상 50개 이하입니다.
-    - nums의 각 원소는 1 이상 1,000 이하의 자연수이며, 중복된 숫자가 들어있지 않습니다.
-    
 - 나의 풀이
     
     ```jsx
@@ -251,8 +191,6 @@
         return answer;
     }
     ```
-    
-    ![Untitled](programmers%20Lv%201%20-%202%20b336b660ba4f434b97a1d8a40fa2b7ee/Untitled%202.png)
     
     ```jsx
     function solution(nums) {
@@ -282,8 +220,6 @@
     }
     ```
     
-    ![Untitled](programmers%20Lv%201%20-%202%20b336b660ba4f434b97a1d8a40fa2b7ee/Untitled%203.png)
-    
     ```jsx
     function solution(nums) {
         
@@ -311,8 +247,6 @@
         }
     }
     ```
-    
-    ![Untitled](programmers%20Lv%201%20-%202%20b336b660ba4f434b97a1d8a40fa2b7ee/Untitled%204.png)
     
 
 ## K번째 수
@@ -455,7 +389,7 @@
     }
     ```
     
-    ![Untitled](programmers%20Lv%201%20-%202%20b336b660ba4f434b97a1d8a40fa2b7ee/Untitled%205.png)
+    ![Untitled](programmers%20Lv%201%20-%202%208c92c1b40f1149a1a2796321fd7f5685/Untitled.png)
     
     ```jsx
     function solution(left, right) {
@@ -474,7 +408,7 @@
     }
     ```
     
-    ![Untitled](programmers%20Lv%201%20-%202%20b336b660ba4f434b97a1d8a40fa2b7ee/Untitled%206.png)
+    ![Untitled](programmers%20Lv%201%20-%202%208c92c1b40f1149a1a2796321fd7f5685/Untitled%201.png)
     
     ```jsx
     function solution(left, right) {
@@ -490,7 +424,7 @@
     }
     ```
     
-    ![Untitled](programmers%20Lv%201%20-%202%20b336b660ba4f434b97a1d8a40fa2b7ee/Untitled%207.png)
+    ![Untitled](programmers%20Lv%201%20-%202%208c92c1b40f1149a1a2796321fd7f5685/Untitled%202.png)
     
 
 ## 3진법 뒤집기
@@ -510,7 +444,7 @@
     }
     ```
     
-    ![Untitled](programmers%20Lv%201%20-%202%20b336b660ba4f434b97a1d8a40fa2b7ee/Untitled%208.png)
+    ![Untitled](programmers%20Lv%201%20-%202%208c92c1b40f1149a1a2796321fd7f5685/Untitled%203.png)
     
     ```jsx
     const solution = (n) => {
@@ -532,30 +466,6 @@
 
 ## 최소직사각형
 
-명함 지갑을 만드는 회사에서 지갑의 크기를 정하려고 합니다. 다양한 모양과 크기의 명함들을 모두 수납할 수 있으면서, 작아서 들고 다니기 편한 지갑을 만들어야 합니다. 이러한 요건을 만족하는 지갑을 만들기 위해 디자인팀은 모든 명함의 가로 길이와 세로 길이를 조사했습니다.
-
-아래 표는 4가지 명함의 가로 길이와 세로 길이를 나타냅니다.
-
-| 명함 번호 | 가로 길이 | 세로 길이 |
-| --- | --- | --- |
-| 1 | 60 | 50 |
-| 2 | 30 | 70 |
-| 3 | 60 | 30 |
-| 4 | 80 | 40 |
-
-가장 긴 가로 길이와 세로 길이가 각각 80, 70이기 때문에 80(가로) x 70(세로) 크기의 지갑을 만들면 모든 명함들을 수납할 수 있습니다. 하지만 2번 명함을 가로로 눕혀 수납한다면 80(가로) x 50(세로) 크기의 지갑으로 모든 명함들을 수납할 수 있습니다. 이때의 지갑 크기는 4000(=80 x 50)입니다.
-
-모든 명함의 가로 길이와 세로 길이를 나타내는 2차원 배열 sizes가 매개변수로 주어집니다. 모든 명함을 수납할 수 있는 가장 작은 지갑을 만들 때, 지갑의 크기를 return 하도록 solution 함수를 완성해주세요.
-
-- 제한사항
-    
-    sizes의 길이는 1 이상 10,000 이하입니다.
-    
-    - sizes의 원소는 [w, h] 형식입니다.
-    - w는 명함의 가로 길이를 나타냅니다.
-    - h는 명함의 세로 길이를 나타냅니다.
-    - w와 h는 1 이상 1,000 이하인 자연수입니다.
-    
 - 나의 풀이
 
 ```jsx
@@ -574,8 +484,6 @@ function solution(sizes) {
     return Math.max.apply(null, w) * Math.max.apply(null, h);
 }
 ```
-
-![Untitled](programmers%20Lv%201%20-%202%20b336b660ba4f434b97a1d8a40fa2b7ee/Untitled%209.png)
 
 ```jsx
 function solution(sizes) {
@@ -612,9 +520,11 @@ function solution(price, money, count) {
 }
 ```
 
-![Untitled](programmers%20Lv%201%20-%202%20b336b660ba4f434b97a1d8a40fa2b7ee/Untitled%2010.png)
+![Untitled](programmers%20Lv%201%20-%202%208c92c1b40f1149a1a2796321fd7f5685/Untitled%204.png)
 
 ## 체육복
+
+- 
 
 ```jsx
 function solution(n, lost, reserve) {
@@ -692,7 +602,7 @@ function solution(n, lost, reserve) {
 ```jsx
 function solution(n, lost, reserve) {
     let arr = new Array(n+1).fill(1);
-    
+
     // 주의 사항: arr[0] = 1 이니까 끝에 빼주기
     // 여분 학생 +1
     reserve.forEach(e => arr[e]++);
@@ -702,23 +612,257 @@ function solution(n, lost, reserve) {
     
     // 도난 학생의 앞 = 2 -> 앞 = 1, 도난 학생 = 1
     // 도난 학생의 뒤 = 2 -> 뒤 = 1, 도난 학생 = 1
-    
-    for(let i = 0; i < n; i++) {
+
+    for(let i = 1; i <= n; i++) {
         
-        if(arr[i] === 0 && arr[i+1] === 2) {
-            arr[i] = 1;
-            arr[i+1] = 1;
+        if(arr[i] === 0 && arr[i-1] === 2) {
+            arr[i]++;
+            arr[i-1]--;
         }
-        else if (arr[i] === 0 && arr[i-1] === 2) {
-            arr[i] = 1;
-            arr[i-1] = 1;
+        else if (arr[i] === 0 && arr[i+1] === 2) {
+            arr[i]++;
+            arr[i+1]--;
         }
     }
     
-    return arr.filter(e => e > 0).length - 1;
-        
-        
-    
+    return arr.filter(e => e > 0).length -1;
     
 }
 ```
+
+### 다트게임
+
+카카오톡 게임별의 하반기 신규 서비스로 다트 게임을 출시하기로 했다. 다트 게임은 다트판에 다트를 세 차례 던져 그 점수의 합계로 실력을 겨루는 게임으로, 모두가 간단히 즐길 수 있다.갓 입사한 무지는 코딩 실력을 인정받아 게임의 핵심 부분인 점수 계산 로직을 맡게 되었다. 다트 게임의 점수 계산 로직은 아래와 같다.
+
+1. 다트 게임은 총 3번의 기회로 구성된다.
+2. 각 기회마다 얻을 수 있는 점수는 0점에서 10점까지이다.
+3. 점수와 함께 Single(`S`), Double(`D`), Triple(`T`) 영역이 존재하고 각 영역 당첨 시 점수에서 1제곱, 2제곱, 3제곱 (점수 , 점수 , 점수 )으로 계산된다.
+    
+    1
+    
+    2
+    
+    3
+    
+4. 옵션으로 스타상(`*`), 아차상(`#`)이 존재하며 스타상(`*`) 당첨 시 해당 점수와 바로 전에 얻은 점수를 각 2배로 만든다. 아차상(`#`) 당첨 시 해당 점수는 마이너스된다.
+5. 스타상`` 첫 번째 기회에서도 나올 수 있다. 이 경우 첫 번째 스타상(``)의 점수만 2배가 된다. (예제 4번 참고)
+6. 스타상(``)의 효과는 다른 스타상(``)의 효과와 중첩될 수 있다. 이 경우 중첩된 스타상(``) 점수는 4배가 된다. (예제 4번 참고)
+7. 스타상(``)의 효과는 아차상(`#`)의 효과와 중첩될 수 있다. 이 경우 중첩된 아차상(`#`)의 점수는 -2배가 된다. (예제 5번 참고)
+8. Single(`S`), Double(`D`), Triple(`T`)은 점수마다 하나씩 존재한다.
+9. 스타상(``), 아차상(`#`)은 점수마다 둘 중 하나만 존재할 수 있으며, 존재하지 않을 수도 있다.
+
+0~10의 정수와 문자 S, D, T, *, #로 구성된 문자열이 입력될 시 총점수를 반환하는 함수를 작성하라.
+
+- **입력 형식**
+    
+    "점수|보너스|[옵션]"으로 이루어진 문자열 3세트.예) `1S2D*3T`
+    
+    - 점수는 0에서 10 사이의 정수이다.
+    - 보너스는 S, D, T 중 하나이다.
+    - 옵선은 *이나 # 중 하나이며, 없을 수도 있다.
+    
+- **출력 형식**
+    
+    3번의 기회에서 얻은 점수 합계에 해당하는 정수값을 출력한다.예) 37
+    
+
+```jsx
+function solution(s) {
+    // ** 정리 **
+    
+    // 한 번에 얻을 수 있는 점수 : 0~10점 / 3번의 기회
+
+    // S = 1, D = 2, T = 3제곱 (점수마다 있음)
+    // * = 직전 점수 x 2, 해당 점수 x 2
+    // # = 해당 점수 x -1
+    
+    // <체크사항>
+    // * 중첩 시, x 4
+    // *# 중첩 시, x -2
+    // 숫자 10에 주의
+    
+    // 문자열 => return 총점수
+    //---
+        
+    // 계산 값 배열 생성 arr = []
+    let arr = []
+    
+    //  숫자값 변수 생성 let num 
+    let num = 0;
+    
+    // for문
+    for (let i = 0; i < s.length; i++) {
+    //  if (s[i] = 숫자) => num = s[i]
+        if (i === s.length) arr.push(num);
+        
+        else if(!isNaN(s[i])) {
+            arr.push(num);
+            
+            num = s[i] === "1" && s[i+1] === "0" ? 10 : Number(s[i]); 
+        }
+    //  else if (s[i] = S,D,T) => (삼항연산자) num = Math.pow(num,s[i]);
+        else if(s[i] === "S") num = num;
+        else if(s[i] === "D") num = Math.pow(num,2);
+        else if(s[i] === "T") num = Math.pow(num,3);
+        
+    //  else if (s[i] = "*") => arr[arr.length -1] *= 2 / num * 2
+        else if(s[i] === "*") {
+            arr[arr.length -1] *= 2;
+            num *= 2;
+
+    //          (s[i] = "#") => num * -1
+        } else if (s[i] === "#") num *= -1;
+        
+    }
+              
+    // 총합 반환
+    return arr.reduce((sum,e) => sum += e, 0);
+}
+```
+
+```jsx
+function solution(s) {
+    // ** 정리 **
+    
+    // 한 번에 얻을 수 있는 점수 : 0~10점 / 3번의 기회
+
+    // S = 1, D = 2, T = 3제곱 (점수마다 있음)
+    // * = 직전 점수 x 2, 해당 점수 x 2
+    // # = 해당 점수 x -1
+    
+    // <체크사항>
+    // * 중첩 시, x 4
+    // *# 중첩 시, x -2
+    // 숫자 10에 주의
+    
+    // 문자열 => return 총점수
+    //---
+        
+    // 계산 값 배열 생성 arr = []
+    let arr = []
+    
+    //  숫자값 변수 생성 let num 
+    let num = 0;
+    
+    // for문
+    for (let i = 0; i < s.length; i++) {
+        
+    //  if (s[i] = 숫자) => num = s[i]
+        if(!isNaN(s[i])) {
+            
+            num = s[i-1] === "1" ? 10 : Number(s[i]); 
+        }
+    //  else if (s[i] = S,D,T) => (삼항연산자) num = Math.pow(num,s[i]);
+        else if(s[i] === "S") arr.push(num);
+        else if(s[i] === "D") arr.push(Math.pow(num,2));
+        else if(s[i] === "T") arr.push(Math.pow(num,3));
+        
+    //  else if (s[i] = "*") => arr[arr.length -1] *= 2 / num * 2
+        else if(s[i] === "*") {
+            arr[arr.length -1] *= 2;
+            arr[arr.length -2] *= 2;
+
+    //          (s[i] = "#") => num * -1
+        } else if (s[i] === "#") arr[arr.length -1] *= -1;
+        
+    }
+              
+    // 총합 반환
+    return arr.reduce((sum,e) => sum + e, 0);
+}
+```
+
+## 모의고사
+
+- 나의 풀이
+
+```jsx
+function solution(answers) {
+    // 1 = [1,2,3,4,5] ...
+    // 2 = [2, 1, 2, 3, 2, 4, 2, 5]...
+    // 3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]...
+    
+    // 1 ~ 3의 배열 만들기
+    
+   let makeArr = (pattern, arr = []) => {
+
+        for(let i = 0; i < answers.length; i++) {
+            arr.push(pattern[i % pattern.length]);
+        }
+        return arr;
+    }
+    
+    let arr1 = makeArr([1, 2, 3, 4, 5]);
+    let arr2 = makeArr([2, 1, 2, 3, 2, 4, 2, 5]);
+    let arr3 = makeArr([3, 3, 1, 1, 2, 2, 4, 4, 5, 5]);
+
+    // 정답 수 세기
+    
+    let result1 = arr1.reduce((acc, e, i) => acc += answers[i] === e ? 1 : 0 , 0);
+    let result2 = arr2.reduce((acc, e, i) => acc += answers[i] === e ? 1 : 0 , 0);
+    let result3 = arr3.reduce((acc, e, i) => acc += answers[i] === e ? 1 : 0 , 0);
+    
+    // 가장 큰 값 반환 (여러명이면 오름차순)
+    let results = [result1, result2, result3];
+    let maxIndexs = [];
+    
+    for (let i = 0; i < 3; i++) {
+        
+        if (results[i] === Math.max.apply(null, results)) maxIndexs.push(i + 1);
+    }
+    
+    return maxIndexs;
+    
+}
+```
+
+- 모범 답안
+
+```jsx
+function solution(answers) {
+    var answer = [];
+    var a1 = [1, 2, 3, 4, 5];
+    var a2 = [2, 1, 2, 3, 2, 4, 2, 5]
+    var a3 = [ 3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
+
+    var a1c = answers.filter((a,i)=> a === a1[i%a1.length]).length;
+    var a2c = answers.filter((a,i)=> a === a2[i%a2.length]).length;
+    var a3c = answers.filter((a,i)=> a === a3[i%a3.length]).length;
+    var max = Math.max(a1c,a2c,a3c);
+
+    if (a1c === max) {answer.push(1)};
+    if (a2c === max) {answer.push(2)};
+    if (a3c === max) {answer.push(3)};
+
+    return answer;
+}
+```
+
+![Untitled](programmers%20Lv%201%20-%202%208c92c1b40f1149a1a2796321fd7f5685/Untitled%205.png)
+
+```jsx
+function solution(answers) {
+    var answer = [];
+    const man1 = [1, 2, 3, 4, 5];
+    const man2 = [2, 1, 2, 3, 2, 4, 2, 5];
+    const man3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
+    let count = [0, 0, 0];
+
+    for(let i = 0; i < answers.length; i++) {
+        if(answers[i] == man1[i % man1.length]) count[0]++;
+        if(answers[i] == man2[i % man2.length]) count[1]++;
+        if(answers[i] == man3[i % man3.length]) count[2]++;
+    }
+
+    const max = Math.max(count[0], count[1], count[2]);
+    for(let i = 0; i < count.length; i++) {
+        if(max == count[i]) answer.push(i + 1);
+    }
+
+    return answer;
+}
+```
+
+1. 문제 정리
+2. 떠오르는 방법 모두 적기
+3. 가장 효율 좋을 것 같은거 해보기
