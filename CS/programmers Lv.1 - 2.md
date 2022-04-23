@@ -866,3 +866,101 @@ function solution(answers) {
 1. 문제 정리
 2. 떠오르는 방법 모두 적기
 3. 가장 효율 좋을 것 같은거 해보기
+
+### 로또의 최고 순위와 최저 순위
+
+```c
+function solution(lottos, win_nums) {
+    
+    let zeroCount = lottos.filter(e => e === 0).length;
+    
+    let sum = 0;
+    
+    // lottos & win_nums 중복 확인
+    for(let i = 0; i < 6; i++) {
+        for(let j = 0; j < 6; j++) {
+            if(lottos[i] === win_nums[j]) sum++;
+        }
+    }
+    
+    // 같은 요소 개수
+    // 1. 0이 없다면: if(같은 요소x) => 최고0,최저0 / (같은 요소ㅇ) => 최고,최저:같은 요소 개수
+    // 2. 0이 1~5개: if(같은 요소x) => 최고: 0개수, 최저:0  / (같은 요소ㅇ) => 최고:같은요소+0의개수, 최저:같은요소
+    // 3. 다 0이라면=> 최고:6, 최저: 0
+    
+    let rank = [6,6,5,4,3,2,1];
+    
+    if(zeroCount === 0) {
+        return sum ? [rank[sum], rank[sum]] : [6,6]; 
+    }
+    else if(zeroCount > 0 && zeroCount < 6) {
+        return sum ? [rank[sum + zeroCount], rank[sum]] : [rank[zeroCount], 6];
+    }
+    else if(zeroCount === 6) return [1, 6];
+}
+```
+
+```c
+function solution(lottos, win_nums) {
+    const rank = [6, 6, 5, 4, 3, 2, 1];
+
+    let minCount = lottos.filter(v => win_nums.includes(v)).length;
+    let zeroCount = lottos.filter(v => !v).length;
+
+    const maxCount = minCount + zeroCount;
+
+    return [rank[maxCount], rank[minCount]];
+}
+```
+
+### 폰켓몬
+
+```jsx
+function solution(n) {
+ 
+    let type = [];
+    
+//     for(let i = 0; i < n.length; i++) {
+//         if(!type.includes(n[i])) type.push(n[i]);
+//     }    
+    
+    //      2. 위 코드를 메서드를 이용해서 줄이기
+    
+    n.forEach(function(e) {if(!type.includes(e)) type.push(e)});
+
+    // if (typeCount >= n길이/2) => return n길이/2
+    if (type.length >= n.length/2) return n.length/2;
+    
+    //    (typeCount < n길이/2) => return typeCount
+    else return type.length;
+
+}
+```
+
+### 예산
+
+```jsx
+function solution(d, budget) {
+    // 신청 금액은 모두 지원해야 함
+    // 부서별 신청 금액 배열 = d (1<= 길이 <=100) / 예산 = budget (1<= <= 천만)
+    // return 지원 가능한 최대 부서 개수
+    
+    // d 오름차순 정렬
+    
+    d.sort((a,b) => a-b);
+    
+    // d 요소값 작은 것부터 더함 -> 예산 안이면 count + 1 -> 예산 초과면 break
+    let sum = 0;
+    let count = 0;
+    
+    for(let i = 0; i < d.length; i++) {
+        
+        sum += d[i];
+        
+        if(sum <= budget) count++;
+        else break;
+    }
+
+    return count;
+}
+```
