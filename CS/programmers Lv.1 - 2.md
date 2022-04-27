@@ -964,3 +964,97 @@ function solution(d, budget) {
     return count;
 }
 ```
+
+### 신고 결과 받기
+
+신입사원 무지는 게시판 불량 이용자를 신고하고 처리 결과를 메일로 발송하는 시스템을 개발하려 합니다. 무지가 개발하려는 시스템은 다음과 같습니다.
+
+- 각 유저는 한 번에 한 명의 유저를 신고할 수 있습니다.
+    - 신고 횟수에 제한은 없습니다. 서로 다른 유저를 계속해서 신고할 수 있습니다.
+    - 한 유저를 여러 번 신고할 수도 있지만, 동일한 유저에 대한 신고 횟수는 1회로 처리됩니다.
+- k번 이상 신고된 유저는 게시판 이용이 정지되며, 해당 유저를 신고한 모든 유저에게 정지 사실을 메일로 발송합니다.
+    - 유저가 신고한 모든 내용을 취합하여 마지막에 한꺼번에 게시판 이용 정지를 시키면서 정지 메일을 발송합니다.
+
+```c
+function solution(id_list, report, k) {
+
+    // answer = 이용자 수 만큼의 배열 생성
+    let answer = new Array(id_list.length).fill(0);
+    
+    // 신고자 - 신고당한자 연결할 객체(obj_report) 생성
+    let obj_report = {};
+    
+    // 객체 속틀 만들기 / obj = { [신고 당한 사람 : 신고한 사람, 신고한 사람 ...] ... }
+    id_list.forEach(id => obj_report[id] = []);
+    
+    // 객체 요소 채우기
+    for(let i = 0; i < report.length; i++) {
+        
+        // report 요소를 신고한 사람, 당한 사람 분리해서 변수 할당
+        let [report_id, reported_id] = report[i].split(" ");
+        
+        // report[신고 당한 사람] 에 신고한 사람 넣어주기 (이미 있으면 패스)
+        if(!obj_report[reported_id].includes(report_id)) {
+            
+            obj_report[reported_id].push(report_id);
+        }
+    }
+    
+    // 객체의 key 순회 -> answer 배열 채우기 (신고한 사람의 받을 메일 개수 세기)
+    for(let key in obj_report) {
+        
+        // 신고한 사람 수 >= k 라면
+        if(obj_report[key].length >= k) {
+            
+            // answer의 해당 신고자의 index의 값 +1
+            obj_report[key].forEach(id => {
+                
+                answer[id_list.indexOf(id)] ++;
+            })
+        }
+    }
+    return answer;
+}
+```
+
+![Untitled](programmers%20Lv%201%20-%202%208c92c1b40f1149a1a2796321fd7f5685/Untitled%206.png)
+
+```jsx
+function solution(id_list, report, k) {
+    
+    // 중복 신고 삭제
+    report = [...new Set(report)];
+    
+    // reported = 신고 당한 사람 배열 생성
+    let reported = report.map(e => e.split(" ")[1]);
+    
+    // count = 숫자 셀 배열 생성
+    let count = new Array(id_list.length).fill(0);
+    
+    // 신고 당한 횟수 세기
+    reported.forEach(e => count[id_list.indexOf(e)] ++);
+    
+    // 최종 정지 배열 생성
+    let final_reported = [];
+    
+    // 신고 당한 횟수 >= k 면 최종 정지에 추가
+    count.forEach((e, i) => {
+        if(e >= k) final_reported.push(id_list[i]);
+    });
+    
+    // count 초기화
+    count.fill(0);
+    
+    // 신고 목록에서 신고한 사람 찾아서 count + 1
+    report.forEach(e => {
+        e = e.split(" ");
+        if(final_reported.includes(e[1])) {
+            count[id_list.indexOf(e[0])] ++;
+        }
+    })
+    
+    return count;
+}
+```
+
+![Untitled](programmers%20Lv%201%20-%202%208c92c1b40f1149a1a2796321fd7f5685/Untitled%207.png)
