@@ -967,14 +967,6 @@ function solution(d, budget) {
 
 ### 신고 결과 받기
 
-신입사원 무지는 게시판 불량 이용자를 신고하고 처리 결과를 메일로 발송하는 시스템을 개발하려 합니다. 무지가 개발하려는 시스템은 다음과 같습니다.
-
-- 각 유저는 한 번에 한 명의 유저를 신고할 수 있습니다.
-    - 신고 횟수에 제한은 없습니다. 서로 다른 유저를 계속해서 신고할 수 있습니다.
-    - 한 유저를 여러 번 신고할 수도 있지만, 동일한 유저에 대한 신고 횟수는 1회로 처리됩니다.
-- k번 이상 신고된 유저는 게시판 이용이 정지되며, 해당 유저를 신고한 모든 유저에게 정지 사실을 메일로 발송합니다.
-    - 유저가 신고한 모든 내용을 취합하여 마지막에 한꺼번에 게시판 이용 정지를 시키면서 정지 메일을 발송합니다.
-
 ```c
 function solution(id_list, report, k) {
 
@@ -1058,3 +1050,206 @@ function solution(id_list, report, k) {
 ```
 
 ![Untitled](programmers%20Lv%201%20-%202%208c92c1b40f1149a1a2796321fd7f5685/Untitled%207.png)
+
+```jsx
+function solution(numbers, hand) {
+    // 왼 : * / 오 : # 에서 시작 , 상하좌우 방향만 이동 가능
+    // 1.4.7 -> 왼 / 3,6,9 -> 오 / 2,5,8,0 -> 가까운 (거리 같으면 hand에 따라 결정)
+    
+    // 2차원 배열 만듬
+    // 1. 세로 : 행 / 가로 : 열
+    
+    //     0  1 2 3
+    // 0 ["*",7,4,1]
+    // 1 [ 0 ,8,5,2]
+    // 2 ["#",9,6,3]
+    let arr = [["*",7,4,1], [0,8,5,2], ["#",9,6,3]];
+    
+    // 왼손, 오른손 현재 위치 배열 생성
+    let left = [0, 0];
+    let right = [2, 0];
+    
+    let answer = [];
+    
+    // fnc : return 숫자의 행,열 배열
+    function search(number) {
+        for(let i = 0; i < 3; i++) {
+            if(arr[i].includes(number)) return [i, arr[i].indexOf(number)];
+        }
+    };
+    
+    // for문
+    //  if search[i] == 0 => left / search[i] == 2 => right
+    //  else if (왼손 거리 vs 오른손 거리) answer.push(수가 작은 손) , 해당 손 위치 = 현재 숫자
+    
+    for(let i = 0; i < numbers.length; i++) {
+        
+        let location = search(numbers[i]);
+        
+        if (location[0] === 0) {
+            
+            answer.push("L");
+            left = location;
+        }
+        
+        else if (location[0] === 2) {
+            
+            answer.push("R");
+            right = location;
+        }
+        
+        let distanceFromLeft = [Math.abs(location[0] - left[0]), Math.abs(location[1] - left[1])];
+        let distanceFromRight = [Math.abs(location[0] - right[0]), Math.abs(location[1] - right[1])];
+        
+        // 여기서 에러남
+        else if(distanceFromLeft[0] + distanceFromLeft[1] < distanceFromRight[0] + distanceFromRight[1]) {
+            answer.push("L");
+            left = location;
+        }
+        
+        else if(distanceFromLeft[0] + distanceFromLeft[1] > distanceFromRight[0] + distanceFromRight[1]) {
+            answer.push("R");
+            right = location;
+        }
+    
+    }
+    
+    return answer;
+    // 2. 가로 : 행 / 세로 : 열
+}
+```
+
+### 키패드 누르기
+
+```jsx
+function solution(numbers, hand) {
+
+    //     0  1 2 3
+    // 0 ["*",7,4,1]
+    // 1 [ 0 ,8,5,2]
+    // 2 ["#",9,6,3]
+    let arr = [["*",7,4,1], [0,8,5,2], ["#",9,6,3]];
+    
+    // 배열 생성:  왼손, 오른손 현재 위치
+    let leftPosition = [0, 0];
+    let rightPosition = [2, 0];
+    
+    // 배열 생성: 반환할 답
+    let answer = [];
+    
+    // fnc : 숫자의 행,열 찾아주는 함수
+    function search(number) {
+        for(let i = 0; i < 3; i++) {
+            if(arr[i].includes(number)) return [i, arr[i].indexOf(number)];
+        }
+    };
+    
+    // for문
+    //  if search[i] == 0 => left / search[i] == 2 => right
+    //  else if (왼손 거리 vs 오른손 거리) 
+    //      왼손 거리 < 오른손 거리 => answer.push("L") , leftPosition = location
+    //      왼손 거리 > 오른손 거리 => answer.push("R") , rightPosition = location
+    //      왼손 거리 = 오른손 거리 => answer.push("오른손잡이 or 왼손잡이") ,  // = location
+    
+    for(let i = 0; i < numbers.length; i++) {
+        
+        // 배열 : 주어진 수의 위치
+        let location = search(numbers[i]);
+        
+        // 배열 : 왼,오른손에서의 거리
+        let distanceFromLeft = [Math.abs(location[0] - leftPosition[0]), Math.abs(location[1] - leftPosition[1])];
+        let distanceFromRight = [Math.abs(location[0] - rightPosition[0]), Math.abs(location[1] - rightPosition[1])];
+        
+        if (location[0] === 0) {
+            
+            answer.push("L");
+            leftPosition = location;
+        }
+        
+        else if (location[0] === 2) {
+            
+            answer.push("R");
+            rightPosition = location;
+        }
+        
+        else if((distanceFromLeft[0] + distanceFromLeft[1]) < (distanceFromRight[0] + distanceFromRight[1])) {
+            answer.push("L");
+            leftPosition = location;
+        }
+        
+        else if((distanceFromLeft[0] + distanceFromLeft[1]) > (distanceFromRight[0] + distanceFromRight[1])) {
+            answer.push("R");
+            rightPosition = location;
+        }
+        
+        else if((distanceFromLeft[0] + distanceFromLeft[1]) === (distanceFromRight[0] + distanceFromRight[1])) {
+            
+            if(hand === "left") {
+                answer.push("L");
+                leftPosition = location;
+            }
+            else {
+                answer.push("R");
+                rightPosition = location;
+            }
+        }
+    }
+    return answer.join("");
+}
+```
+
+### 크레인 인형뽑기 게임
+
+```jsx
+function solution(board, moves) {
+    //               0 1 2 3 4
+    // 예시 board = 0[0,0,0,0,0]
+    //             1[0,0,1,0,3]
+    //             2[0,2,5,0,1]
+    //             3[4,2,4,4,2]
+    //             4[3,5,1,3,1]
+    
+    //     moves = [1,5,3,5,1,2,1,4]
+    
+    // moves[i] => board[j][i-1] 중 0이 아닌 값 제거/ 바구니 push
+    // 바구니[i] = [i+1] => 둘 다 제거 / i -1
+    
+    let basket = [];
+    let count = 0;
+    
+    moves.forEach(e => {
+        
+        for(let i = 0; i < board.length; i++) {
+            
+            // 맨 위 인형 파악 (0이 아니면 다음 단계)
+            if(board[i][e-1]) {
+            
+                // 변수: 꺼낸 인형 저장
+                let outDoll = board[i][e-1];
+                
+                // 인형을 꺼내줌
+                board[i][e-1] = 0;
+                
+                // 꺼낸 인형이 바구니 맨 위 인형과 같다면
+                if(outDoll === basket[basket.length -1]) {
+                    
+                    // 바구니 맨 위 인형 제거
+                    basket.pop();
+                    
+                    // 터져서 사라진 인형 개수 +2
+                    count += 2;
+                }
+                
+                // 인형 중복 아니면 바구니에 넣기
+                else basket.push(outDoll);
+                
+                // 하나 꺼냈으면 다음으로 넘어감
+                break;
+        }
+        
+    }});
+    
+    return count;;
+    
+}
+```
