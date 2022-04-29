@@ -1253,3 +1253,63 @@ function solution(board, moves) {
     
 }
 ```
+
+## 실패율
+
+```jsx
+function solution(N, stages) {
+    // N = 전체 스테이지 개수(1~500)
+    // stages = [사용자 현재 스테이지, ...] | 길이: 1~200,000 | 요소: 1~N+1 (N까지 완료)
+    // 실패율 = 도달ㅇ && 클리어x / 도달ㅇ (도달한 유저 0명 -> 실패율 = 0)
+    // return [stages...(실패율 높은 순서대로)] (실패율 같다면 작은 번호 먼저)
+    
+    // 배열 clear = index: stage / 요소: 도달ㅇ 유저수 (길이 : N)
+    let clear = new Array(N+1).fill(0);
+    
+    // 배열 notClear = index: stage / 요소: 도달했지만 클리어 못한 유저 수 (길이 : N)
+    let fail = new Array(N+1).fill(0);
+    
+    // stages.forEach(stage => 
+    stages.forEach(stage => {
+        
+    //  for(i = 1; i < stage; i++) { stage -1 까지 clear[i]에 1 추가}
+        for(let i = 1; i <= stage; i++) {
+            
+            // 예외처리: stage = N + 1 일 때 -> N에서 추가 했으니 반복문 빠져나감
+            if(i > N) break;
+            clear[i] ++;
+        }
+        
+    //  fail[stage] 에 1추가 (예외처리: stage = N + 1 일 때)
+        if(stage <= N) fail[stage] ++;
+    })
+
+    // 배열 failPercent =  [index, 실패율]이 요소인 배열 생성
+    let failPercent = clear.map((e,i) => e === 0 ? [i,0] : [i, fail[i] / e]);
+
+    failPercent = failPercent.sort((a,b) => {
+        if(b[1] > a[1]) return 1;
+        if(b[1] == a[1]) {
+           b[0] > a[0] ? -1 : 1;
+        };
+        if(b[1] < a[1]) return -1;
+    }).map(e => e[0]);
+    
+    failPercent.splice(failPercent.indexOf(0), 1);
+    
+  return failPercent;
+}
+```
+
+```jsx
+function solution(N, stages) {
+    let result = [];
+    for(let i=1; i<=N; i++){
+        let reach = stages.filter((x) => x >= i).length;
+        let curr = stages.filter((x) => x === i).length;
+        result.push([i, curr/reach]);
+    }
+    result.sort((a,b) => b[1] - a[1]);
+    return result.map((x) => x[0]);
+}
+```
