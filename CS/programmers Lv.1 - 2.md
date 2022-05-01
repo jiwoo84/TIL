@@ -1313,3 +1313,80 @@ function solution(N, stages) {
     return result.map((x) => x[0]);
 }
 ```
+
+### 비밀지도
+
+```jsx
+function solution(n, arr1, arr2) {
+    // 지도: n x n 배열 (1<= n <= 16) / 각 칸은 " " or "#"
+    // 전체 지도: 두 장의 지도 겹침 / "#" : 하나라도 , " ": 둘 다
+    // 지도1 & 지도2 : 정수 배열 (벽 = 1, 공백 = 0 으로 한 이진수에 해당하는 값)
+    
+    // arr1, arr2 요소 이진수로 변경 (0 붙여서 5자리 만듬)
+    arr1 = arr1.map(e => e.toString(2).padStart(n,0));
+    arr2 = arr2.map(e => e.toString(2).padStart(n,0));
+    // ex ) ["01001","10100","11100","10010","01011"]
+    
+    // 배열 answer = n x n 의 2차원 배열
+    let answer = new Array(n).fill([]);
+    
+    answer[0].push(1);
+    return answer;
+    
+    // arr1[i][j] & arr2[i][j] 비교
+    //  1. for문 사용    
+    for (let i = 0; i < n; i++) {
+        
+        for(let j = 0; j < n; j++) {
+            
+        //   하나라도 1 => # 추가
+            if ((arr1[i][j] === 1 || arr2[i][j]) === 1) answer.push("#");
+        //   둘 다 0 => " " 추가
+            else if (arr1[i][j] === 0 && arr2[i][j] === 0) answer.push(" ");
+        }
+    }
+    
+    // answer[i] 배열 -> 문자열 변경해서 return
+    return answer;
+    
+}
+```
+
+### 비밀지도
+
+```jsx
+function solution(n, arr1, arr2) {
+    // 지도: n x n 배열 (1<= n <= 16) / 각 칸은 " " or "#" 
+    // 전체 지도: 두 장의 지도 겹침 / "#" : 하나라도 , " ": 둘 다
+    // 지도1 & 지도2 : 정수 배열 (벽 = 1, 공백 = 0 으로 한 이진수에 해당하는 값)
+    
+    // arr1, arr2 요소 이진수로 변경 (0 붙여서 5자리 만듬)
+    arr1 = arr1.map(e => e.toString(2).padStart(n,0));
+    arr2 = arr2.map(e => e.toString(2).padStart(n,0));
+    // ex ) ["01001","10100","11100","10010","01011"]
+    
+    // 배열 answer = n x n 의 2차원 배열
+    let answer = []
+    
+    for(let i = 0; i < n; i++) {
+        answer.push([]);
+    }
+    
+    // arr1[i][j] & arr2[i][j] 비교
+    //  1. for문 사용    
+    for (let i = 0; i < n; i++) {
+        
+        for(let j = 0; j < n; j++) {
+            
+        //   하나라도 1 => # 추가
+            if (arr1[i][j] === "1" || arr2[i][j] === "1") answer[i].push("#");
+        //   둘 다 0 => " " 추가
+            else if (arr1[i][j] === "0" && arr2[i][j] === "0") answer[i].push(" ");
+        }
+    }
+    
+    // answer[i] 배열 -> 문자열 변경해서 return
+    return answer.map(e => e.join(""));
+    
+}
+```
