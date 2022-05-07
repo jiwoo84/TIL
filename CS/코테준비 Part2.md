@@ -1,5 +1,117 @@
 # 코테준비 Part2
 
+## 순열 & 조합
+
+- **조합**
+    
+    n개 중에서 m개를 선택하는 경우의 수 (nCr = n개 중 r개의 combination)
+    
+    조합은 순서 상관 없음 ⇒ [1,2] & [2,1]은 같은 것으로 취급
+    
+    - ex) Input: [1, 2, 3, 4]
+        
+        Output: [ [1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4] ] 
+        
+    - 코드 원리
+        
+        ```jsx
+        시작
+          1을 선택(고정)하고 -> 나머지 [2, 3, 4] 중에서 2개씩 조합을 구한다.
+          [1, 2, 3] [1, 2, 4] [1, 3, 4]
+          2를 선택(고정)하고 -> 나머지 [3, 4] 중에서 2개씩 조합을 구한다.
+          [2, 3, 4]
+          3을 선택(고정)하고 -> 나머지 [4] 중에서 2개씩 조합을 구한다. 
+          [] 
+          4을 선택(고정)하고 -> 나머지 [] 중에서 2개씩 조합을 구한다.
+          []
+        종료
+        ```
+        
+    - 코드
+        
+        ```jsx
+        function permutation(arr, selectNum) {
+        
+        	const result = []; // 1
+        	if (selectNum === 1) return arr.map(v => [v]); // 1. 재귀 종료 조건: 1개 고르면 바로 요소담은 배열 반환
+        
+        	arr.forEach((v, idx, arr) => {
+        		const fixed = v; // 숫자 하나 고정
+        		const restArr = arr.slice(index + 1); // 2. 해당하는 fixed를 제외한 나머지 뒤
+        		const restPermutations = permutation(restArr, selectNum - 1); // 3. 나머지에 대해서 조합을 구한다.
+        		const combineFixed = restPermutations.map(v => [fixed, ...v]); // 4. 조합에 떼 놓은(fixed) 값 붙이기
+        		result.push(...combineFixed); // 5. result에 값 추가
+        	});
+        	return result;
+           // 재귀가 진행중이면 해당 값이 restPermutations의 반환값이 되어 combineFixed를 통해 fixed와 결합함
+        }
+        
+        console.log(permutation([1,1,7]));
+        // [[1, 1], [1, 7], [1, 1], [1, 7], [7, 1], [7, 1]]
+        ```
+        
+        1. 원소 1개의 조합을 구한다고 하면 바로 요소 하나씩 배열로 만들어서 return
+            
+            ex) `arr = [1,2,3,4]` / `selectNumber = 1` ⇒ return `[[1], [2], [3], [4]]`
+            
+        2. 맨 첫번째 값부터 선택됨 (선택값 = fixed) → rest = fixed 뒤부터 맨끝까지의 배열
+            
+            ex) `arr = [1,2,3,4]` / `fixed = 1` (맨 처음 순회라면) / `rest = [2,3,4]`
+            
+        3. 재귀함수 호출
+            
+            코드가 어떻게 실행될지 모르겠다면, 재귀가 종료조건을 만났을 때 반환값이 무엇일지 계산하고 이를 바탕으로 읽으면 된다
+            
+            위 코드는 맨 마지막에 selectNumber = 1 이면 반환값은 [[3], [4]]가 되고 다음 코드 진행
+            
+        4. 차곡차곡 result 배열에 반환값이 쌓임
+            
+            (재귀함수가 호출되면서 result가 재선언되지만, 그건 재귀함수 안에서고 바깥 함수에는 영향을 미치지 않는다)
+            
+- **순열**
+    
+    순열은 조합에서 순서까지 신경 쓴 것이다. 고로 `nCr x 3!` ( n! ⇒  n x (n-1) x ... x 1)
+    
+    - 코드 원리
+        
+        ```jsx
+        1(fixed) => permutation([2, 3, 4]) => 2(fixed) => permutation([3, 4]) => ...
+        2(fixed) => permutation([1, 3, 4])
+        3(fixed) => permutation([1, 2, 4])
+        4(fixed) => permutation([1, 2, 3])
+        ```
+        
+        조합과 다른 점은 배열의 처음부터 선택(고정)하면서 나머지 배열을 구할 때 고정된 값 뒤에 있는 값들에 대해서 순열을 구하는게 아니라, 고정된 값을 제외한 모든 원소에 대해서 순열을 구해야 한다는 것이다.
+        
+        조합 코드에서 나머지 배열을 구하는 코드만 다음과 같이 바꾸면 된다.
+        
+        `const rest = [...origin.slice(0, index), ...origin.slice(index+1)] // 해당하는 fixed를 제외한 나머지 배열`
+        
+    - 코드 구현
+        
+         `rest`를 나를 제외한 모든 요소를 표함한 배열로 만들어주면 된다
+        
+        ```jsx
+        function permutation(arr, selectNum) {
+        
+        	const result = [];
+        	if (selectNum === 1) return arr.map(v => [v]); // 재귀 종료 조건: 1개 고르면 바로 요소담은 배열 반환
+        
+        	arr.forEach((v, idx, arr) => {
+        		const fixed = v; // 숫자 하나 고정
+        		const restArr = arr.filter((e, index) => index !== idx); // fixed를 제외한 나머지 배열 생성
+        		const restPermutations = permutation(restArr, selectNum - 1);
+        		const combineFixed = restPermutations.map(v => [fixed, ...v]); // 구한 순열에 fixed 붙이기
+        		result.push(...combineFixed); // result에 순열 추가
+        	});
+        	return result;
+           // 재귀가 진행중이면 해당 값이 restPermutations의 반환값이 되어 combineFixed를 통해 fixed와 결합함
+        }
+        ```
+        
+        [참고링크](https://pul8219.github.io/algorithm/algorithm-permutation-and-combination/)
+        
+
 ## 1. 그리디
 
 ### 거스름돈
@@ -258,4 +370,43 @@ function solution(input) {
   }
   return count;
 }
+```
+
+```jsx
+function solution(numbers) {
+    
+    let nums = numbers.split('');
+    
+    // 소수 판별
+    function isPrime(num) {
+        if(num <= 1) return false;
+        for (let i = 2; i*i <= num; i++) {
+            if (num % i === 0) return false;
+        }
+        return true;
+    }
+    
+    // 순열 만들기
+    function permutation(arr, selectNum) {
+
+        const result = [];
+        if (selectNum === 1) return arr.map(v => [v]); 
+
+        arr.forEach((v, idx, arr) => {
+            const fixed = v; // 숫자 하나 고정
+            const restArr = arr.filter((e, index) => index !== idx); 
+            const restPermutations = permutation(restArr, selectNum - 1);
+            const combineFixed = restPermutations.map(v => [fixed, ...v]); 
+            result.push(...combineFixed); 
+        });
+        return result;
+       
+        }
+
+    let answer = permutation(nums, '');
+
+    return answer.filter(e => isPrime(e)).length;
+
+}ㅛ
+
 ```
