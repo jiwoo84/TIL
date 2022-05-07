@@ -11,58 +11,52 @@
 
 ## 완전 탐색
 
-### 소수찾기 (미완)
+### 소수찾기
 
 ```jsx
 function solution(numbers) {
-    // return 문자열의 숫자 조합해서 만들 수 있는 소수의 개수
+    // 숫자들로 조합을 만듬
+    // 소수 검사해서 갯수 반환
     
-    // numbers 배열로 변환 -> 오름차순 정렬 ex) ['7','3','1']
-    numbers = numbers.split('').sort((a,b) => b - a);
-    
-    //변수 maxNum = numbers 문자열로 변환 -> 숫자로 변환  ex) 731
-    let maxNum = + numbers.join('');
-    
-    //함수 makePrime(num) = 아리토스테네스의 체로 소수 개수 반환
-    function makePrime(num) {
-        
-        let arr = new Array(num+1).fill(true);
-        
-        for (let i = 2; i < Math.sqrt(num); i++) {
-
-            for (let j = i*i; j <= num; j += i) {
-                arr[j] = false;
-            }
-            return arr;
+    function isPrime(num) {
+        if(num <= 1) return false;
+        for(let i = 2; i*i <= num; i++) {
+            if(num % i === 0) return false;
         }
+        return true;
     }
     
-    // 배열 primes = makePrime(maxNum) (소수index의 값은 비어있음, 소수 아니면 false)
-    let primes = makePrime(maxNum);
-    //  ex) [true,true,false,false ...]
-
-    // 변수 count = 소수 개수 세는 용도
-    let count = 0;
+    numbers = numbers.split('');
     
-    // for: (2 ~ maxNum, i++)
-    for (let i = 2; i <= maxNum; i++) {
+    function permutation(arr, selectNum) {
         
-    //      if (arr[i] === false) 통과
-        if (primes[i] === false) continue;
+        let result = [];
+        if(selectNum === 1) return arr.map(v => [v]);
         
-    //      배열 iArr = i의 자릿수를 배열로 변환
-        let iArr = String(i).split('');
-        
-        for(let e of numbers) {
-            
-            if (iArr.includes(e)) {
-                iArr.splice(iArr.indexOf(e), 1);
-                if(iArr.length === 0) count ++
-            }
-            else continue;
-        }
+        arr.forEach((v, idx, arr) => {
+            let fixed = v;
+            let restArr = arr.filter((e, index) => index !== idx);
+            let restPermutations = permutation(restArr, selectNum - 1);
+            let combineArr = restPermutations.map(e => [fixed, ...e]);
+            result.push(...combineArr);
+        })
+        return result;
     }
-    return count;    
+    
+    let answer = [];
+    
+    for(let i = 1; i <= numbers.length; i++) {
+        let selectNums = permutation(numbers, i);
+        selectNums.forEach(e => answer.push(+e.join('')));
+        // 위 함수로 구한 배열 요소들 하나씩 answer에 추가
+        // 그냥 추가하면 ["1","2"] 같은 형태로 추가되니 문자열로 변환(join) & 숫자로 변환(+)
+        // 그래야 밑에 Set으로 중복 검사할때 정상적으로 수행됨
+    }
+    
+    answer = [... new Set(answer)];
+    // Set 객체로 만들어서 중복 제거 -> 값 하나씩 전달해서 다시 배열로 변환
+    
+    return answer.filter(v => isPrime(v)).length;
 }
 ```
 
@@ -144,119 +138,6 @@ function makePrimeNum(N){
     return arr;
 }
 ```
-
-- **조합**
-    
-    n개 중에서 m개를 선택하는 경우의 수 (nCr = n개 중 r개의 combination)
-    
-    조합은 순서 상관 없음 ⇒ [1,2] & [2,1]은 같은 것으로 취급
-    
-    ex) Input: [1, 2, 3, 4]
-    
-    Output: [ [1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4] ] 
-    
-    - 코드 원리
-        
-        ```jsx
-        시작
-          1을 선택(고정)하고 -> 나머지 [2, 3, 4] 중에서 2개씩 조합을 구한다.
-          [1, 2, 3] [1, 2, 4] [1, 3, 4]
-          2를 선택(고정)하고 -> 나머지 [3, 4] 중에서 2개씩 조합을 구한다.
-          [2, 3, 4]
-          3을 선택(고정)하고 -> 나머지 [4] 중에서 2개씩 조합을 구한다. 
-          [] 
-          4을 선택(고정)하고 -> 나머지 [] 중에서 2개씩 조합을 구한다.
-          []
-        종료
-        ```
-        
-    - 코드
-        
-        ```jsx
-        const getCombinations = function (arr, selectNumber) {
-          const results = [];
-        	// 1. 1개씩 택할 때, 바로 모든 배열의 원소 return (재귀함수 종료 조건)
-          if (selectNumber === 1) return arr.map((value) => [value]); 
-        
-          arr.forEach((fixed, index, origin) => {
-            const rest = origin.slice(index + 1); // 2. 해당하는 fixed를 제외한 나머지 뒤
-            const combinations = getCombinations(rest, selectNumber - 1); // 3. 나머지에 대해서 조합을 구한다.
-            const attached = combinations.map((combination) => [fixed, ...combination]); //  4.돌아온 조합에 떼 놓은(fixed) 값 붙이기
-            results.push(...attached); // 배열 spread syntax 로 모두다 push
-          });
-        
-          return results; // 결과 담긴 results return
-        }
-        
-        const example = [1,2,3,4];
-        const result = getCombinations(example, 3);
-        console.log(result);
-        // => [ [ 1, 2, 3 ], [ 1, 2, 4 ], [ 1, 3, 4 ], [ 2, 3, 4 ] ]
-        ```
-        
-        1. 원소 1개의 조합을 구한다고 하면 바로 요소 하나씩 배열로 만들어서 return
-            
-            ex) `arr = [1,2,3,4]` / `selectNumber = 1` ⇒ return `[[1], [2], [3], [4]]`
-            
-        2. 맨 첫번째 값부터 선택됨 (선택값 = fixed) → rest = fixed 뒤부터 맨끝까지의 배열
-            
-            ex) `arr = [1,2,3,4]` / `fixed = 1` (맨 처음 순회라면) / `rest = [2,3,4]`
-            
-        3. 재귀함수 호출
-            
-            코드가 어떻게 실행될지 모르겠다면, 재귀가 종료조건을 만났을 때 반환값이 무엇일지 계산하고 이를 바탕으로 읽으면 된다
-            
-            위 코드는 맨 마지막에 selectNumber = 1 이면 반환값은 [[3], [4]]가 되고 다음 코드 진행
-            
-        4. 차곡차곡 result 배열에 반환값이 쌓임
-            
-            (재귀함수가 호출되면서 result가 재선언되지만, 그건 재귀함수 안에서고 바깥 함수에는 영향을 미치지 않는다)
-            
-- **순열**
-    
-    순열은 조합에서 순서까지 신경 쓴 것이다. 고로 `nCr x 3!` ( n! ⇒  n x (n-1) x ... x 1)
-    
-    - 코드 원리
-        
-        ```jsx
-        1(fixed) => permutation([2, 3, 4]) => 2(fixed) => permutation([3, 4]) => ...
-        2(fixed) => permutation([1, 3, 4])
-        3(fixed) => permutation([1, 2, 4])
-        4(fixed) => permutation([1, 2, 3])
-        ```
-        
-        조합과 다른 점은 배열의 처음부터 선택(고정)하면서 나머지 배열을 구할 때 고정된 값 뒤에 있는 값들에 대해서 순열을 구하는게 아니라, 고정된 값을 제외한 모든 원소에 대해서 순열을 구해야 한다는 것이다.
-        
-        조합 코드에서 나머지 배열을 구하는 코드만 다음과 같이 바꾸면 된다.
-        
-        `const rest = [...origin.slice(0, index), ...origin.slice(index+1)] // 해당하는 fixed를 제외한 나머지 배열`
-        
-    - 코드 구현
-        
-         `rest`를 나를 제외한 모든 요소를 표함한 배열로 만들어주면 된다
-        
-        ```jsx
-        const getPermutations= function (arr, selectNumber) {
-          const results = [];
-          if (selectNumber === 1) return arr.map((value) => [value]); // 1개씩 택할 때, 바로 모든 배열의 원소 return
-        
-          arr.forEach((fixed, index, origin) => {
-            const rest = [...origin.slice(0, index), ...origin.slice(index+1)] // 해당하는 fixed를 제외한 나머지 배열 
-            const permutations = getPermutations(rest, selectNumber - 1); // 여기만 수정, 나머지에 대해 순열을 구한다.
-            const attached = permutations.map((permutation) => [fixed, ...permutation]); // 돌아온 순열에 대해 떼 놓은(fixed) 값 붙이기
-            results.push(...attached); // 배열 spread syntax 로 모두다 push
-          });
-        
-          return results; // 결과 담긴 results return
-        };
-        
-        const example = [1,2,3,4];
-        const result = getPermutations(example, 3);
-        console.log(result);
-        ```
-        
-        [참고링크](https://pul8219.github.io/algorithm/algorithm-permutation-and-combination/)
-        
 
 ### 카펫
 
