@@ -109,6 +109,16 @@ while (n !== 1) {
 
 ### 큰 수 만들기
 
+어떤 숫자에서 k개의 수를 제거했을 때 얻을 수 있는 가장 큰 숫자를 구하려 합니다.
+
+예를 들어, 숫자 1924에서 수 두 개를 제거하면 [19, 12, 14, 92, 94, 24] 를 만들 수 있습니다. 이 중 가장 큰 숫자는 94 입니다.
+
+문자열 형식으로 숫자 number와 제거할 수의 개수 k가 solution 함수의 매개변수로 주어집니다. number에서 k 개의 수를 제거했을 때 만들 수 있는 수 중 가장 큰 숫자를 문자열 형태로 return 하도록 solution 함수를 완성하세요.
+
+- 제한 조건
+    - number는 2자리 이상, 1,000,000자리 이하인 숫자입니다.
+    - k는 1 이상 `number의 자릿수` 미만인 자연수입니다.
+
 ```jsx
 function solution(number, k) {
     // number에서 k개의 수 제거했을 때 얻기 가능한 최대의 수
@@ -141,6 +151,75 @@ function solution(number, k) {
     
     // return Math.max(null, answer)
     return Math.max.apply(null, answer);
+    
+}
+```
+
+```jsx
+function solution(number, k) {
+    const stack = []; // 남은 숫자들이 저장될 스택
+    
+    for (let i = 0; i < number.length; i++) {
+        
+        let el = number[i]; // 현재 요소
+        
+        // 제거가능한 숫자 남아있음 && el이 스택 맨 위보다 클 때
+        while(k > 0 && el > stack[stack.length-1]) {
+            stack.pop(); // 맨 위 숫자 꺼냄
+            k--; // 제거 숫자 하나 줄어듬
+        }
+        stack.push(el);
+    }
+    
+    
+    return stack.slice(0, number.length - k).join('');
+}
+```
+
+### 구명보트
+
+무인도에 갇힌 사람들을 구명보트를 이용하여 구출하려고 합니다. 구명보트는 작아서 한 번에 최대 **2명**씩 밖에 탈 수 없고, 무게 제한도 있습니다.
+
+예를 들어, 사람들의 몸무게가 [70kg, 50kg, 80kg, 50kg]이고 구명보트의 무게 제한이 100kg이라면 2번째 사람과 4번째 사람은 같이 탈 수 있지만 1번째 사람과 3번째 사람의 무게의 합은 150kg이므로 구명보트의 무게 제한을 초과하여 같이 탈 수 없습니다.
+
+구명보트를 최대한 적게 사용하여 모든 사람을 구출하려고 합니다.
+
+사람들의 몸무게를 담은 배열 people과 구명보트의 무게 제한 limit가 매개변수로 주어질 때, 모든 사람을 구출하기 위해 필요한 구명보트 개수의 최솟값을 return 하도록 solution 함수를 작성해주세요.
+
+- 제한사항
+    - 무인도에 갇힌 사람은 1명 이상 50,000명 이하입니다.
+    - 각 사람의 몸무게는 40kg 이상 240kg 이하입니다.
+    - 구명보트의 무게 제한은 40kg 이상 240kg 이하입니다.
+    - 구명보트의 무게 제한은 항상 사람들의 몸무게 중 최댓값보다 크게 주어지므로 사람들을 구출할 수 없는 경우는 없습니다.
+
+```jsx
+function solution(people, limit) {
+
+    let count = 0;
+    people.sort((a,b) => a - b);
+    
+    // while (people.length > 0)
+    //  if : 최대 + 최소 <= limit -> 둘이 배열에서 뺌 -> count ++
+    //  else : 최대만 뺌 -> count ++
+    // return count;
+    
+    while (people.length > 0) {
+        
+        let min = people[0];
+        let max = people[people.length - 1];
+        
+        if ((max+min) <= limit) {
+            people.pop();
+            people.shift();
+            count++;
+        }
+        else {
+            people.pop();
+            count++;
+        }
+    }
+    
+    return count;
     
 }
 ```
@@ -518,4 +597,43 @@ for (let c = 3; c <= (brown+yellow)/c; c++) {
         if((r-2) * (c-2) === yellow) return [r,c];
         }
     }
+```
+
+## 스택&큐
+
+### 기능개발
+
+프로그래머스 팀에서는 기능 개선 작업을 수행 중입니다. 각 기능은 진도가 100%일 때 서비스에 반영할 수 있습니다.
+
+또, 각 기능의 개발속도는 모두 다르기 때문에 뒤에 있는 기능이 앞에 있는 기능보다 먼저 개발될 수 있고, 이때 뒤에 있는 기능은 앞에 있는 기능이 배포될 때 함께 배포됩니다.
+
+먼저 배포되어야 하는 순서대로 작업의 진도가 적힌 정수 배열 progresses와 각 작업의 개발 속도가 적힌 정수 배열 speeds가 주어질 때 각 배포마다 몇 개의 기능이 배포되는지를 return 하도록 solution 함수를 완성하세요.
+
+- 제한 사항
+    - 작업의 개수(progresses, speeds배열의 길이)는 100개 이하입니다.
+    - 작업 진도는 100 미만의 자연수입니다.
+    - 작업 속도는 100 이하의 자연수입니다.
+    - 배포는 하루에 한 번만 할 수 있으며, 하루의 끝에 이루어진다고 가정합니다. 예를 들어 진도율이 95%인 작업의 개발 속도가 하루에 4%라면 배포는 2일 뒤에 이루어집니다.
+
+```jsx
+function solution(progresses, speeds) {
+    
+    let answer = [];
+
+    while (progresses.length > 0) { 
+        
+        let count = 0;
+        progresses.forEach((v, idx) => progresses[idx] += speeds[idx]);
+        
+        while (progresses[0] >= 100) {
+            progresses.shift();
+            speeds.shift();
+            count++;
+        }
+        
+        if(count > 0) answer.push(count);
+        
+    }
+    return answer;
+}
 ```
