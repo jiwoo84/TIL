@@ -637,3 +637,26 @@ function solution(progresses, speeds) {
     return answer;
 }
 ```
+
+### 프린터
+
+```jsx
+function solution(priorities, location) {
+
+    let queue = priorities.map((v, idx) => [idx, v]);
+    let answer = [];
+
+    while (queue.length > 0) {
+
+        let temp = queue.shift();
+
+        if (queue.find(v => v[1] > temp[1])) {
+            queue.push(temp);
+        }
+        else {
+            answer.push(temp);
+        }
+    }
+    return answer.indexOf(answer.find(v => v[0] === location)) + 1;
+}
+```
