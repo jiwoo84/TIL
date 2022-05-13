@@ -660,3 +660,98 @@ function solution(priorities, location) {
     return answer.indexOf(answer.find(v => v[0] === location)) + 1;
 }
 ```
+
+### 다리를 지나는 트럭
+
+```jsx
+function solution(bridge_length, weight, truck_weights) {
+
+    let nowBridge = new Array(bridge_length).fill(0);
+    let nowWeight = 0;
+    let sec = 0;
+    
+
+    let firstTruck = truck_weights.shift();
+    
+    nowBridge.push(firstTruck);
+    nowBridge.shift();
+    nowWeight += firstTruck;
+    sec++;
+    
+    while (nowWeight) {
+        sec++;
+        nowWeight -= nowBridge.shift();
+        
+        let nowTruck = truck_weights[0] ? truck_weights[0] : 0;
+        
+        if (nowWeight + nowTruck > weight) nowBridge.push(0);
+        else {
+            nowBridge.push(truck_weights.shift());
+            nowWeight += nowTruck;
+        }
+    }
+    return sec;
+}
+```
+
+```jsx
+function solution(bridge_length, weight, truck_weights) {
+  let bridge = new Array(bridge_length).fill(0)
+  let sec = 0;
+
+  while (bridge.length) {
+      
+    bridge.shift(); 
+    sec += 1;
+
+    if (truck_weights.length) { // 대기 트럭 존재하면
+        
+      let totalWeight = bridge.reduce((sum, v) => sum + v, 0);
+
+      if (totalWeight + truck_weights[0] <= weight) {
+        bridge.push(truck_weights.shift());
+      } else {
+        bridge.push(0);
+      }
+    }
+  }
+  return sec;
+}
+```
+
+## 정렬
+
+### 가장 큰 수
+
+```jsx
+function solution(numbers) {
+    numbers = numbers.map(v => String(v));
+    numbers.sort((a,b) => {
+        return (b + a) - (a + b); 
+    })
+    return numbers[0] === '0' ? '0' : numbers.join('');
+}
+```
+
+### H-index
+
+```jsx
+function solution(citations) {
+
+    citations.sort((a,b) => b - a);
+    let answer = 0;
+
+    for (let i = 0; i < citations.length; i++) {
+        let citation = citations[i];
+        if(citations.filter(v => v >= citation).length >= citation) {
+            answer = citation;
+            break;
+        }
+    }
+    return answer;
+}
+```
+
+```jsx
+
+```
