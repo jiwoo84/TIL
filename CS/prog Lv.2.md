@@ -752,6 +752,111 @@ function solution(citations) {
 }
 ```
 
-```jsx
+## DFS / BFS
 
+![Untitled](prog%20Lv%202%209cdc0f3cf8b841c0860e516219a8b32e/Untitled.png)
+
+```jsx
+const graph = {
+  A: ['B', 'C'],
+  B: ['A', 'D'],
+  C: ['A', 'G', 'H', 'I'],
+  D: ['B', 'E', 'F'],
+  E: ['D'],
+  F: ['D'],
+  G: ['C'],
+  H: ['C'],
+  I: ['C', 'J'],
+  J: ['I']
+};
+```
+
+### BFS
+
+```jsx
+const BFS = (graph, startNode) => {
+  const visited = []; // 탐색을 마친 노드들
+  let needVisit = []; // 탐색해야할 노드들
+
+  needVisit.push(startNode); // 노드 탐색 시작
+
+  while (needVisit.length !== 0) { // 탐색해야할 노드가 남아있다면
+    const node = needVisit.shift(); // queue이기 때문에 선입선출, shift()를 사용
+    if (!visited.includes(node)) { // 해당 노드가 탐색된 적 없다면
+      visited.push(node); 
+      needVisit = [...needVisit, ...graph[node]];
+    }
+  }
+  return visited;
+};
+
+console.log(BFS(graph, "A"));
+// ["A", "B", "C", "D", "G", "H", "I", "E", "F", "J"]
+```
+
+### DFS
+
+```jsx
+const DFS = (graph, startNode) => {
+  const visited = []; // 탐색을 마친 노드들
+  let needVisit = []; // 탐색해야할 노드들
+
+  needVisit.push(startNode); // 노드 탐색 시작
+
+  while (needVisit.length !== 0) { // 탐색해야할 노드가 남아있다면
+    const node = needVisit.shift(); // queue이기 때문에 선입선출, shift()를 사용한다.
+    if (!visited.includes(node)) { // 해당 노드가 탐색된 적 없다면
+      visited.push(node); 
+      needVisit = [...graph[node], ...needVisit];
+    }
+  }
+  return visited;
+};
+
+console.log(DFS(graph, "A"));
+// ["A", "B", "D", "E", "F", "C", "G", "H", "I", "J"]
+```
+
+### 타켓넘버
+
+- 
+
+```jsx
+function solution(numbers, target) {
+    let answer = 0;
+    
+    dfs(0,0);
+    
+    function dfs(level, sum) {
+        if(level === numbers.length){
+            if(sum === target){
+                answer += 1;
+            }
+            return;
+        }
+        dfs(1,1)
+        dfs(level + 1, sum + numbers[level]);
+        dfs(level + 1, sum - numbers[level]);
+    }
+    return answer;
+}
+```
+
+[설명](https://jjnooys.medium.com/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%83%80%EA%B2%9F-%EB%84%98%EB%B2%84-javascript-1d7983d423b5)
+
+### 위장
+
+```jsx
+function solution(clothes) {
+    var answer = 1;
+    var obj={};
+    for(var i=0;i<clothes.length;i++){
+        obj[clothes[i][1]]=(obj[clothes[i][1]] || 1) + 1;
+    }
+
+    for(var key in obj){
+        answer *= obj[key];
+    }
+    
+    return answer-1;
 ```
