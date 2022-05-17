@@ -819,8 +819,6 @@ console.log(DFS(graph, "A"));
 
 ### 타켓넘버
 
-- 
-
 ```jsx
 function solution(numbers, target) {
     let answer = 0;
@@ -859,4 +857,72 @@ function solution(clothes) {
     }
     
     return answer-1;
+```
+
+---
+
+### 올바른 괄호
+
+- 1차 풀이
+
+```jsx
+function solution(s){
+
+    let stack = [];
+    
+    for(let i = 0; i < s.length; i++) {
+        
+        if(s[0] === ')') {
+            return false;
+        }
+        
+        if(s[i] === '(') stack.push(1);
+        else {
+            if(stack.length === 0) return false;
+            else stack.pop();
+        }
+    }
+    return stack.length ? false : true;    
+}
+```
+
+```jsx
+function solution(s){
+
+    let stack = [];
+    
+    if(s[0] === ')') {
+        return false;
+    }
+    
+    for(let i = 0; i < s.length; i++) {
+        
+        if(s[i] === '(') stack.push(1);
+        else {
+            if (!stack.pop()) return false;
+        }
+    }
+    return stack.length ? false : true;    
+}
+```
+
+### 다음 큰 숫자
+
+```jsx
+function solution(n) {
+    
+    let answer = n + 1;
+    n = n.toString(2).split('');
+    let nCount = n.filter(v => v === '1').length;
+    
+    while(true) {
+        let count = answer.toString(2).split('').filter(v => v === '1').length;
+        if(count === nCount) return answer;
+        else answer ++;
+    }
+}
+```
+
+```jsx
+
 ```
