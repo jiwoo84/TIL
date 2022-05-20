@@ -861,68 +861,28 @@ function solution(clothes) {
 
 ---
 
-### 올바른 괄호
-
-- 1차 풀이
+### 피보나치 수
 
 ```jsx
-function solution(s){
+function solution(n) {
 
-    let stack = [];
-    
-    for(let i = 0; i < s.length; i++) {
-        
-        if(s[0] === ')') {
-            return false;
-        }
-        
-        if(s[i] === '(') stack.push(1);
-        else {
-            if(stack.length === 0) return false;
-            else stack.pop();
-        }
+    function accF(m) {
+        if(m < 2) return m;
+        return accF(m-1) + accF(m-2);
     }
-    return stack.length ? false : true;    
+    
+    return accF(n) % 1234567;
 }
 ```
-
-```jsx
-function solution(s){
-
-    let stack = [];
-    
-    if(s[0] === ')') {
-        return false;
-    }
-    
-    for(let i = 0; i < s.length; i++) {
-        
-        if(s[i] === '(') stack.push(1);
-        else {
-            if (!stack.pop()) return false;
-        }
-    }
-    return stack.length ? false : true;    
-}
-```
-
-### 다음 큰 숫자
 
 ```jsx
 function solution(n) {
     
-    let answer = n + 1;
-    n = n.toString(2).split('');
-    let nCount = n.filter(v => v === '1').length;
+    let arr = [0, 1];
     
-    while(true) {
-        let count = answer.toString(2).split('').filter(v => v === '1').length;
-        if(count === nCount) return answer;
-        else answer ++;
+    for (let i = 2; i <= n; i++) {
+        arr.push((arr[i-1] + arr[i-2]) % 1234567);
     }
+    return arr[n] ;
 }
-```
-
-```jsx
-
 ```
