@@ -886,3 +886,85 @@ function solution(n) {
     return arr[n] ;
 }
 ```
+
+```jsx
+function solution(arr) {
+    // 배열 오름차순 정렬
+    arr.sort((a,b) => a - b);
+    
+    // max = 제일 큰 숫자 pop해서 변수 할당
+    let max = arr.pop();
+    let temp = max;
+    
+    // 반복문 max배수 중, arr의 모든 요소로 나누어 떨어지는 수 return
+    while(true) {
+        
+        for(let i = 0; i < arr.length; i++) {
+            if(max % arr[i]) break;
+            if(i === arr.length - 1) return temp;
+        }
+        temp += max; 
+    }
+}
+```
+
+### 모음사전
+
+```jsx
+function solution(word) {
+    const words = ['A', 'E', 'I', 'O', 'U'];
+    const dict = [];
+    
+    function getDict(word, dept) {
+        
+        if(dept === 6) return;
+        dict.push(word);
+        
+        for(let nextWord of words) {
+            getDict(word + nextWord, dept + 1);
+        }
+    }
+    
+    words.forEach((word) => getDict(word, 1));
+    
+    return dict.indexOf(word) + 1;
+}
+```
+
+```jsx
+function solution(word) {
+    
+    let answer = [];
+    
+    function dfs(p) {
+        if (p.length > 5) return;
+
+        answer.push(p);
+        for (let w of "AEIOU") {
+            dfs(p + w);
+        }
+    }
+
+    dfs("");
+    return answer.indexOf(word);
+}
+```
+
+### 짝지어 제거하기
+
+```jsx
+function solution(s) {
+
+    s = s.split('');
+        
+    for(let i = 0; i < s.length;) {
+        if(s[i] === s[i+1]) {
+            s.splice(i, 2);
+            i = 0;
+        }
+        else i++;
+    }
+    
+    return s.length ? 0 : 1;
+}
+```
