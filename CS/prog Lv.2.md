@@ -968,3 +968,208 @@ function solution(s) {
     return s.length ? 0 : 1;
 }
 ```
+
+### 괄호 회전하기
+
+```jsx
+function solution(s) {
+
+    let obj = {
+        ')' : '(',
+        ']' : '[',
+        '}' : '{'
+    };
+    
+    let answer = 0;
+    
+    s = s.split('');
+    
+    function check(s) {
+        
+        let stack = [];
+        
+        s.forEach(v => {
+
+            if(obj[v] === stack[stack.length - 1]) stack.pop();
+            else stack.push(v);
+        });
+        
+        if(stack.length) return false;
+        return true;
+    }; [}
+    
+    
+    for (let i = 0; i < s.legnth; i++) {
+        
+        if(check(s)) answer ++;
+        s.push(s.shift());
+    }
+    
+    return answer;
+}
+```
+
+### 문자열 압축
+
+```jsx
+function solution(s) {
+    
+    let answer = s.length;
+    
+    for (let i = 1; i <= s.length/2; i++) {
+        
+        let pos = 0;
+        let len = s.length;
+        
+        while(pos + i <= s.length) {
+            
+            let chunk = s.substr(pos, i);
+            pos += i;
+            
+            let cnt = 0;
+            while(pos + i <= s.length) {
+                if (chunk === s.substr(pos, i)) {
+                    cnt ++;
+                    pos += i;
+                } else break;
+            }
+            
+            if (cnt > 0) {
+                len -= cnt * i;
+                
+                if (cnt < 9) len += 1;
+                else if (cnt < 99) len += 2;
+                else if (cnt < 999) len += 3;
+                else len += 4;
+            }
+        }
+        
+        answer = Math.min(answer, len);
+    }
+    
+    return answer;
+    
+}
+```
+
+```jsx
+function solution(s) {
+    
+    let answer = s.length;
+    
+    for (let i = 1; i <= s.length/2; i++) { // 반복문자열(덩어리) 길이 늘려감
+        
+        let pos = 0; // 시작 위치
+        let len = s.length; // 문자열 반복 갯수 세서 여기서 뺄 예정
+        
+        while(pos + i <= s.length) { // chunk 크기 고정 & 위치 넘어가면서 반복 여부 체크
+            
+            let chunk = s.substr(pos, i); // chunk 추출
+            let cnt = 0; // 반복 갯수
+            pos += i; // 다음 chunk 위치 잡음
+            
+            while(pos + i <= s.length) {
+                if (chunk === s.substr(pos, i)) { // 다음 chunk와 같으면
+                    cnt ++; // cnt 추가
+                    pos += i; // 그 다음 chunk 추출할 위치 잡음
+                } else break;
+            }
+            
+            if (cnt > 0) { // 반복되는 chunk 있었다면
+                len -= cnt * i; // chunk 크기 x 반복 횟수
+                
+                if (cnt < 9) len += 1; // '2a' 같이 앞에 숫자 들어가야하므로 설정
+                else if (cnt < 99) len += 2; // 두자리 숫자만큼 반복될 경우
+                else if (cnt < 999) len += 3; // 세자리 숫자만큼 반복될 경우
+                else len += 4; // 1000일 경우 (여기서 끝)
+            }
+        }
+        
+        answer = Math.min(answer, len);
+    }
+    
+    return answer;
+    
+}
+```
+
+```jsx
+function solution(s) {
+    
+	//문자열 길이 1인 경우
+    if (s.length === 1) return 1;
+    
+    let strings = [];
+    let answer = 0;
+    
+    //첫번째 반복문은 압축할 문자열 길이 1부터 시작 ~ 문자열 길이 / 2
+    //최대로 압축할 수 있는 길이는 문자열/2까지
+    
+    for(let i = 1; i <= parseInt(s.length / 2); i++) { //문자를 몇개 단위로 나눌 것인가
+        
+        let cnt = 1;
+        let string = '';
+        
+        for(let j = 0; j < s.length; j += i) {
+            
+            const current = s.substr(j, i); //j인덱스 부터 i개를 추출한다. 
+            const next = s.substr(j+i, i); //다음 글자
+            
+            if(current === next) {
+                cnt++;
+                
+            } else {
+                string = cnt > 1? string + cnt + current : string + current;
+                cnt = 1;
+            }
+        }
+        strings.push(string.length);
+    }
+    return Math.min(...strings);
+}
+```
+
+### 땅따먹기
+
+```jsx
+function solution(land) {
+
+    let answer = 0;
+    let sum = 0;
+    
+    function pick(value, row) {
+
+        sum += value;
+        if(row + 1 >= land.length) {
+            return sum;
+        }
+        else {
+            let max = Math.max.apply(null, land[row + 1]);
+            pick(max, row + 1);
+        }
+    }
+    
+    for (let i = 0; i < 4; i++) {
+        answer= Math.max(pick(land[0][i], 0), answer);
+    }
+
+    return pick(land[0][0], 0);
+}
+```
+
+```jsx
+function solution(land) {
+  var answer = 0;
+  var len = land.length;
+  
+  for(var i =len-2; i>=0; i--){
+    land[i][0] = Math.max(land[i+1][1], land[i+1][2], land[i+1][3])+land[i][0];
+    land[i][1] = Math.max(land[i+1][0], land[i+1][2], land[i+1][3])+land[i][1];
+    land[i][2] = Math.max(land[i+1][0], land[i+1][1], land[i+1][3])+land[i][2];
+    land[i][3] = Math.max(land[i+1][0], land[i+1][1], land[i+1][2])+land[i][3];
+ }
+ answer = Math.max(...land[0]); /***포인트!!***/
+
+    return answer;
+}
+```
