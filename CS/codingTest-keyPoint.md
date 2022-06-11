@@ -79,7 +79,7 @@ n개 중에서 r개를 선택하는 경우의 수 (순서 상관 x)
        // 재귀가 진행중이면 해당 값이 restPermutations의 반환값이 되어 combineFixed를 통해 fixed와 결합함
     }
     
-    console.log(permutation([1,1,7]));
+    console.log(permutation([1,1,7], 2));
     // [[1, 1], [1, 7], [1, 1], [1, 7], [7, 1], [7, 1]]
     ```
     
@@ -260,11 +260,15 @@ function dfs(root,exception) {
 
 ## 재귀함수
 
-절차지향적 사고 버리기
+### 재귀적 사고
 
-도미노가 쓰러지는 것은 1번을 쓰러뜨리면, 2번, 3번이 쓰러진다가 아닌
+- 절차지향적 사고 버리기
+- (x) 도미노가 쓰러지는 것은 1번을 쓰러뜨리면, 2번, 3번이 쓰러진다
+    
+    (o) k번 도미노가 쓰러짐 → 고로 k+1 도미노가 쓰러지기 때문에 다 쓰러진다는 사고 필요
+    
 
-k번 도미노가 쓰러짐 → 고로 k+1 도미노가 쓰러지기 때문에 다 쓰러진다는 사고 필요
+### 기본 형태
 
 ```jsx
 function recursive(인자) {
@@ -282,3 +286,283 @@ function recursive(인자) {
 3. 단순한 문제 해결하기 : 문제를 더이상 쪼갤 수 없을 때까지 쪼개어 가장 해결하기 쉬운 문제부터 해결, 이를 base case라고 함base case : 재귀 함수 구현 시 재귀의 탈출 조건(재귀 호출이 멈추는 조건) 구성
 4. 복잡한 문제 해결하기 : 남아있는 문제 해결, 이를 recursive Case라고 함recursive Case : 자신을 호출하는 함수를 포함
 5. 코드 구현하기
+
+## 다익스트라 알고리즘
+
+그래프의 출발점에서 해당 노드까지의 최저 거리를 구하는 알고리즘
+
+1. 출발 노드를 설정ex) 1
+2. 출발 노드를 기준으로 연결된 노드의 최소 비용 저장
+    
+    ex) 1과 연결된 노드가 2, 4 이므로 두 노드에 최소 비용 저장 2(1), 4(2)
+    
+3. 방문하지 않은 노드 중에서 가장 비용이 적은 노드 선택
+    
+    ex) 2(1), 4(2) 중 비용이 1로 적은 2 선택
+    
+4. 선택한 노드와 연결된 노드의 최소 비용 저장
+    
+    ex) 3(4), 5(3)
+    
+5. 위 과정에서 3~4번 반복(가지고 있던 비용보다 작은 비용이라면, 최소로 갱신)
+6. 순환을 마치면 각 노드마다 최소 비용이 나옴
+
+- 예시 (1~N까지 K이하로 갈 수 있는 마을 구하기)
+    
+    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%206.png)
+    
+    마을은 `node`, 경로는 `arc`(아크), 비용은 `dist`(distance)로 표현했다.
+    
+    1. 배열 `dist` 생성 : 출발점부터 해당 노드로 가는 최소 비용을 저장할 배열최소값마다 갱신해야 하므로 초기값을 무한대로 설정
+    2. 배열 `arcs` 생성: 해당 노드와 연결된 노드와 경로값 저장할 배열
+    3. `road`를 순회하며 `arcs`에 경로 저장ex) `road[n]`마다 저장되는 형태 => `[{node: , arc: }, {node: , arc: },...]`
+    4. 큐 생성 & 초기값 설정 : 출발점인 마을 1로 설정
+    5. 출발점(마을 1)의 거리값을 0으로 설정
+    6. 큐의 값을 순회
+        1. 기존에 경로의 값보다 우회하는 값이 더 작으면 해당 값을 저장> 큐에 값을 넣고, `dist`값에 따라 오름차순으로 정렬되는 함수 실행
+        2. 아니라면 다음 큐의 값으로 넘어감 (`pushQue` 함수로 인해 최소 비용을 가진 노드로 넘어감)
+    7. 경로의 제한인 K보다 arc가 작은 경로의 수를 반환
+    
+    ```jsx
+    function solution(N, road, K) {
+    
+        let dist = new Array(N+1).fill(Number.MAX_SAFE_INTEGER); // 1
+        let arcs = Array.from(new Array(N+1), () => []); // 2
+    
+        for(let i = 0; i < road.length; i++) { // 3
+            let [a,b,c] = road[i];
+            arcs[a].push({node: b, arc: c});
+            arcs[b].push({node: a, arc: c});
+        }
+    
+        let queue = [1]; // 4
+        dist[1] = 0; // 5
+    
+        function pushQue(v) { // 6-1
+            queue.push(v);
+            queue.sort((a,b) => dist[a.node] - dist[b.node]);
+        }
+    
+        while(queue.length) { // 6
+    
+            let now = queue.shift();
+    
+            arcs[now].forEach(connect => {
+    
+                let next = connect.node;
+                if(dist[next] > dist[now] + connect.arc) {
+                    dist[next] = dist[now] + connect.arc;
+                    pushQue(next);
+                }
+            })
+        }
+        return dist.filter(v => v <= K).length; // 7
+    }
+    ```
+    
+
+## ****다이나믹 프로그래밍 (동적 프로그래밍)****
+
+큰 문제를 작은 문제로 쪼개 결과값을 저장 후, 재활용하여 큰 문제를 해결하는 방식
+
+알고리즘 보다는 방법론(문제 해결 방식)에 가깝다
+
+- **재귀와 차이점**
+    
+    재귀는 단순히 작은 문제들을 반복적으로 불러내어 비효율적일 수 있다. 
+    
+    ex) 피보나치 수열 f(n) = f(n-1) + f(n-2)
+    
+    여기서 f(n-1)는  f(n-2)를 호출하며 계산되고, 값을 구한 다음에는 더하는 수인 f(n-2)가 또 다시 계산된다.
+    
+    DP는 f(n-2)가 한 번 호출되면, 그 값이 저장되어 다음에는 계산하지 않아도 된다.
+    
+- **분할 정복과 차이점**
+    
+    분할 정복도 큰 문제를 작은 문제로 쪼개 해결하지만, 작은 문제들이 중복되지 않고 독립적이다.
+    
+
+### 사용 조건
+
+1. **Overlapping Subproblems (겹치는 부분 문제)**
+    
+    동일한 작은 부분이 반복하여 나타나야 함
+    
+2. **Optimal Substructure (최적 부분 구조)**
+    
+    작은 문제의 최적 결과 값을 사용해 큰 문제의 최적 결과값을 낼 수 있는 경우
+    
+
+### 구현
+
+1. **Bottom-up 방식**
+    
+    문제의 아래부터 위로 값을 쌓아올리며 최종값에 도달함
+    
+2. **Top-down 방식**
+    
+    문제의 위부터 호출을 시작하여, 아래까지 내려오면서 모든 결과값을 저장 → 저장된 결과값을 사용하는 재귀 호출
+    
+
+### 예시 문제 (땅따먹기)
+
+![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%207.png)
+
+a까지 이르는 경로는 다양하겠지만, 일단 a에 이르고 나서 탐색되는 아래 부분은 항상 같다.
+
+이는 a까지 어떤 경로를 선택하던지 a에서 출발해서 얻을 수 있는 최대값을 항상 같다는 것이다.
+
+그러므로 그 값을 저장해두면 다음에 다른 경로로 a에 오더라도 사용할 수 있어 효율적이다.
+
+![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%208.png)
+
+a, b, c, d 에서 출발했을 때 얻을 수 있는 최대값을 모두 저장해놨을 때 K지점에서 출발해 얻을 수 있는 최고 점수는 아래와 같다
+
+![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%209.png)
+
+- K지점의 값 = `land[i][0]`
+- K에서 출발해 얻을 수 있는 최대값 = `dp[i][0]`
+
+∴ **dp[i][0] => b, c, d 각각 위치에서 출발해서 얻을 수 있는 최대값 중에서 최대값 + K 위치의 값**
+
+```jsx
+dp[i][0] = max(dp[i+1][1], dp[i+1][2], dp[i+1][3]) + land[i][0]
+```
+
+출발 위치를 달리 했을 때의 최대값은 아래와 같다.
+
+![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%2010.png)
+
+경로를 밑에서 위로(거꾸로) 올라가며 계산해도 값은 같음
+
+## 피보나치
+
+( F(0) = 0, F(1) = 1) 1 이상의 n에 대하여 F(n) = F(n-1) + F(n-2) 가 적용되는 수
+
+- 보통 큰 수로 나눈 나머지를 반환하거나 저장하라고 문제 나옴 (굉장히 수가 크기 때문에 메모리가 감당x)
+    
+    (A + B) % C ≡ ( ( A % C ) + ( B % C) ) % C
+    
+    나눈 수를 저장한 후, 그 수를 다시 더하고 나눠도 결과는 같음
+    
+
+### DP (보텀탑)
+
+아래서 위로 값을 저장해서 쌓아 올리는 다이나믹 프로그래밍 방식
+
+```jsx
+function solution(n) {
+
+    let arr = [0, 1];
+
+    for (let i = 2; i <= n; i++) {
+        arr.push((arr[i-1] + arr[i-2]) % 1234567);
+    }
+    return arr[n] ;
+}
+```
+
+### 재귀 (탑다운)
+
+오래 걸리기 때문에 잘 사용하지 않음
+
+```jsx
+function solution(n) {
+
+    function accF(m) {
+        if(m < 2) return m;
+        return accF(m-1) + accF(m-2);
+    }
+
+    return accF(n) % 1234567;
+}
+```
+
+ 
+
+---
+
+### 두 직선의 교점 구하기
+
+- **두 직선의 식 (유일할때)**
+    - ax + by = e
+    - cx + dy = f
+    
+    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%2011.png)
+    
+    - ax + by + e = 0
+    - cx + dy +f = 0
+    
+    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%2012.png)
+    
+    - AD-BC =0  ⇒ (기울기가 같음) 교점 없음
+
+```jsx
+function solution(line) {
+    // line = [[A,B,C]...] => Ax + By + C = 0 직선 (ABC => -100,000 ~ 100,000)
+    // line.legnth(선 개수) 2~1000 / 
+    // x,y가 정수인 교차지점 *로 표시 -> 모두 포함 최소 사각형 return (1000x1000 이내)
+    // 예외케이스 챙기기
+    
+    let dots = [];
+
+    line.forEach((v,idx) => {
+        
+        let A = v[0];
+        let B = v[1];
+        let C = v[2];
+        
+        for(let i = idx+1; i < line.length; i++) {
+            let a = line[i][0];
+            let b = line[i][1];
+            let c = line[i][2];
+            
+            let dot = [(B*c-b*C)/(A*b-a*B), -(A/B)*(B*c-b*C)/(A*b-a*B)-C/B];
+            
+            if(A*b - a*B === 0) continue;
+            if(dot[0] % 1 === 0 && dot[1] % 1 === 0) {
+                if(checkOverlap(dot)) dots.push(dot);
+            }
+        }
+    })
+    
+    // dots 중복 제거
+    function checkOverlap(arr) {
+        for(let i = 0; i < dots.length; i++) {
+            if(dots[i][0] === arr[0] && dots[i][1] === arr[1]) return false;
+        }
+        return true;
+    }
+    
+    // 문자열로 출력하기
+    // 최대 x, y 좌표 구하기 -> 사각형의 가로, 세로
+    
+    let x = dots.map(v => v[0]);
+    let y = dots.map(v => v[1]);
+    
+    let minW = Math.min.apply(null, x);
+    let maxW = Math.max.apply(null, x);
+    let minH = Math.min.apply(null, y);
+    let maxH = Math.max.apply(null, y);
+    
+    
+    // 사각형 생성
+    let answer = Array.from(new Array(maxH - minH + 1), () => new Array(maxW - minW + 1).fill('.'));
+    
+    dots.forEach(v => {
+        answer[v[1]-maxH][v[0]-maxW] = '*';
+    })
+    return answer;
+    return answer.map(v => v.map(e => e.join('')));
+}
+```
+
+### [1,2,3,4…n] 배열 만들기
+
+`Array.from({length: n}, (_,i) => i + 1);`
+
+### 팩토리얼 만들기
+
+위 배열의 팩토리얼 만들기
+
+`let fac = arr.reduce((ac,v) => ac * v, 1);`
