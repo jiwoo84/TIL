@@ -1,4 +1,4 @@
-# 코테 키포인트
+# codingTest-keyPoint
 
 - **자연수**
     
@@ -21,7 +21,7 @@ n개 중에서 r개를 선택하는 경우의 수 (순서 상관 ㅇ)
 
 (0! = 1)
 
-![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled.png)
+![Untitled](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled.png)
 
 - 중복순열 : 중복을 허용하여 r개 선택 ⇒ $n^r$
 
@@ -29,7 +29,7 @@ n개 중에서 r개를 선택하는 경우의 수 (순서 상관 ㅇ)
 
 n개 중에서 r개를 선택하는 경우의 수 (순서 상관 x)
 
-![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%201.png)
+![Untitled](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%201.png)
 
 ⇒ $n! /(n-r)!*r!$
 
@@ -37,7 +37,7 @@ n개 중에서 r개를 선택하는 경우의 수 (순서 상관 x)
 
 ### 같은 것이 있는 경우
 
-![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%202.png)
+![Untitled](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%202.png)
 
 ---
 
@@ -148,7 +148,7 @@ n개 중에서 r개를 선택하는 경우의 수 (순서 상관 x)
 
 # DFS / BFS
 
-![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%203.png)
+![Untitled](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%203.png)
 
 ```jsx
 const graph = {
@@ -246,13 +246,13 @@ function dfs(root,exception) {
 
 1. 2차원 배열
     
-    ![간단 but 메모리 큼](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%204.png)
+    ![간단 but 메모리 큼](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%204.png)
     
     간단 but 메모리 큼
     
 2. 연결 리스트
     
-    ![복잡 bup 메모리 작음](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%205.png)
+    ![복잡 bup 메모리 작음](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%205.png)
     
     복잡 bup 메모리 작음
     
@@ -309,7 +309,7 @@ function recursive(인자) {
 
 - 예시 (1~N까지 K이하로 갈 수 있는 마을 구하기)
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%206.png)
+    ![Untitled](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%206.png)
     
     마을은 `node`, 경로는 `arc`(아크), 비용은 `dist`(distance)로 표현했다.
     
@@ -406,7 +406,7 @@ function recursive(인자) {
 
 ### 예시 문제 (땅따먹기)
 
-![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%207.png)
+![Untitled](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%207.png)
 
 a까지 이르는 경로는 다양하겠지만, 일단 a에 이르고 나서 탐색되는 아래 부분은 항상 같다.
 
@@ -414,11 +414,11 @@ a까지 이르는 경로는 다양하겠지만, 일단 a에 이르고 나서 탐
 
 그러므로 그 값을 저장해두면 다음에 다른 경로로 a에 오더라도 사용할 수 있어 효율적이다.
 
-![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%208.png)
+![Untitled](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%208.png)
 
 a, b, c, d 에서 출발했을 때 얻을 수 있는 최대값을 모두 저장해놨을 때 K지점에서 출발해 얻을 수 있는 최고 점수는 아래와 같다
 
-![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%209.png)
+![Untitled](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%209.png)
 
 - K지점의 값 = `land[i][0]`
 - K에서 출발해 얻을 수 있는 최대값 = `dp[i][0]`
@@ -431,7 +431,7 @@ dp[i][0] = max(dp[i+1][1], dp[i+1][2], dp[i+1][3]) + land[i][0]
 
 출발 위치를 달리 했을 때의 최대값은 아래와 같다.
 
-![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%2010.png)
+![Untitled](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%2010.png)
 
 경로를 밑에서 위로(거꾸로) 올라가며 계산해도 값은 같음
 
@@ -478,7 +478,92 @@ function solution(n) {
 }
 ```
 
+## 최대공약수 / 최소공배수
+
  
+
+### **유클리드 호제법**
+
+최대공약수를 구하는 알고리즘
+
+(큰 값 max , 작은 값 min)
+
+1. max % min = e(1)
+2. min % e(1) = e(2)
+3. e(1) % e(2) = e(3)
+    
+    ⋮
+    
+    e(n-1) % e(n) = 0
+    
+- 최대공약수 = e(n)
+- 최소공배수 = (max * min) /e(n)
+
+```jsx
+function solution(n, m) {
+
+    // max = 큰값 , min = 작은값
+    let max = Math.max(n,m);
+    let min = Math.min(n,m);
+
+    // 최대공약수 구하는 함수
+    function u(max, min) {
+        let e = max % min;
+        if (e === 0) return min;
+        return u(min, e);
+        }
+
+    // 최대공배수 반환
+    alert(u(max,min));
+
+    // 최소공배수 반환
+    alert(max * min / u(max,min));
+}
+
+// 간추린 코드 (최대공약수 반환)
+function solution(n, m) {
+  function u(n, m) { return m % n ? u(m % n, n) : n; }
+}
+```
+
+### 약수 구하기
+
+- n/2까지 순회 (순회 후, 본인 더하기)
+    
+    ex) 12의 약수 = [1,2,3,4,6,12] 
+    
+    6과 12 사이에는 약수가 나올 수 없음
+    
+
+```jsx
+function solution(n) {
+
+    let divisor = [];
+
+    for (let i = 1; i <= n/2; i++) {
+        if (num % i === 0) divisor.push(i);
+    }
+    return divisor.push(n)
+}
+```
+
+- n의 제곱근까지 순회
+    
+    n이 큰 수라서 효율성을 줄여야 할 때 필요함
+    
+    (제곱근이 정수인지 판단해서 중복 체크 해야함)
+    
+
+```jsx
+let divisor = [];
+let z = Math.sqrt(i);
+
+for(let i = 1; i <= z; i++) {
+	if (num % i === 0) divisor.push(i);
+}
+
+// 제곱근 체크해서 없애는 과정
+```
 
 ---
 
@@ -488,12 +573,12 @@ function solution(n) {
     - ax + by = e
     - cx + dy = f
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%2011.png)
+    ![Untitled](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%2011.png)
     
     - ax + by + e = 0
     - cx + dy +f = 0
     
-    ![Untitled](%E1%84%8F%E1%85%A9%E1%84%90%E1%85%A6%20%E1%84%8F%E1%85%B5%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%205160bc0094274f849be6fe9055499cd6/Untitled%2012.png)
+    ![Untitled](codingTest-keyPoint%205160bc0094274f849be6fe9055499cd6/Untitled%2012.png)
     
     - AD-BC =0  ⇒ (기울기가 같음) 교점 없음
 
