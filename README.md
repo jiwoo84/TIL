@@ -1,6 +1,5 @@
-# JW's Today I Learn
-* 나의 발걸음이자 이정표가 될 기록
-* 선택과 집중을 통해 효율적으로 공부할 것
+# 🌳 JW's Today I Learn
+나의 발걸음이자 이정표가 될 기록
 
 ## 규칙
 
@@ -12,10 +11,28 @@
 
 ## 분류
 
+### CS
+* [인터넷은 어떻게 작동할까요(기초)](https://jiwoo84.tistory.com/29?category=1269099)
+* [인터넷은 어떻게 작동할까요(심화)](https://jiwoo84.tistory.com/33?category=1269099)
+
 ### HTML & css
-- cascading에 관하여
+- [cascading 문제 해결](https://jiwoo84.tistory.com/27?category=1255319)
 
 ### Javascript
 * 모던 JavaScript 튜토리얼 정복 프로젝트
   * 진행일: 2/23 ~  진행중
   * [💡 진행상황 보기](https://www.notion.so/JavaScript-ca806d4b37004128894e5aee4bed57ad)
+
+### 코딩테스트 준비
+
+* 알고리즘
+  * [다이나믹 프로그래밍](https://jiwoo84.tistory.com/104?category=1258259)
+  * [최대공약수&최소공배수](https://jiwoo84.tistory.com/47?category=1258259)
+  * [순열&조합](https://jiwoo84.tistory.com/78?category=1258259)
+  * [타일링](https://jiwoo84.tistory.com/106?category=1258259)
+  * [하노이의 탑](https://jiwoo84.tistory.com/115?category=1258259)
+  * [피보나치의 수](https://jiwoo84.tistory.com/95?category=1258259)
+
+* 프로그래머스 문제 풀이 (포스팅 96개 완료)
+  * Lv 1 ✔
+  * LV 2 ✔
