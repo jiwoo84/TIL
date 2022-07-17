@@ -8,14 +8,17 @@
 
 상태 → 상태 사이에 애니메이션을 넣어줌
 
-`첫 시작 tag {transition: 변화하는 속성·시간·ease-in function}`
+`tag {transition: 변하는 속성·시간·속도}`
 
-- **rule 1.** state가 없는 요소에 붙어야 함 (첫 상태 element)
+`tag:state {변하는 속성: 속성값}`
+
+### 조건
+
+1. state가 없는 요소에 붙어야 함 (첫 상태 element)
     
     state에 붙는다면 state 상태에서만 애니메이션 작동
     
-- **rule 2.** state에 적힌 내용이어야 함 (그게 변화하는 요소니까)
-    
+2. 속성이 state의 속성이어야 함 (그게 변화하는 요소니까)
     
     ![hover 시, background-color 변화하도록 설정했고](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b928a2f592124229b3b7326dabe56399/eaaf4e78-8bf8-4b18-a999-3c5d2f1cd818.png)
     
@@ -26,10 +29,9 @@
     천천히 변화한다
     
 
-- all 로 설정 시, hover에 설정된 모든 요소에 변화 줌
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b928a2f592124229b3b7326dabe56399/d407feb0-ba38-4735-9315-caffda5aee49.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b928a2f592124229b3b7326dabe56399/d407feb0-ba38-4735-9315-caffda5aee49.png)
-    
+### 속성
+
+- `all` → state 설정된 모든 요소 선택
 - 각자 효과 다르게 주고 싶다면, 따로 쓰면 된다
     
     ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/b928a2f592124229b3b7326dabe56399/cacdc4f6-6211-4392-b42c-4d56e45e3bd1.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/b928a2f592124229b3b7326dabe56399/cacdc4f6-6211-4392-b42c-4d56e45e3bd1.png)
@@ -51,49 +53,31 @@ https://matthewlein.com/tools/ceaser (설명 사이트)
 
 요소에 회전, 크기 조절, 기울이기, 이동 효과를 부여
 
-## **기본 문법**
+### **기본 문법**
 
-`tag {transform: □;}`
+`tag {transform: ~;}`
 
-## **속성값 예시**
+### **속성값 예시**
 
-- `rotate축(□deg)` 지정 축을 중심으로 3D 회전
-    - 축 지정x : rotate 는 중심을 점으로 회전 (ex) `rotate: 0.5turn`
-- `scale축(숫자)` 지정 축을 중심으로 크기 …배로 변경
-- `translate축(□단위)` 지정 축을 중심으로 이동
-    - X축: - 좌 / + 우
-    - Y축: - 상/ + 하
-    - Z축: 대각선 축
-- `skew(□deg)` 비스듬히 기울이기
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b928a2f592124229b3b7326dabe56399/b104021f-6ee7-4961-8ec3-121782e60ca2.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b928a2f592124229b3b7326dabe56399/b104021f-6ee7-4961-8ec3-121782e60ca2.png)
-    
-    ![로고 이미지가 Y축을 중심으로 3D로 돌아가고 있다](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/b928a2f592124229b3b7326dabe56399/6e3d9d53-f95b-4e1b-bd83-21e5440cb705.png)
-    
-    로고 이미지가 Y축을 중심으로 3D로 돌아가고 있다
-    
+축: X/ Y/ Z
 
-## **특징**
+- `rotate축(~)` 지정 축을 중심으로 3D 회전
+    - 축 지정 불필요 : rotate 는 중심을 점으로 회전
+    - ex) `0.5turn` , `~deg`
+- `scale축(~)` 지정 축을 중심으로 크기 n배로 변경
+- `translate축(~)` 지정 축을 중심으로 이동
+- `skew(~)` 비스듬히 기울이기
 
-- 이 움직임은 **다른 element에 영향 X** (부모, 자식, 형제 모두)
-- 그러므로 margin, padding 이 적용 안 됨
-- transformation은 다른 element에 영향 주지 않고 요소를 이동시키기 위해 사용
-- transform: translate(…)
-    
-    특히 `position: absolute;` 인 요소를 부모의 정중앙에 배치할 때 사용 (css파일 참고)
-    
+### **특징**
 
-![img의 sibling 인 span이 옆에 있지만, translate 지시](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b928a2f592124229b3b7326dabe56399/97d8a3b5-b389-4439-8a47-ee872106e571.png)
+- 이 움직임은 다른 element에 영향주지 않고 받지도 않고 이동함
+- 당연히 margin, padding 이 적용 안 됨
 
-img의 sibling 인 span이 옆에 있지만, translate 지시
-
-![span 을 신경 쓰지도 않고 움직임](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/b928a2f592124229b3b7326dabe56399/4a4cca29-d092-48e7-b2b3-e02d6d30711e.png)
-
-span 을 신경 쓰지도 않고 움직임
-
-## **조합 with transition**
+## **with transition**
 
 `tag {transition: transform · 시간 · ease-in function}`
+
+`tag:state {transform: 속성값}`
 
 [천천히 돌아가는 애니메이션 만듬](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/clip_videos/b928a2f592124229b3b7326dabe56399/ee4fade8-dc7b-410c-a9b0-8f714be1fb40.webm)
 
@@ -107,29 +91,40 @@ span 을 신경 쓰지도 않고 움직임
 
 ## **기본 문법**
 
-`@keyframes 이름 {from{□:□;} to{□:□;} }`
+`@keyframes 이름 {from{~:~;} to{~:~;} }`
 
-`tag {animation: 이름·지속시간·ease-in function(infinite)}`
+`tag {animation: 이름·지속시간·ease-in function·유지시간}`
 
 from 상태 → to 상태까지 애니메이션 됨 
 
-- `infinite` 연속해서 계속
-- `forwards` 마지막 상태 유지
+- 유지시간
+    - `infinite` 연속해서 계속
+    - `forwards` 마지막 상태 유지
 
 ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b928a2f592124229b3b7326dabe56399/c6d169df-bcc4-426c-8016-4ab3067ae2ed.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b928a2f592124229b3b7326dabe56399/c6d169df-bcc4-426c-8016-4ab3067ae2ed.png)
 
 [https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/clip_videos/b928a2f592124229b3b7326dabe56399/c55b4740-c14f-4e54-b5ba-67c7642da731.webm](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/clip_videos/b928a2f592124229b3b7326dabe56399/c55b4740-c14f-4e54-b5ba-67c7642da731.webm)
 
-## **단계별로 움직이게 하기**
-
-from& to 대신에 n%로 단계별로 지정
+- **단계별로 움직이게 하기**
+    
+    from& to 대신에 n%로 단계별로 지정
+    
 
 ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b928a2f592124229b3b7326dabe56399/9c429b2a-4595-4ffa-8ded-0c6e09aa1b2d.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b928a2f592124229b3b7326dabe56399/9c429b2a-4595-4ffa-8ded-0c6e09aa1b2d.png)
 
 [https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/clip_videos/b928a2f592124229b3b7326dabe56399/403dfaff-ea14-4030-9bff-98af5b0e4864.webm](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/clip_videos/b928a2f592124229b3b7326dabe56399/403dfaff-ea14-4030-9bff-98af5b0e4864.webm)
 
-- 챌린지 과제 예시
+- **애니메이션 안정화**
     
+    `will-change: ~;`
+    
+    애니메이션을 적용했는데 흔들리고 불안정 할 때,
+    
+    변화를 미리 알려줌으로써 애니메이션을 부드럽게 함
+    
+    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/b6982c476559498bae1a6e437bbb01f5/d5cd0a1f-4c99-401f-a959-b33f4c045236.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/b6982c476559498bae1a6e437bbb01f5/d5cd0a1f-4c99-401f-a959-b33f4c045236.png)
+    
+- 챌린지 과제 예시
     
     ![중간 원을 중심으로 180deg 씩 돌고 있음](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/b928a2f592124229b3b7326dabe56399/4c9faf01-7e6c-4ed6-9247-34ab35124597.png)
     
@@ -149,7 +144,7 @@ from& to 대신에 n%로 단계별로 지정
         ∵ 단순히 180도 돌아있는 상태 → 같은 상태 이므로
         
     
-- **animation-delay**
+    - **animation-delay**
     
     `animation-delay: ~s;`
     
@@ -166,7 +161,7 @@ from& to 대신에 n%로 단계별로 지정
 
 핸드폰, 스크린사이즈에 맞춰 변화하게 지시
 
-- `@media screen and (max/min-width: …px)`
+- `@media screen and (max/min-width/height: …px)`
     
     `{tag {속성:속성값;}}`
     
