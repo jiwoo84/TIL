@@ -272,6 +272,8 @@ function linearSearch(arr, n) {
 }
 ```
 
+---
+
 ## 이진 검색 (Binary Search)
 
 - 분할 정복 사용
@@ -279,18 +281,43 @@ function linearSearch(arr, n) {
 
 ### 구현 : O(log n) / Ω(1)
 
+두 개의 포인터를 사용하여 구현
+
 ```jsx
 function binarySearch(arr, n) {
-    let left = 0;
-    let right = arr.length - 1;
+    let start = 0;
+    let end = arr.length - 1;
     let middle = null;
 
-    while(left <= right) {
-        middle = Math.floor((left + right) / 2);
+    while(start <= end) {
+        middle = Math.floor((start + end) / 2);
         if(arr[middle] === n) return middle;
-        else if(n < arr[middle]) right = middle - 1;
-        else if(n > arr[middle]) left = middle + 1;
+        else if(n < arr[middle]) end = middle - 1;
+        else if(n > arr[middle]) start = middle + 1;
     }
     return -1;
 }
 ```
+
+---
+
+## 문자열 부분 검색 (Naive String Search)
+
+문자열 앞에서부터 차례대로 비교, 일치하면 다음 글자 비교하면서 전부 일치하면 카운터 +1
+
+### 구현
+
+```jsx
+function naiveSearch(long, short) {
+    let cnt = 0;
+    for(let i = 0; i < long.length; i++) {
+        for(let j = 0; j < short.length; j++) {
+            if(long[i+j] !== short[j]) break;
+            if(j === short.length - 1) cnt ++;
+        }
+    }
+    return cnt;
+}
+```
+
+# 정렬
