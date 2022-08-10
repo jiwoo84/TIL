@@ -321,3 +321,52 @@ function naiveSearch(long, short) {
 ```
 
 # 정렬
+
+## 버블 정렬
+
+두 개의 인접한 자료 값을 비교하면서 위치를 교환하는 방식
+
+![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%201.png)
+
+- **O(n^2)** : 최악의 경우 n^2 -3n +2번 모두 진행
+- **Ω(n)** : (최적화 설명 & 정렬된 경우) n-1번만 비교
+
+### 구현
+
+```jsx
+function swap(arr, i, j) {
+	[arr[i], arr[j]] = [arr[j], arr[i]];
+}
+
+function bubbleSort(arr) {
+	for(let i = arr.length; i > 0 ; i --) {
+		for(let j = 0; j < i - 1; j++) {
+			if(arr[j] > arr[j+1]) swap(arr, j, j+1);
+		}
+	}
+	return arr;
+}
+```
+
+- 최적화 추가 : 순회 중, 교환이 발생하지 않았다면 과정을 끝냄
+    
+    ```jsx
+    function swap(arr, i, j) {
+    	[arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    
+    function bubbleSort(arr) {
+    	let noSwap;
+    	for(let i = arr.length; i > 0 ; i --) {
+    		let noSwap = true;
+    		for(let j = 0; j < i - 1; j++) {
+    			if(arr[j] > arr[j+1]) {
+    				swap(arr, j, j+1);
+    				noSwap = false; // swap 발생 시, false로 변경
+    			}
+    		}
+    		if(noSwap) break;
+    	}
+    	return arr;
+    }
+    ```
