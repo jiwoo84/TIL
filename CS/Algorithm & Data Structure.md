@@ -322,14 +322,18 @@ function naiveSearch(long, short) {
 
 # 정렬
 
+![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%201.png)
+
 ## 버블 정렬
 
 두 개의 인접한 자료 값을 비교하면서 위치를 교환하는 방식
 
-![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%201.png)
+중첩 루프를 돌며, n개의 값이 주어졌을 때 루프가 n-1번, n-2번 반복되므로 (n-1)*(n-2) = n^2 -3n +2번의 비교·교환이 필요함
+
+![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%202.png)
 
 - **O(n^2)** : 최악의 경우 n^2 -3n +2번 모두 진행
-- **Ω(n)** : (최적화 설명 & 정렬된 경우) n-1번만 비교
+- **Ω(n)** : (최적화 설정 & 정렬된 경우) n-1번만 비교
 
 ### 구현
 
@@ -370,3 +374,54 @@ function bubbleSort(arr) {
     	return arr;
     }
     ```
+    
+
+---
+
+## 선택 정렬
+
+배열 안의 자료 중 가장 작은 수(혹은 가장 큰 수)를 찾아 첫 번째 위치(혹은 가장 마지막 위치)의 수와 교환해주는 방식
+
+- O(n^2) : n + (n-1) + (n-2) + … = n(n-1)/2
+- Ω(n^2) : 정렬 여부 상관없이 모두 실행
+
+### 구현
+
+```jsx
+function selectionSort(arr) {
+
+    for(let i = 0; i < arr.length; i++) {
+        let lowest= i; // 최소값 설정
+        for(let j = i+1; j < arr.length; j++) {
+            if(arr[j] < arr[lowest]) lowest = j; // 최소값 업데이트
+        }
+				// 만약 최소값에 변동이 있다면 바꿔주기
+        if(i !== lowest) [arr[i], arr[lowest]] = [arr[lowest], arr[i]];
+    }
+
+    return arr;
+}
+```
+
+---
+
+## 삽입 정렬
+
+두 번째 자료부터 시작하여 앞의 자료들과 비교해 삽입할 위치를 지정한 후, 자료를 뒤로 옮기고 삽입되는 과정을 반복한 정렬
+
+- O(n^2)
+- Ω(n) : 이미 정렬된 경우
+
+### 구현
+
+```jsx
+function insertionSort(arr) {
+    for (let i = 1; i < arr.length; i++) {
+        let currentValue = arr[i]; // 현재 비교할 값 저장 (arr가 계속 바뀌기 때문에 저장해야함)
+        for (let j = i - 1; j >= 0 && arr[j] > currentValue; j--) { // 앞에 큰 값 있다면
+            [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; // 이전 값, 현재 값 변경
+        }
+    }
+    return arr;
+}
+```
