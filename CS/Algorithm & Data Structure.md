@@ -322,15 +322,22 @@ function naiveSearch(long, short) {
 
 # 정렬
 
-![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%201.png)
+| Algorithm | Big-O (상한) | Big-θ (평균) | Big-Ω (하한) | 공간 복잡도 |
+| --- | --- | --- | --- | --- |
+| 버블 정렬 | O(n^2) | θ(n^2) | Ω(n) | O(1) |
+| 삽입 정렬 | O(n^2) | θ(n^2) | Ω(n) | O(1) |
+| 선택 정렬 | O(n^2) | θ(n^2) | Ω(n^2) | O(1) |
+| 합병 정렬 | O(n log n) | θ(n log n) | Ω(n log n) | O(n) |
 
-## 버블 정렬
+## 버블 정렬 (Bubble Sort)
 
 두 개의 인접한 자료 값을 비교하면서 위치를 교환하는 방식
 
 중첩 루프를 돌며, n개의 값이 주어졌을 때 루프가 n-1번, n-2번 반복되므로 (n-1)*(n-2) = n^2 -3n +2번의 비교·교환이 필요함
 
-![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%202.png)
+![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%201.png)
+
+[공부방법](https://www.notion.so/948c14760e02491fa08eedc6a5fc3c66)
 
 - **O(n^2)** : 최악의 경우 n^2 -3n +2번 모두 진행
 - **Ω(n)** : (최적화 설정 & 정렬된 경우) n-1번만 비교
@@ -378,7 +385,30 @@ function bubbleSort(arr) {
 
 ---
 
-## 선택 정렬
+## 삽입 정렬 (Insertion Sort)
+
+두 번째 자료부터 시작하여 앞의 자료들과 비교해 삽입할 위치를 지정한 후, 자료를 뒤로 옮기고 삽입되는 과정을 반복한 정렬
+
+- O(n^2)
+- Ω(n) : 이미 정렬된 경우
+
+### 구현
+
+```jsx
+function insertionSort(arr) {
+    for (let i = 1; i < arr.length; i++) {
+        let currentValue = arr[i]; // 현재 비교할 값 저장 (arr가 계속 바뀌기 때문에 저장해야함)
+        for (let j = i - 1; j >= 0 && arr[j] > currentValue; j--) { // 앞에 큰 값 있다면
+            [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; // 이전 값, 현재 값 변경
+        }
+    }
+    return arr;
+}
+```
+
+---
+
+## 선택 정렬 (Selection Sort)
 
 배열 안의 자료 중 가장 작은 수(혹은 가장 큰 수)를 찾아 첫 번째 위치(혹은 가장 마지막 위치)의 수와 교환해주는 방식
 
@@ -405,23 +435,99 @@ function selectionSort(arr) {
 
 ---
 
-## 삽입 정렬
+## 합병 정렬 (Merge Sort)
 
-두 번째 자료부터 시작하여 앞의 자료들과 비교해 삽입할 위치를 지정한 후, 자료를 뒤로 옮기고 삽입되는 과정을 반복한 정렬
+배열을 요소가 하나가 될 때까지 분할 → 맨 앞 값을 하나씩 비교해 정렬하면서 합병 → 반복
 
-- O(n^2)
-- Ω(n) : 이미 정렬된 경우
+![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%202.png)
+
+![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%203.png)
+
+![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%204.png)
+
+![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%205.png)
+
+- O(n log n) : 분할하면서 logn, 비교하면서 n
+- Ω(n log n)
+
+### 구현
+
+- 정렬
+    
+    맨 앞부터 시작해서 작은 값은 result에 넣고, 포인터를 이동해가면서 비교 → 한 배열이 모두 result에 들어갔다면 나머지 배열의 남은 값 모두 넣기
+    
+- 합병
+    
+    재귀를 이용해서 끝까지 나눴다가 합병
+    
+
+```jsx
+// 정렬 함수
+function merge(arr1, arr2) {
+    let p1 = 0; // arr1의 포인터
+    let p2 = 0; // arr2의 포인터
+    let result = [];
+
+    while(p1 < arr1.length && p2 < arr2.length) {
+        if(arr1[p1] < arr2[p2]) { // 값 비교해서 작은 값 result에 넣기
+            result.push(arr1[p1]);
+            p1++;
+        }
+        else {
+            result.push(arr2[p2]);
+            p2++;
+        }
+    }
+
+    // 남은 배열의 값이 있다면, 나머지 다 넣기
+    if(p1 < arr1.length) result.push(...arr1.slice(p1));
+    else if(p2 < arr2.length) result.push(...arr2.slice(p2));
+
+    return result;
+}
+
+function mergeSort(arr) {
+    if(arr.length <= 1) return arr;
+
+    let mid = Math.floor(arr.length/2);
+    let left = mergeSort(arr.slice(0, mid));
+    let right = mergeSort(arr.slice(mid));
+
+    return merge(left, right);
+}
+```
+
+---
+
+## 퀵 정렬 (Quick Sort)
+
+피벗(파티션)값 하나를 설정해서 이보다 작은 값은 왼쪽, 큰 값은 오른쪽으로 옮김 → 피벗을 다시 설정 → 반복
+
+- 피벗 설정 : 편의상 맨 첫 번째 인덱스로 설정
+- 비교해서 옮기는 과정
+    1. 포인터 설정 = 1
+    2. 피벗의 다음 값부터 피벗과 비교
+    3. 피벗 > 값 ⇒  포인터의 값과 해당 값을 바꾸고 포인터+1
+    4. 피벗 < 값 ⇒ 그냥 놔둠
+    5. 맨 끝까지 비교했다면, 피벗 인덱스의 값과 피벗 교환
+    6. 교환된 값(arr[0])이 피벗이 되어 다시 반복
 
 ### 구현
 
 ```jsx
-function insertionSort(arr) {
-    for (let i = 1; i < arr.length; i++) {
-        let currentValue = arr[i]; // 현재 비교할 값 저장 (arr가 계속 바뀌기 때문에 저장해야함)
-        for (let j = i - 1; j >= 0 && arr[j] > currentValue; j--) { // 앞에 큰 값 있다면
-            [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; // 이전 값, 현재 값 변경
+// pivot의 변경 인덱스를 반환하는 함수
+function pivot(arr, start = 0) {
+    let pivot = arr[start]; // arr[0]을 피벗으로 설정
+    let swapIdx = start; // 업데이트 될 피벗 위치
+
+    for(let i = start + 1; i < arr.length; i++) { // 피벗 다음 위치부터 시작
+        if(pivot > arr[i]) { // 만약 피벗보다 작은 값 발견했다면
+            swapIdx ++; // 위치를 하나 뒤로 옮기고
+            [arr[i], arr[swapIdx]] = [arr[swapIdx], arr[i]]; // 둘이 바꿈
         }
     }
-    return arr;
+
+    [arr[start], arr[swapIdx]] = [arr[swapIdx], arr[start]]; // 피벗과 마지막으로 바꿨던 값이랑 swap 
+    return swapIdx;
 }
 ```
