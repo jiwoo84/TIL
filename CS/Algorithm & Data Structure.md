@@ -261,7 +261,12 @@ ex) 퀵 정렬, 합병 정렬, 이진 탐색
     - find
     - findIndex
 
-### 구현 : O(n) / Ω(1)
+### 시간복잡도
+
+- O(n)
+- Ω(1)
+
+### 구현
 
 ```jsx
 function linearSearch(arr, n) {
@@ -279,7 +284,12 @@ function linearSearch(arr, n) {
 - 분할 정복 사용
 - (선행: 데이터 정렬) 중간값 확인 후, 앞 or 뒤 이동해서 검색 반복
 
-### 구현 : O(log n) / Ω(1)
+### 시간복잡도
+
+- O(log n)
+- Ω(1)
+
+### 구현
 
 두 개의 포인터를 사용하여 구현
 
@@ -328,6 +338,7 @@ function naiveSearch(long, short) {
 | 삽입 정렬 | O(n^2) | θ(n^2) | Ω(n) | O(1) |
 | 선택 정렬 | O(n^2) | θ(n^2) | Ω(n^2) | O(1) |
 | 합병 정렬 | O(n log n) | θ(n log n) | Ω(n log n) | O(n) |
+| 퀵 정렬 | O(n^2) | θ(n log n) | Ω(n log n) | O(log n) |
 
 ## 버블 정렬 (Bubble Sort)
 
@@ -337,7 +348,7 @@ function naiveSearch(long, short) {
 
 ![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%201.png)
 
-[공부방법](https://www.notion.so/948c14760e02491fa08eedc6a5fc3c66)
+### 시간복잡도
 
 - **O(n^2)** : 최악의 경우 n^2 -3n +2번 모두 진행
 - **Ω(n)** : (최적화 설정 & 정렬된 경우) n-1번만 비교
@@ -389,6 +400,8 @@ function bubbleSort(arr) {
 
 두 번째 자료부터 시작하여 앞의 자료들과 비교해 삽입할 위치를 지정한 후, 자료를 뒤로 옮기고 삽입되는 과정을 반복한 정렬
 
+### 시간복잡도
+
 - O(n^2)
 - Ω(n) : 이미 정렬된 경우
 
@@ -411,6 +424,8 @@ function insertionSort(arr) {
 ## 선택 정렬 (Selection Sort)
 
 배열 안의 자료 중 가장 작은 수(혹은 가장 큰 수)를 찾아 첫 번째 위치(혹은 가장 마지막 위치)의 수와 교환해주는 방식
+
+### 시간복잡도
 
 - O(n^2) : n + (n-1) + (n-2) + … = n(n-1)/2
 - Ω(n^2) : 정렬 여부 상관없이 모두 실행
@@ -446,6 +461,8 @@ function selectionSort(arr) {
 ![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%204.png)
 
 ![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%205.png)
+
+### 시간복잡도
 
 - O(n log n) : 분할하면서 logn, 비교하면서 n
 - Ω(n log n)
@@ -501,33 +518,69 @@ function mergeSort(arr) {
 
 ## 퀵 정렬 (Quick Sort)
 
-피벗(파티션)값 하나를 설정해서 이보다 작은 값은 왼쪽, 큰 값은 오른쪽으로 옮김 → 피벗을 다시 설정 → 반복
+피벗값(파티션) 하나를 설정해서 이보다 작은 값은 왼쪽, 큰 값은 오른쪽으로 옮김 → 피벗을 다시 설정 → 반복
 
 - 피벗 설정 : 편의상 맨 첫 번째 인덱스로 설정
-- 비교해서 옮기는 과정
-    1. 포인터 설정 = 1
-    2. 피벗의 다음 값부터 피벗과 비교
-    3. 피벗 > 값 ⇒  포인터의 값과 해당 값을 바꾸고 포인터+1
-    4. 피벗 < 값 ⇒ 그냥 놔둠
-    5. 맨 끝까지 비교했다면, 피벗 인덱스의 값과 피벗 교환
-    6. 교환된 값(arr[0])이 피벗이 되어 다시 반복
+
+### 시간복잡도
+
+- Ω(n log n) : 피벗이 작은 값은 왼쪽, 큰 값은 오른쪽에 놓고 중앙에 위치하면서, 배열이 분할되고, 재귀 logn, 비교하면서 n
+- O(n^2) : 정렬된 상태에서 맨 앞 값이나 맨 뒤 값을 피벗으로 선택하면 n번 피벗이 설정되고, 매번 n번 비교되니 n^2의 시간이 들어감
+    
+    → 이를 방지하기 위해서 피벗을 중간값이나 무작위로 설정해야함
+    
 
 ### 구현
 
-```jsx
-// pivot의 변경 인덱스를 반환하는 함수
-function pivot(arr, start = 0) {
-    let pivot = arr[start]; // arr[0]을 피벗으로 설정
-    let swapIdx = start; // 업데이트 될 피벗 위치
+<aside>
+💡 추가 공간없이 배열 그 자체를 수정해나갈 것
 
-    for(let i = start + 1; i < arr.length; i++) { // 피벗 다음 위치부터 시작
+</aside>
+
+1. 피벗값(파티션) 하나를 설정
+2. 피벗과 다른 값들의 크기를 비교 → 작은 값은 왼쪽, 큰 값은 오른쪽으로 옮김 (피벗을 중앙으로 옮김)
+    - 비교해서 옮기는 자세한 과정
+        1. 포인터 설정 = 1
+        2. 피벗의 다음 값부터 피벗과 비교
+        3. 피벗 > 값 ⇒  포인터의 값과 해당 값을 바꾸고 포인터+1
+        4. 피벗 < 값 ⇒ 그냥 놔둠
+        5. 맨 끝까지 비교했다면, 최종적인 포인터의 값과 피벗 교체 
+3. 피벗의 왼쪽, 오른쪽 부분에 재귀함수 호출
+4. 반복하며 범위가 요소 하나가 될 때까지 비교되다가, 최종 배열 반환
+
+```jsx
+// array의 두 값을 교환하는 swap 함수
+function swap(arr, i, j) {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+}
+
+// -----------------------------------------------
+// pivot의 알맞은 위치인덱스를 반환하는 함수
+function pivot(arr, start = 0, end = arr.length-1) { 
+
+    let pivot = arr[start]; // arr[0]을 피벗으로 설정
+    let swapIdx = start; // 업데이트 될 반환값
+
+    for(let i = start + 1; i <= end; i++) { // 피벗 다음 위치부터 시작
         if(pivot > arr[i]) { // 만약 피벗보다 작은 값 발견했다면
             swapIdx ++; // 위치를 하나 뒤로 옮기고
-            [arr[i], arr[swapIdx]] = [arr[swapIdx], arr[i]]; // 둘이 바꿈
+            swap(arr, i, swapIdx); // 둘이 바꿈
         }
     }
 
-    [arr[start], arr[swapIdx]] = [arr[swapIdx], arr[start]]; // 피벗과 마지막으로 바꿨던 값이랑 swap 
-    return swapIdx;
+    swap(arr, start, swapIdx); // 피벗과 마지막으로 바꿨던 값이랑 swap 
+    return swapIdx; // 피벗이 최종적으로 찾아간 위치 반환
+}
+
+// 피벗을 사용해 최종적으로 배열을 정렬하는 함수
+function quickSort(arr, left = 0, right = arr.length-1) {
+    if(left < right) { // 함수를 실행하는 부분이 값 하나가 되면 실행x
+        let pivotIdx = pivot(arr, left, right); // 피벗의 위치 구해서
+        quickSort(arr, left, pivotIdx-1); // 그 왼쪽 부분을 다시 재귀
+        quickSort(arr, pivotIdx+1, right); // 오른쪽 부분을 다시 재귀
+    }
+    return arr; // 최종으로 재귀를 마친 배열 반환
 }
 ```
+
+`quickSort()`는 재귀의 반환값으로 뭔가를 실행하는 형태가 아니기 때문에 계속 깊게 재귀되다가 마지막 함수가 호출될 때, 반환되도록 설정해줘야 한다.
