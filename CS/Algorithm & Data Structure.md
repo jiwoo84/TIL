@@ -170,29 +170,6 @@ return maxSum;
 
 ex) 퀵 정렬, 합병 정렬, 이진 탐색
 
-### 가변인자 사용 방법
-
-1. 가변인자는 함수 내 arguments(배열 X , 객체 O)로 호출 가능
-    
-    ```jsx
-    function sum() {
-        console.log(arguments);
-    }
-    // 1,2,3 입력 -> { '0': 1, '1': 2, '2': 3 } 출력
-    ```
-    
-2. spread 연산자 사용
-    
-    배열의 값으로 인자를 받았기 때문에, 호출값은 배열임
-    
-    ```jsx
-    function sum(...args) {
-        console.log(args);
-    }
-    // 1,2,3 입력 -> [1,2,3] 출력
-    ```
-    
-
 # 재귀
 
 1. 종료조건 설정
@@ -339,6 +316,7 @@ function naiveSearch(long, short) {
 | 선택 정렬 | O(n^2) | θ(n^2) | Ω(n^2) | O(1) |
 | 합병 정렬 | O(n log n) | θ(n log n) | Ω(n log n) | O(n) |
 | 퀵 정렬 | O(n^2) | θ(n log n) | Ω(n log n) | O(log n) |
+| 기수 정렬 | O(nk) | θ(nk) | Ω(nk) | O(n+k) |
 
 ## 버블 정렬 (Bubble Sort)
 
@@ -524,11 +502,11 @@ function mergeSort(arr) {
 
 ### 시간복잡도
 
-- Ω(n log n) : 피벗이 작은 값은 왼쪽, 큰 값은 오른쪽에 놓고 중앙에 위치하면서, 배열이 분할되고, 재귀 logn, 비교하면서 n
 - O(n^2) : 정렬된 상태에서 맨 앞 값이나 맨 뒤 값을 피벗으로 선택하면 n번 피벗이 설정되고, 매번 n번 비교되니 n^2의 시간이 들어감
     
     → 이를 방지하기 위해서 피벗을 중간값이나 무작위로 설정해야함
     
+- Ω(n log n) : 피벗이 작은 값은 왼쪽, 큰 값은 오른쪽에 놓고 중앙에 위치하면서, 배열이 분할되고, 재귀 logn, 비교하면서 n
 
 ### 구현
 
@@ -584,3 +562,87 @@ function quickSort(arr, left = 0, right = arr.length-1) {
 ```
 
 `quickSort()`는 재귀의 반환값으로 뭔가를 실행하는 형태가 아니기 때문에 계속 깊게 재귀되다가 마지막 함수가 호출될 때, 반환되도록 설정해줘야 한다.
+
+---
+
+## 기수 정렬 (Radix Sort)
+
+비교 없이 수행하는 정렬 알고리즘
+(다른 정렬은 배열 내의 숫자를 비교해서 O(n^2)이었고, 한 숫자와 전체를 비교해서 O(n log n)이 최선이었음)
+
+1의 자리부터 숫자대로 분류해서 이를 순서대로 정렬하고, 그 위의 자리의 숫자대로 분류해서 정렬하고… 이를 제일 큰 자리수까지 진행함
+
+- 예시
+    
+     ****[1556, 4, 3556, 593, 408, 4386, 902, 7, 8157, 86, 9637, 29]
+    
+    1. 1의 자리수에 따라 분류, 이대로 정렬 (분류하면서 정렬은 x)
+        
+        ![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%206.png)
+        
+        ![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%207.png)
+        
+    2. 위에서 정렬된 순서에 맞춰 2의 자리수에 따라 분류, 다시 넣기
+        
+        ![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%208.png)
+        
+        ![Untitled](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%209.png)
+        
+    3. 3의 자리, 4의 자리까지 반복하면 정렬 완료
+        
+        ![3의 자리](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%2010.png)
+        
+        3의 자리
+        
+        ![4의 자리](Algorithm%20&%20Data%20Structure%20cc363cc228734795b269e43efcdf93ea/Untitled%2011.png)
+        
+        4의 자리
+        
+
+### 시간 복잡도
+
+n - 정렬할 항목 수, 정수의 수  /   k - 수의 길이
+
+- O(nk) : 가장 긴 길이만큼 숫자들을 분류하므로
+- Ω(nk)
+- 공간복잡도 : O(n+k)
+
+### 구현
+
+```jsx
+// 숫자의 i 인덱스의 숫자 알아내는 함수
+function getDigit(num, i) {
+    return Math.floor(num / Math.pow(10, i)) % 10;
+}
+
+// 숫자의 자릿수를 알아내는 함수
+function getDigitCnt(num) {
+	if(num === 0) return 1;
+	return Math.floor(Math.log10(num)) + 1;
+}
+
+// 숫자의 가장 큰 자릿수를 알아내는 함수
+function getMaxDigitCnt(nums) {
+	let maxDigits = 0;
+	for(let i = 0; i < nums.length; i++) {
+		maxDigits = Math.max(maxDigits, getDigitCnt(nums[i]));
+	}
+	return maxDigits;
+}
+
+// 본격 기수정렬
+function radixSort(arr) {
+    let maxDigits = getMaxDigitCnt(arr); // 가장 큰 자릿수 찾기
+
+    for(let i = 0; i < maxDigits; i++) {
+        let bucket = Array.from({length: 10}, i => []) // 자릿수의 숫자마다 담을 버킷 생성
+        for(let j = 0; j < arr.length; j++) {
+            let num = arr[j];
+            bucket[getDigit(num, i)].push(num); // 버킷의 인덱스로 분류
+        }
+        arr = bucket.flatMap(v => v); // 버킷을 통합해서 arr로 만듬
+    }
+
+    return arr;
+}
+```
