@@ -1,4 +1,4 @@
-# 🌳 JW's Today I Learn
+# 🌳 Today I Learn
 나의 발걸음이자 이정표
 
 ## 규칙
