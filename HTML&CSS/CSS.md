@@ -2,23 +2,9 @@
 
 ---
 
-# 기본 설정
+# 기본
 
-1. **html 파일 안에 css 코드 같이 쓰기 (inline CSS)**
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/bc7561ac-50c0-437b-b6f7-663c436b6754.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/bc7561ac-50c0-437b-b6f7-663c436b6754.png)
-    
-
-1. **css 파일 따로 만들고, 링크 연결 (external CSS)**
-    
-    `<link href="href="폴더/style.css" rel="stylesheet" />` 
-    
-    (단축 코드: `link:css`)
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/0ad63608-3cb5-4c3e-a169-a80810047703.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/0ad63608-3cb5-4c3e-a169-a80810047703.png)
-    
-
-## **기본 설정 사항 없애기** (margin 등)
+### CSS의 기본 **설정 사항 없애기**
 
 - reset.css 파일 만들기
     
@@ -33,200 +19,270 @@
     [https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/clip_videos/b6982c476559498bae1a6e437bbb01f5/58d42e7d-d476-4e28-81af-ad9c9c7cb9a1.webm](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/clip_videos/b6982c476559498bae1a6e437bbb01f5/58d42e7d-d476-4e28-81af-ad9c9c7cb9a1.webm)
     
 
-# **css 기본 문법**
+### 브라우저와 공간 사이 공백 제거
 
-`tag { 속성: 속성값 }`
+```css
+/* 1. html, body의 기본 margin, padding값 제거 */
+html, body {
+	margin : 0;
+	padding: 0;
+}
 
-- 지정 태그 안에 있는 내용 모두 선택됨
-- 위에서부터 실행 → 결국 적용되는건 마지막 코드
-- 적용 우선순위 : id > class > 태그
+/* 2. 모든 태그의 기본 margin, padding값 제거 */
+* {
+	margin : 0;
+	padding: 0;
+}
+```
 
-### id
+## CSS 연동
+
+### Inline Style Sheet
+
+html 태그 안에 직접 원하는 스타일 적용
+
+ex) `<h1 style="color: red;">hello world</h1>`
+
+### Internal Style Sheet
+
+html 파일 → <head> 태그 → <style> 태그 안에 css코드 작성
+
+```html
+<head>
+	<style>
+		<!-- css 코드 작성 -->
+	</style>
+</head>
+```
+
+### External Style Sheet👑
+
+css 파일 따로 만들고, 링크 연결
+
+```html
+<head>
+	<link rel="stylesheet" href="style.css">
+</head>
+```
+
+(단축 코드: `link:css`)
+
+---
+
+## 캐스캐이딩
+
+CSS적용의 우선순위
+
+### 1. 순서
+
+나중에 적용한 속성값의 우선순위가 높음
+
+### 2. 디테일
+
+더 구체적으로 작성된 선택자의 우선순위가 높음
+
+```css
+/* header > p 지정시 */
+header p { color: red; } /* 최종 실행 */
+p { color: blue; }
+```
+
+### 3. 선택자
+
+<aside>
+💡 style > id > class > type
+
+</aside>
+
+# Selector (선택자)
+
+### Type
+
+`tag { 속성: 속성값; }`
+
+지정 태그 안에 있는 내용 모두 선택됨
+
+### Id
 
 `#id {속성: 속성값}`
 
 - ID 여러개 지칭하는 법 : `#id, #id, #id ... {속성:속성값;}`
-- 전체 선택 : `* {속성: 속성값}`
 
-### **class**
+### C**lass**
 
 `.class {속성:속성값;}`
 
 - class 안의 class 선택하기 : `.class1 .class2 {~;}`
 
-### **BEM(Block Element Modifier)**
+### 이외
 
-class 만드는 효율적 방법 ([설명](https://nykim.work/15))
-
-`block--(modifier)__element`
-
----
-
-### 글자 속성
-
-`color`
-
-`font-weight`(글씨 두께)
-
-`font-size` 
-
-`font-style`
-
-`text-align`(글씨 정렬)
-
-`text-transform: uppercase;` : 대문자 변환 (html에서 소문자로 작성됐을 시)
-
-`text-decoration: none;` 기본 글자 설정 없애기 (ex) 링크의 밑줄)
-
-### **크기 조정**
-
-`width/ height: n%`
-
-- px이나 다른 크기조정과 달리 %는 부모의 크기가 지정되야 가능
-- 부모크기 기준으로 퍼센트 결정
-- width/ height 하나만 써도, 비율에 맞춰 크기 조정 됨
-- vh= viewpoint height (screen 화면을 꽉 채우는 높이)
-- vw= viewpoint width
-
-### **색상 설정**
-
-- #000000
-- **rgb (red green blue) →** rgb(000, 000, 000)
-- rgba(000, 000, 000, 0)
-    - a는 알파 → 투명도
-    - 맨 끝 : 0 = 투명/ 1= 불투명
-
-## **inherit**
-
-`속성: inherit;`
-
-tag의 부모로부터 값 상속
-
-### **그림자 효과**
-
-`box-shadow: inset;`
-
-박스 안쪽에 그림자 효과
-
-### 오버플로우
-
-`overflow-축: hidden / scroll`
-
-크기를 넘어서는 부분을 숨길지/ 스크롤 가능하게 할지
-
-### **마우스 포인터 모양 변경**
-
-`cursor : 속성값`
-
-- pointer (손가락)
-- not-allowed (선택 안됨)
-- progress (로딩중)
-
-### **사진 사이즈 비율 유지**
-
-`object-fit: cover;`
-
----
-
-## **form의 attributes**
-
-- `form: action="…"` 어떤 페이지로 data 보낼건지 지정
-    - ex) `form: action="friends.html"`
-        
-        input 실행시, friends 라는 html 파일이 이어서 실행
-        
-- `form: method="…"`
-    - `form: method="post"` 백엔드 서버에 정보 전송
-    - `form: method="get"` 서버 없어도 됨
-        
-        (보안에 취약 url에 포함되어도 상관없는 정보들만)
-        
-        - 하위 input 에 name 설정할 것
-        
-        ![html 작성/ 위 username, 아래 password](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled.png)
-        
-        html 작성/ 위 username, 아래 password
-        
-        ![input에 입력해서 login 클릭하면](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%201.png)
-        
-        input에 입력해서 login 클릭하면
-        
-        ![url에 이렇게 표시된다](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%202.png)
-        
-        url에 이렇게 표시된다
-        
+- 전체 선택 : `* {속성: 속성값}`
+- `tag.class` or `tag#id` (띄어쓰기x) ⇒ tag 중에서 class나 id 찾기
+    
+    (`tag .class` or `tag #id` ⇒ tag의 자식 중에서 찾기)
     
 
 ---
 
-## **변수 만들기**
+## **combinator (연결자)**
 
-설정값을 변수로 만들어놓아 효율적
+선택자 사이에 관계를 설정하는 방식
 
-- 생성 `:root {a:b}`
-- 사용 `var(a)` ⇒ b
+### 부모·자식 **지정**
+
+- `부모 자식 {…}` : 부모 안 모든 자식태그에 적용
     
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/1370d85e-35dd-4205-a846-6d2d46769dec.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/1370d85e-35dd-4205-a846-6d2d46769dec.png)
+    ex) `div p span { color: blue; }` div 안의 p안의 span
     
+- `부모 > 자식 {…}` : 부모 바로 밑의 자식에만 지시
+- `자식 + 자식 {…}` : 바로 다음에 있는 자매 tag에 지시 (부모자식 x, 자식 관계ㅇ)
+- `자식~자식 {…}` : 뒤에 오는 자매 모두에게 지시 (바로 뒤x)
 
-# **아이콘**
+```html
+<head>
+	<stlye>
+		h1 { color: red; } // 자식 본인의 속성값 지정
+		header { color: blue; } // 부모의 속성값 지정 (뒤에 나왔어도 영향x)
+	</style>
+</head>
 
-(svg: 픽셀 없는 이미지, 좌표로 되어있어서 무한으로 늘릴 수 있음)
+<body>
+	<header>
+		<h1>naver</h1> // 빨간색 
+	</header>
+</body>
+```
 
-- 이용 사이트: [heroicons](https://heroicons.com/) / [fontawesome](https://fontawesome.com/v5.15/icons?d=gallery&p=2)
+부모태그의 모든 속성이 자식에게 상속x ⇒ 동일한 속성에 다른 속성값을 가진다면 자식은 자신의 속성값을 가짐
 
-### **적용 방법**
+### 속성 지정
 
-1. code kit를 body 맨 아래 넣음
+- `[속성] {...}` : 특정 속성을 가진 요소 모두 선택
+
+```html
+<input type="text" placeholder="username" required />
+<input type="e-mail" placeholder="e-mail" />
+```
+
+```css
+input:required { color: blue; } /* required한 input에만 적용 */
+input:optional { color: red; } /* required하지 않은 input에 적용 */
+```
+
+### 속성-속성값 지정
+
+`tag[속성="속성값"] {~}`
+
+- 지정값 제외 : `tag:not ([속성="속성값"]) {~}`
+- 문자열 속성 선택자
+    1. `[속성 ~= "string"] {…}`
+        
+        해당 속성-속성값에 ‘string’이라는 문자열을 포함하고 있다면 모두 포함
+        
+        - 공백 기준으로 문자열을 인식
+            
+            ⇒ ex) ‘string’, ‘love string’ 가능 / ‘lovestring’ 불가능  
+            
+        
+        ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/625a0152-30c8-42de-9743-b7e26963306f.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/625a0152-30c8-42de-9743-b7e26963306f.png)
+        
+    2. `[속성 ^= "string"] {…}`
+        
+        해당 속성-속성값이 ‘string’으로 시작하는 요소 모두 포함
+        
+    3. `[속성 $= "string"] {…}`
+        
+        해당 속성-속성값이 ‘string’으로 끝나는 요소 모두 포함
+        
+
+---
+
+## **pseudo selector**
+
+여러 tag에 하나하나 id나 class 지정하기보다, 효율적으로 순서를 매겨서 지시하는 방법
+
+형제 사이에서의 순서에 따라 요소를 선택
+
+### **nth-child**
+
+`first-child {…}` tag 중 가장 첫번째에 적용
+
+`last-child {…}` tag 중 가장 마지막에 적용
+
+`nth-child(숫자)` 지정한 순서에 적용
+
+`nth-child(even)` 짝수에 적용
+
+`nth-child(odd)` 홀수에 적용
+
+`nth-child(숫자n+숫자 )` ↴
+
+![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/ee0e527e-2e0c-4d9b-a995-816062e9472a.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/ee0e527e-2e0c-4d9b-a995-816062e9472a.png)
+
+![첫번째 적용 후, 3번째마다 적용됨](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/783d50bf-ec9b-4538-8f4a-aec243377282.png)
+
+첫번째 적용 후, 3번째마다 적용됨
+
+### **nth-of-type(n)**
+
+- 동일한 타입들 안에서 순서를 따짐
+- `span: nth-of-type(2)` : 2번째 span 에 적용
+- `first-of-type` / `last-of-type` : 첫번째, 마지막
+- even, odd, 2n+1 … 을 넣어서 활용 가능
+
+### 주의사항
+
+- 타입은 신경X, 오직 순서만 신경
     
-    ```jsx
-    <script
-          src="https://kit.fontawesome.com/6478f529f2.js"
-          crossorigin="anonymous"
-        ></script>
+    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/7d02766a-91e9-4931-ab0b-7ad0e59fdddd.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/7d02766a-91e9-4931-ab0b-7ad0e59fdddd.png)
+    
+- `tag : first-child` 하면 tag 안에 박스의 first-child도 선택됨
+    
+    ```html
+    <div class="main-actions">
+      <i class="fas fa-redo"></i> 
+      <i class="fas fa-step-backward fa-lg"></i>
+      <span>
+       <i class="fas fa-play fa-lg"></i>
+    	</span>
+      <i class="fas fa-step-forward fa-lg"></i>
+      <i class="fas fa-random"></i>
+    </div>
     ```
     
-2. html 에 복붙
+    ```css
+    .main-actions i:first-child, 
+    .main-actions i:last-child {
+      color: rgba(0, 0, 0, 0.2);
+    }
+    ```
     
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b6982c476559498bae1a6e437bbb01f5/e73f63bb-2833-416c-b31a-053ae8744863.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b6982c476559498bae1a6e437bbb01f5/e73f63bb-2833-416c-b31a-053ae8744863.png)
-    
-
-### **아이콘 사이즈 변경**
-
-1. **html** : 태그에 `fa-size` 추가 
-    
-    `<i class="~fa-lg"> </i>`
-    
-    - size: g, 2x, 3x, xs …
-2. **css :** 글자와 같이 크기 수정
-    
-    `i {font-size: 속성값}`
+    여기서 이렇게 하면 맨 위, 맨 아래 아이콘만 선택되는 것이 아니라 <span>안에 <i>도 선택
     
 
-### **아이콘 움직이기**
+---
 
-i는 텍스트와 같기 때문에 움직이려면 span이나 다른 블럭으로 감싸줘야함
+## **pseudo element**
 
-### 아이콘에 링크 넣기
+### **::placeholder**
 
-`<a href="파일명/링크”><i class=”아이콘”></i></a>`
+`tag::placeholder {…}`
 
-a태그로 아이콘 감싸주기
+tag 중 placeholder에만 적용 (입력텍스트에는 적용x)
 
-# **폰트 설정**
+### **::selection**
 
-- **기본 폰트 쓰기**
-    
-    `font-family:` 쓰고 목록중에 고르기
-    
-- **사이트 [google fonts](https://fonts.google.com) 사용**
-    1.  - html
-    2. @import - css
-        
-        ① @import 복사해서 css 맨 상단에 복사
-        
-        ② font-family 복붙
-        
+`tag::selection {…}`
+
+드래그 된 부분만 적용 (padding 은 적용 안됨)
+
+### ::**first-letter**
+
+`tag::first-letter {…}`
+
+첫번째 글자만 적용
+
+- `first-line` : 첫번째 줄에 적용
 
 # BOX
 
@@ -234,122 +290,151 @@ a태그로 아이콘 감싸주기
 
 ## margin
 
-- 기본으로 body는 margin 값 가짐 (없애기 → `margin: 0;`)
-- 값 설정
-    
-    `margin-top/ left/ right/ botom;`
-    
-    `margin: 숫자;` 사방에 다 적용
-    
-    `margin: 상 우 하 좌` (시계방향)
-    
-    `margin: 상하 좌우`
-    
+기본으로 body는 margin 값 가짐 (삭제: `margin: 0;`)
+
+### 값 설정
+
+- `margin-top/ left/ right/ botom;`
+- `margin: 숫자;` 사방에 다 적용
+- `margin: 상 우 하 좌` (시계방향)
+- `margin: 상하 좌우`
 - **`margin: 0 auto;`**
+    
+    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/b6982c476559498bae1a6e437bbb01f5/82221621-50f9-4316-af34-9b0db6b918d0.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/b6982c476559498bae1a6e437bbb01f5/82221621-50f9-4316-af34-9b0db6b918d0.png)
+    
     - 가로 정중앙 만들 수 있는 코드
     - space-between은 글자수에 따라 중앙 아닐 수 있음 → auto를 적절히 잘 사용하면 가능
 
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/b6982c476559498bae1a6e437bbb01f5/82221621-50f9-4316-af34-9b0db6b918d0.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/b6982c476559498bae1a6e437bbb01f5/82221621-50f9-4316-af34-9b0db6b918d0.png)
+### collapsing margins (마진병합현상)
 
-- collapsing margins
+경계가 닿으면 박스의 margin이 같아지는 현상
+
+![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/71735d27-e3c5-42f9-a44a-53e6f131eb27.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/71735d27-e3c5-42f9-a44a-53e6f131eb27.png)
+
+1. **형제 간의 마진 병합**
     
-    경계가 닿으면 박스의 margin이 같아지는 현상
+    인접 형제 박스 간 상하 마진이 겹칠 때⇒ 같거나 큰 값으로 상쇄
     
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/bb377897-db22-46b7-973b-307e0161bf5c.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/bb377897-db22-46b7-973b-307e0161bf5c.png)
+2. **부모 자식간의 마진 병합**
     
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/71735d27-e3c5-42f9-a44a-53e6f131eb27.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/71735d27-e3c5-42f9-a44a-53e6f131eb27.png)
+    부모와 첫번째(or 마지막) 자식의 상단(or 하단) 마진이 겹칠 때
     
-    - ex) 1. 더 큰 값인 body의 margin이 따로 설정x
-        1. div의 margin 설정 
-        2. (div만 body 안에서 쏘옥 들어감x) div와 body 같이 움직여서 margin 설정됨
-    - 이는 상하만 해당됨
-        
-        (깊게 이해하려 노력x, 하다보면 이해됨)
-        
+    → (예상) 자식에 margin-top or bottom 지정 시, 자식만 내려오거나 올라옴
+    
+    → (실제 실행) 부모도 같이 내려오거나 올라옴 (값의 크기와는 상관없이 상쇄된 마진은 부모 박스의 바깥으로 나타남)
+    
+    ⇒ 부모 박스에 padding이나 border값을 주어 벽을 만들어 예방 가능
+    
+3. **빈 요소의 상하 마진이 겹칠 때**
+- 상쇄 규칙 예외
+    - 박스가 `position: absolute` 된 상태
+    - 박스가 `float: left/right` 된 상태 (단, clear 되지 않은 상태)
+    - 박스가 `display: flex` 일 때 내부 flexbox item
+    - 박스가 `display: grid` 일 때 내부 grid item
 
 ---
 
 ## **border**
 
-`border: 두께 ·스타일·색상`
+### 속성 지정
 
-- 스타일 변경 `border-style: 속성값`
-- 둥글게 만들기 `border-radius : ~;`
+- `border: 두께 스타일 색상`
+- `border-style` 스타일 변경 ex) solid, dotted …
+- `border-radius` 모서리 둥글게 만들기
     - 원 모양 `border-radius: 50%`
     - 특정 모서리만 수정 `border- (top or bottom) - (left or right) - radius : ~;`
+        
         
         ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/b6982c476559498bae1a6e437bbb01f5/bcb5f19b-72ac-43f7-88b3-d7242c174069.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/b6982c476559498bae1a6e437bbb01f5/bcb5f19b-72ac-43f7-88b3-d7242c174069.png)
         
         ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/b6982c476559498bae1a6e437bbb01f5/ae5166a0-fefb-474a-b087-46a7fccc8591.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/b6982c476559498bae1a6e437bbb01f5/ae5166a0-fefb-474a-b087-46a7fccc8591.png)
         
-
-- **border vs outline**
-    - border : 상자 바깥으로 확장하면서 테두리 적용
-    - outline : 상자 안쪽으로 테두리 생김
+- **box사이즈 유지하면서 border만들기**
     
-    ∴ border은 박스 크기가 커짐/ outline은 변화 없음
+    **`box-sizing: border-box`**
     
-
-### **빈 공간이 margin vs padding 헷갈릴 때**
-
-bottom을 경계로 안쪽은 padding/ 바깥은 margin
-
-## **`box-sizing: border-box`**
-
-box사이즈 유지하면서 border만들기
-
-- 미사용: width,height 지정 상태에서 border 지정 → 크기 유지 위해 박스가 커짐
+    width,height 지정 상태에서 border 지정 
     
-    ex) width: 50px / border: 30px ⇒ 크기 80px이 됨
+    → 크기 유지 위해 박스가 커짐 (width: 50px / border: 30px ⇒ 크기 80px이 됨) 
     
-- 사용: box사이즈 신경쓰지 않고 border 만들어짐
+    → **`box-sizing: border-box` 사용** 
     
-    ex) width: 50px / border: 30px ⇒ 결과적으로 50px으로 보임
+    **⇒** box사이즈 신경쓰지 않고 border 만들어짐
+    
+    (width: 50px / border: 30px ⇒ 결과적으로 50px으로 보임)
     
 
-# display 종류
+### **border vs outline**
+
+- border : 상자 바깥으로 확장하면서 테두리 적용
+- outline : 상자 안쪽으로 테두리 생김
+
+∴ border은 박스 크기가 커짐/ outline은 변화 없음
+
+# Display
 
  `display: ~;`
 
-### **block**
+## **block**
 
-옆에 아무도 못 옴 
+1. y축 정렬 형태로 출력 (줄바꿈 현상)
+2. width, heigth로 크기 지정 가능
+3. 상하 배치 작업 가능
 
-- ex) `<div>` `<header>` `<address>` `<p>` 등 대다수
+ex) `<div>` `<header>` `<address>` `<p>` 등 대다수
 
-### **inline**
+## **inline**
 
-옆에 올 수 있음
+1. x축 정렬 형태로 출력 (한 줄에 다같이 출력)
+2. 크기 지정 불가능
+3. 상하 배치 작업 불가능
 
-- ex)  `<span>` `<a>` `<img>` `<code>` 등 일부 (이거 외우는게 편함)
-- height, width 가질 수 없음
+ex)  `<span>` `<a>` `<img>` `<code>` 등 일부 (이거 외우는게 편함)
+
 - box 지정
     - padding : 사방에 작용
     - margin : 좌우만 작용(사방에 만들고 싶다면 block)
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/56674b08-18f0-4c55-b27a-0370d73916ce.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/56674b08-18f0-4c55-b27a-0370d73916ce.png)
-    
-    ![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%203.png)
-    
+- `vartical-align` : inline에만 사용되는 y축 정렬
 
-### **inline-block**
+## **inline-block**
 
 inline&block의 특성 동시 적용
 
 - **장점** : inline 처럼 한 줄이지만 height/ width 가질 수 있음
-- **단점** : 한 페이지를 채우면 좌우 여백의 크기가 다름
+    
+    **단점** : 한 페이지를 채우면 좌우 여백의 크기가 다름
+    
+    inline이 가지고 있는 미세한 여백을 다루기 까다로움
+    
 
 ![margin-right 값을 준다고 해도… 과하게 주면 다음줄로 넘어감](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/aa89737d-1955-4f90-af69-146d4d8b8690.png)
 
 margin-right 값을 준다고 해도… 과하게 주면 다음줄로 넘어감
 
-![스크롤에 따라 크기가 달라짐](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%204.png)
+![스크롤에 따라 크기가 달라짐](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled.png)
 
 스크롤에 따라 크기가 달라짐
 
+### float 정렬
+
+새로운 레이어층을 만들어 왼쪽, 오른쪽 끝으로 정렬시 사용
+
+첫 태그 float → 다음 태그 float → 다음 태그 clear
+
+⇒ 앞에 두 블럭은 일렬로 정렬되고, 세번째부터 아래로 정렬
+
+1. `float: none` : 정렬 x
+2. `float: left` : 왼쪽 정렬
+3. `float: right` : 오른쪽 정렬
+- `clear: left/ right/ both` : float 제어 (끄기)
+    
+    다음 태그가 float로 정렬된 공간 아래로 들어가게 하려면(float 속성을 끄려면) 다음 태그에  넣어주기
+    
+- 부모의 크기가 정렬하기 작다면 다음줄로 넘어감
+
 ---
 
-# **flexbox**
+## **flexbox**
 
 `display : flex;` 
 
@@ -357,17 +442,17 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
 
 - 가로 방향으로 배치되고, 자신이 가진 내용물의 width 만큼만 차지함. 마치 inline
     
-    ![block](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%205.png)
+    ![block](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%201.png)
     
     block
     
-    ![flex](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%206.png)
+    ![flex](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%202.png)
     
     flex
     
 - height는 컨테이너의 높이만큼 늘어납니다.
     
-    ![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%207.png)
+    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%203.png)
     
 - flex-direction: column을 적용하면 height가 지정됨
     
@@ -390,7 +475,7 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
         }
         ```
         
-        ![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%208.png)
+        ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%204.png)
         
     
     - flex 설정 시
@@ -402,7 +487,7 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
         }
         ```
         
-        ![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%209.png)
+        ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%205.png)
         
     
     - flex-direction: column; 적용시
@@ -415,7 +500,7 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
         }
         ```
         
-        ![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%2010.png)
+        ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%206.png)
         
         - 다시 늘어난 이유?
             
@@ -432,7 +517,7 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
         }
         ```
         
-        ![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%2011.png)
+        ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%207.png)
         
         다시 줄어들었다
         
@@ -445,7 +530,7 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
 
 ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/f6004b3d-8218-43cb-a670-7ee58ea039d5.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/f6004b3d-8218-43cb-a670-7ee58ea039d5.png)
 
-![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%2012.png)
+![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%208.png)
 
 - **X축 정렬** (기본값)
     
@@ -547,15 +632,15 @@ flex 안의 요소들이 강제로 한줄에 배치 or 여러행으로 나누어
 
 - flex-wrap: nowrap;
     
-    ![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%2013.png)
+    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%209.png)
     
 - flex-wrap: wrap;
     
-    ![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%2014.png)
+    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2010.png)
     
 - flex-wrap: wrap-reverse;
     
-    ![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%2015.png)
+    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2011.png)
     
 
 # **position**
@@ -651,143 +736,7 @@ div 안에서 초록박스 움직임
 - 숫자가 작을수록 밑의 layer, 클수록 위의 layer
 - `position: fixed/absolute` 에 이용 가능.
 
-![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%2016.png)
-
-# **pseudo selector**
-
-여러 tag에 하나하나 id나 class 지정하기보다, 효율적으로 순서를 매겨서 지시하는 방법
-
-형제 사이에서의 순서에 따라 요소를 선택
-
-## **nth-child**
-
-`first-child {…}` tag 중 가장 첫번째에 적용
-
-`last-child {…}` tag 중 가장 마지막에 적용
-
-`nth-child(숫자)` 지정한 순서에 적용
-
-`nth-child(even)` 짝수에 적용
-
-`nth-child(odd)` 홀수에 적용
-
-`nth-child(숫자n+숫자 )` ↴
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/ee0e527e-2e0c-4d9b-a995-816062e9472a.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/ee0e527e-2e0c-4d9b-a995-816062e9472a.png)
-
-![첫번째 적용 후, 3번째마다 적용됨](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/783d50bf-ec9b-4538-8f4a-aec243377282.png)
-
-첫번째 적용 후, 3번째마다 적용됨
-
-## **nth-of-type(n)**
-
-- 동일한 타입들 안에서 순서를 따짐
-- `span: nth-of-type(2)` : 2번째 span 에 적용
-- `first-of-type` / `last-of-type` : 첫번째, 마지막
-- even, odd, 2n+1 … 을 넣어서 활용 가능
-
-### 주의사항
-
-- 타입은 신경X, 오직 순서만 신경
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/7d02766a-91e9-4931-ab0b-7ad0e59fdddd.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/7d02766a-91e9-4931-ab0b-7ad0e59fdddd.png)
-    
-
-- `tag : first-child` 하면 tag 안에 박스의 first-child도 선택됨
-    
-    ```html
-    <div class="main-actions">
-      <i class="fas fa-redo"></i> 
-      <i class="fas fa-step-backward fa-lg"></i>
-      <span>
-       <i class="fas fa-play fa-lg"></i>
-    	</span>
-      <i class="fas fa-step-forward fa-lg"></i>
-      <i class="fas fa-random"></i>
-    </div>
-    ```
-    
-    ```css
-    .main-actions i:first-child, 
-    .main-actions i:last-child {
-      color: rgba(0, 0, 0, 0.2);
-    }
-    ```
-    
-    여기서 이렇게 하면 맨 위, 맨 아래 아이콘만 선택되는 것이 아니라 <span>안에 <i>도 선택
-    
-
-# **combinator**
-
-## **tag 지정**
-
-- `부모 자식 {…}`
-    
-    모든 부모tag 안 자식tag에 적용
-    
-    ![div안의 p 안의 span 만 색깔 변경](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/5b1e2d43-9588-4aa2-a1fc-1c58caca4112.png)
-    
-    div안의 p 안의 span 만 색깔 변경
-    
-- `부모 > 자식 {…}`
-    
-    부모 바로 아래 자식에만 지시
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/32458170-3efc-4a31-bf45-cc1b4a9d7317.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/32458170-3efc-4a31-bf45-cc1b4a9d7317.png)
-    
-
-- `자식 + 자식 {…}`
-    
-    바로 밑에 있는 자매 tag에 지시 (부모자식 x, 자식 관계ㅇ)
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/07cf95be-8906-4dc4-a6e8-7a470e3bdfbe.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/07cf95be-8906-4dc4-a6e8-7a470e3bdfbe.png)
-    
-- `자식~자식 {…}`
-    
-    뒤에 오는 자매 모두에게 지시 (바로 뒤x)
-    
-
-## 특정 속성
-
-- 특정 속성만 적용
-
-`#id(.class) tag[속성="속성값"] {~}`
-
-- 특정 속성만 적용 안하는 요청
-    
-    `#id(.class) tag:not ([속성="속성값"]) {~}`
-    
-    tag 에서 [속성=“속성값”] 만 빼고 적용
-    
-
-## **attribute 지정**
-
-- `tag:attribute {…}`
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/6c4d2c27-de3f-4c04-a104-1c0fe5fd06df.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/6c4d2c27-de3f-4c04-a104-1c0fe5fd06df.png)
-    
-    ![input 중 required 만 지시](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/b27acf35-d66c-4950-b874-ba42f15aca58.png)
-    
-    input 중 required 만 지시
-    
-- `tag [attribute="name"] {…}`
-    
-    name까지 지정
-    
-- `tag [attribute~="name"] {…}`
-    
-    attiribute에 name 을 포함하고 있다면 모두 선택
-    
-    - `~=` : name을 포함한다면 해당 (앞or뒤 공백 있어야 함)
-    - `=` : name을 포함한다면 해당 (앞뒤 공백 상관없음)
-    
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/625a0152-30c8-42de-9743-b7e26963306f.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/625a0152-30c8-42de-9743-b7e26963306f.png)
-
-- `a[href$= ".org"] {…}`
-    
-    .org 포함된 링크 달렸다면 모두 선택
-    
+![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2012.png)
 
 # **states**
 
@@ -799,7 +748,7 @@ div 안에서 초록박스 움직임
 
 ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/d03dee8d-3ae1-4eed-8f89-cb998ec7927f.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/d03dee8d-3ae1-4eed-8f89-cb998ec7927f.png)
 
-![Untitled](CSS%2003974fa3a62a42409367485416fc3d2d/Untitled%2017.png)
+![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2013.png)
 
 ## **hover**
 
@@ -875,32 +824,164 @@ tag의 자식이 focused(선택)되면 tag에게 적용
 
 form 위에 마우스 올라가있고, input 선택되니까 실행
 
-# **pseudo element**
+# 주요 속성
 
-## **::placeholder**
+## 글자 속성
 
-`tag::placeholder {…}`
+- `font-family: 폰트명, 폰트명…` : 폰트 선택
+    - 입력한 순서대로 우선순위 적용
+    - 브라우저마다 지원 폰트 다르므로 여러 개 작성하기
+        
+        맨 마지막은 `sans-serif` ⇒ 모든 브라우저에서 지원하므로 디폴트값임
+        
+- `font-weight` : 글씨 두께 (100~900 사이의 수/ bold)
+- `font-size`
+- `font-style` : `italic` (기울이기) … 등등
+- `text-align` : 글씨 x축 정렬
+- `line-height: n`  : 줄높이 설정 (한줄일 경우 y축 높이 조절 가능)
+- `text-transform: uppercase;` : 대문자 변환 (html에서 소문자로 작성됐을 시)
+- `text-decoration: none;` 기본 글자 설정 없애기 (ex) 링크의 밑줄)
+- **사이트 [google fonts](https://fonts.google.com) 사용**
+    1.  - html
+    2. @import - css
+        
+        ① @import 복사해서 css 맨 상단에 복사
+        
+        ② font-family 복붙
+        
 
-tag 중 placeholder에만 적용
+## **크기 조정**
 
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/7a8663fa-5465-4989-a537-17df6441eb21.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/7a8663fa-5465-4989-a537-17df6441eb21.png)
+`width/ height: ~;`
 
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/46190da2-daf2-45e2-9137-6e7f3a796ec7.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/46190da2-daf2-45e2-9137-6e7f3a796ec7.png)
+- px : 고정값 / % : 가변값 (부모의 크기 지정되어야 가능)
+- 부모크기 기준으로 퍼센트 결정
+- width/ height 하나만 써도, 비율에 맞춰 크기 조정 됨
+- vh= viewpoint height (screen 화면을 꽉 채우는 높이)
+    
+    vw= viewpoint width
+    
 
-![placeholder의 색만 변함. input 하면 색상 그대로.](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/22919db5-74e0-4324-b3f2-c424c83f31f4.png)
+## backgrond
 
-placeholder의 색만 변함. input 하면 색상 그대로.
+- `background-color : color`
+- `background-image : url(이미지 경로)`
+- `background-repeat`
+    
+    : `no-repeat` 반복 x
+    
+    : `repeat-x` x축으로 반복
+    
+    : `repeat-y` y축으로 반복
+    
+- `background-position : top/ bottom/ center/ left/ right`
+    
+    공간 안에서 이미지의 좌표를 변경
+    
 
-## **::selection**
+## **색상 설정**
 
-`tag::selection {…}`
+- #000000
+- **rgb (red green blue) →** rgb(000, 000, 000)
+- rgba(000, 000, 000, 0)
+    - a는 알파 → 투명도
+    - 맨 끝 : 0 = 투명/ 1= 불투명
 
-드래그 된 부분만 적용 (padding 은 적용 안됨)
+## 이외
 
-## ::**first-letter**
+- `box-shadow: inset;` 박스 안쪽에 그림자 효과
+- `overflow-축: hidden / scroll`
+    
+    크기를 넘어서는 부분을 숨길지/ 스크롤 가능하게 할지
+    
+- `cursor : 속성값` 마우스 포인터 모양 변경
+    - pointer (손가락)
+    - not-allowed (선택 안됨)
+    - progress (로딩중)
+- `object-fit: cover;` 사진 사이즈 비율 유지
+- `list-style: none`  ol, ul의 순서표시 삭제
 
-`tag::first-letter {…}`
+## **form의 attributes**
 
-첫번째 글자만 적용
+- `form: action="…"` 어떤 페이지로 data 보낼건지 지정
+    - ex) `form: action="friends.html"`
+        
+        input 실행시, friends 라는 html 파일이 이어서 실행
+        
+- `form: method="…"`
+    - `form: method="post"` 백엔드 서버에 정보 전송
+    - `form: method="get"` 서버 없어도 됨
+        
+        (보안에 취약 url에 포함되어도 상관없는 정보들만)
+        
+        - 하위 input 에 name 설정할 것
+        
+        ![html 작성/ 위 username, 아래 password](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2014.png)
+        
+        html 작성/ 위 username, 아래 password
+        
+        ![input에 입력해서 login 클릭하면](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2015.png)
+        
+        input에 입력해서 login 클릭하면
+        
+        ![url에 이렇게 표시된다](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2016.png)
+        
+        url에 이렇게 표시된다
+        
+    
 
-- `first-line` : 첫번째 줄에 적용
+---
+
+## **변수 만들기**
+
+설정값을 변수로 만들어놓아 효율적
+
+- 생성 `:root {a:b}`
+- 사용 `var(a)` ⇒ b
+    
+    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/1370d85e-35dd-4205-a846-6d2d46769dec.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/cfbeaa4ea93f4c8d883e09a2f471fb40/1370d85e-35dd-4205-a846-6d2d46769dec.png)
+    
+
+# **아이콘**
+
+(svg: 픽셀 없는 이미지, 좌표로 되어있어서 무한으로 늘릴 수 있음)
+
+- 이용 사이트: [heroicons](https://heroicons.com/) / [fontawesome](https://fontawesome.com/v5.15/icons?d=gallery&p=2)
+
+### **적용 방법**
+
+1. code kit를 body 맨 아래 넣음
+    
+    ```jsx
+    <script
+          src="https://kit.fontawesome.com/6478f529f2.js"
+          crossorigin="anonymous"
+        ></script>
+    ```
+    
+2. html 에 복붙
+    
+    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b6982c476559498bae1a6e437bbb01f5/e73f63bb-2833-416c-b31a-053ae8744863.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_markup_images/b6982c476559498bae1a6e437bbb01f5/e73f63bb-2833-416c-b31a-053ae8744863.png)
+    
+
+### **아이콘 사이즈 변경**
+
+1. **html** : 태그에 `fa-size` 추가 
+    
+    `<i class="~fa-lg"> </i>`
+    
+    - size: g, 2x, 3x, xs …
+2. **css :** 글자와 같이 크기 수정
+    
+    `i {font-size: 속성값}`
+    
+
+### **아이콘 움직이기**
+
+i는 텍스트와 같기 때문에 움직이려면 span이나 다른 블럭으로 감싸줘야함
+
+### 아이콘에 링크 넣기
+
+`<a href="파일명/링크”><i class=”아이콘”></i></a>`
+
+a태그로 아이콘 감싸주기
