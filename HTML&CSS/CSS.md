@@ -35,6 +35,12 @@ html, body {
 }
 ```
 
+### 사이즈 단위
+
+- px : 절대 크기
+- % : 상대 크기, 현재 창크긱 기준
+- em : 상대 크기, 현재 스타일이 지정된 요소의 font-size 기준
+
 ## CSS 연동
 
 ### Inline Style Sheet
@@ -94,6 +100,14 @@ p { color: blue; }
 
 </aside>
 
+---
+
+## css 적용의 우선순위
+
+1. 속성 값 뒤에 !important
+2. HTML태그에 inline으로 style속성 지정
+3. id선택자 > class선택자, 추상 클래스 (예 `:hover`) > 태그 선택자
+
 # Selector (선택자)
 
 ### Type
@@ -131,12 +145,15 @@ p { color: blue; }
 ### 부모·자식 **지정**
 
 - `부모 자식 {…}` : 부모 안 모든 자식태그에 적용
-    
-    ex) `div p span { color: blue; }` div 안의 p안의 span
-    
-- `부모 > 자식 {…}` : 부모 바로 밑의 자식에만 지시
-- `자식 + 자식 {…}` : 바로 다음에 있는 자매 tag에 지시 (부모자식 x, 자식 관계ㅇ)
+- `부모 > 자식 {…}` : 직계 자식에게만 적용
+- `자식 + 자식 {…}` : 인접 선택자/ 바로 다음에 있는 자매 tag에 지시
 - `자식~자식 {…}` : 뒤에 오는 자매 모두에게 지시 (바로 뒤x)
+
+```
+a:link { color: red; }
+a:visted { color: purple; }
+
+```
 
 ```html
 <head>
@@ -203,32 +220,31 @@ input:optional { color: red; } /* required하지 않은 input에 적용 */
 
 형제 사이에서의 순서에 따라 요소를 선택
 
-### **nth-child**
+### tag: **nth-child**
 
-`first-child {…}` tag 중 가장 첫번째에 적용
+- `first-child {…}` 형제 요소 중 가장 첫 요소에 적용
+- `last-child {…}` 형제 요소 중 가장 마지막 요소에 적용
+- `nth-child(숫자)` 지정한 순서에 적용
+- `nth-child(even)` 짝수에 적용
+- `nth-child(odd)` 홀수에 적용
+- `nth-child(숫자n+숫자)`
+    
+    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/ee0e527e-2e0c-4d9b-a995-816062e9472a.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/ee0e527e-2e0c-4d9b-a995-816062e9472a.png)
+    
+    ![첫번째 적용 후, 3번째마다 적용됨](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/783d50bf-ec9b-4538-8f4a-aec243377282.png)
+    
+    첫번째 적용 후, 3번째마다 적용됨
+    
 
-`last-child {…}` tag 중 가장 마지막에 적용
+### tag: **nth-of-type(n)**
 
-`nth-child(숫자)` 지정한 순서에 적용
+동일한 타입들 안에서 순서를 따짐
 
-`nth-child(even)` 짝수에 적용
+(even, odd, 2n+1 … 을 넣어서 활용 가능)
 
-`nth-child(odd)` 홀수에 적용
-
-`nth-child(숫자n+숫자 )` ↴
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/ee0e527e-2e0c-4d9b-a995-816062e9472a.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/ee0e527e-2e0c-4d9b-a995-816062e9472a.png)
-
-![첫번째 적용 후, 3번째마다 적용됨](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/783d50bf-ec9b-4538-8f4a-aec243377282.png)
-
-첫번째 적용 후, 3번째마다 적용됨
-
-### **nth-of-type(n)**
-
-- 동일한 타입들 안에서 순서를 따짐
-- `span: nth-of-type(2)` : 2번째 span 에 적용
-- `first-of-type` / `last-of-type` : 첫번째, 마지막
-- even, odd, 2n+1 … 을 넣어서 활용 가능
+- `first-of-type`  첫번째
+- `last-of-type` 마지막
+- `nth-of-type(2)` 2번째 span 에 적용
 
 ### 주의사항
 
@@ -239,21 +255,18 @@ input:optional { color: red; } /* required하지 않은 input에 적용 */
 - `tag : first-child` 하면 tag 안에 박스의 first-child도 선택됨
     
     ```html
-    <div class="main-actions">
-      <i class="fas fa-redo"></i> 
-      <i class="fas fa-step-backward fa-lg"></i>
-      <span>
-       <i class="fas fa-play fa-lg"></i>
-    	</span>
-      <i class="fas fa-step-forward fa-lg"></i>
-      <i class="fas fa-random"></i>
-    </div>
+    <main>
+      <p>Hello World</p> // 적용
+    	<p>Hello World</p>
+    	<div>
+    		<p>Hello World</p> // 적용(?)
+    	</div>
+    </main>
     ```
     
     ```css
-    .main-actions i:first-child, 
-    .main-actions i:last-child {
-      color: rgba(0, 0, 0, 0.2);
+    main p:first-child {
+      color: red;
     }
     ```
     
@@ -371,7 +384,7 @@ tag 중 placeholder에만 적용 (입력텍스트에는 적용x)
 
 ∴ border은 박스 크기가 커짐/ outline은 변화 없음
 
-# Display
+# Block / Inline
 
  `display: ~;`
 
@@ -415,14 +428,20 @@ margin-right 값을 준다고 해도… 과하게 주면 다음줄로 넘어감
 
 스크롤에 따라 크기가 달라짐
 
-### float 정렬
+### float
 
-새로운 레이어층을 만들어 왼쪽, 오른쪽 끝으로 정렬시 사용
-
-첫 태그 float → 다음 태그 float → 다음 태그 clear
-
-⇒ 앞에 두 블럭은 일렬로 정렬되고, 세번째부터 아래로 정렬
-
+- 원 사용법 : 이미지와 텍스트 자연스럽게 어우러지게 배치할 때 사용~
+    
+    ![2022-09-13 21;17;28.PNG](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/2022-09-13_211728.png)
+    
+- 구 사용법 : (flex, grid 탄생 전) 이를 이용해서 container 정렬했음
+    
+    새로운 레이어층을 만들어 왼쪽, 오른쪽 끝으로 정렬시 사용
+    
+    첫 태그 float → 다음 태그 float → 다음 태그 clear
+    
+    ⇒ 앞에 두 블럭은 일렬로 정렬되고, 세번째부터 아래로 정렬
+    
 1. `float: none` : 정렬 x
 2. `float: left` : 왼쪽 정렬
 3. `float: right` : 오른쪽 정렬
@@ -432,15 +451,12 @@ margin-right 값을 준다고 해도… 과하게 주면 다음줄로 넘어감
     
 - 부모의 크기가 정렬하기 작다면 다음줄로 넘어감
 
----
-
-## **flexbox**
-
-`display : flex;` 
+# F**lexbox**
 
 inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가변적
 
-- 가로 방향으로 배치되고, 자신이 가진 내용물의 width 만큼만 차지함. 마치 inline
+- 한 줄로 배치
+- 내용물의 크기만큼 width 차지
     
     ![block](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%201.png)
     
@@ -450,7 +466,7 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
     
     flex
     
-- height는 컨테이너의 높이만큼 늘어납니다.
+- height는 컨테이너의 높이만큼 늘어남
     
     ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%203.png)
     
@@ -524,69 +540,32 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
         이유는... 나도 모름
         
 
-### 기본축 설정
+## container 속성
 
-컨테이너는 주축과 교차축을 가지고 있음
+flex item들의 부모인 container에 지정하는 속성
 
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/f6004b3d-8218-43cb-a670-7ee58ea039d5.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/f6004b3d-8218-43cb-a670-7ee58ea039d5.png)
+- `display : flex`
 
-![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%208.png)
+### flex-direction
 
-- **X축 정렬** (기본값)
+정렬 방향 지정
+
+- `row` 왼→오 정렬
     
-    `justify-content: ~;`
+    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%208.png)
     
-- **y축 정렬**
-    
-    `align-items: ~;`
-    
-    body의 height 설정하고 적용해야 함 (height: 100vh)
-    
-    - 설정하지 않으면 body가 안의 tag의 값에 맞춰져 있어서 변화 없을 수 있음
-
-- **속성값**
-    - `center`
-    - `flex-end` : 끝 정렬
-    - `flex-start`: 기본값
-    - `space-evenly`: 빈 공간 같은 크기로 나누어 배치
-    - `space-around` / `space-between` …
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/fcbf428a-9564-4056-8ce9-c70a0ff44839.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/fcbf428a-9564-4056-8ce9-c70a0ff44839.png)
-    
-
-### 방향 **변경**
-
-`flex-direction: …;`
-
- 
-
-- `flex-direction: row` 그대로
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/ebb9325f-5f9b-48db-b602-e846ec911561.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/ebb9325f-5f9b-48db-b602-e846ec911561.png)
-    
-
-- `flex-direction: row-reverse` 텍스트 반대방향 정렬
+- `row-reverse` 오→왼 정렬
     
     (reverse: start 와 end의 순서도 뒤바뀜)
     
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/dd0d9c2e-311a-4bb0-ae20-5b67dbd90436.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/dd0d9c2e-311a-4bb0-ae20-5b67dbd90436.png)
+    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%209.png)
     
-
-- `flex-direction:column` 위에서 아래로 정렬
+- `column` 위→아래 정렬
     
     (justify-content & align-items 의 축이 뒤바뀜)
     
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/0b585f2b-18a6-4b68-a6ab-8575d8442ed5.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/0b585f2b-18a6-4b68-a6ab-8575d8442ed5.png)
-    
-
-- `flex-direction:column-reverse` 아래서 위로 정렬
-    
-    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/5e586fc6-3faa-485f-9f7d-0ed593fc1cf1.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/5e586fc6-3faa-485f-9f7d-0ed593fc1cf1.png)
-    
-    [개구리게임 해보기](https://flexboxfroggy.com/#ko)
-    
-
-- **좋은 사용 예시 (box의 순서 뒤집기)**
+- `column-reverse` 아래→위 정렬
+- 사용 예시 (box의 순서 뒤집기)
     
     파랑 이용해서 빨강 만들기
     
@@ -616,7 +595,7 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
         
         html은 bubble → time 순서로 작성되어있으나 order을 지정해주자 오름차순으로 정렬됨 (0이 먼저)
         
-    - **row-reverse**
+    1. **row-reverse**
         
         `flex-direction: row-reverse;`
         
@@ -628,19 +607,61 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
 
 ### flex-wrap
 
-flex 안의 요소들이 강제로 한줄에 배치 or 여러행으로 나누어 표현 할 것인지 결정하는 속성
+container안의 요소들이 강제로 한줄에 배치 or 여러행으로 나눌 것인지 결정
 
-- flex-wrap: nowrap;
+- `nowrap` (기본값)
     
-    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%209.png)
-    
-- flex-wrap: wrap;
+    화면 크기를 줄여도 요소 크기를 줄여 한 줄에 모두 배치
     
     ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2010.png)
     
-- flex-wrap: wrap-reverse;
+
+- `wrap`
+    
+    화면이 꽉 차면 다음 줄로 넘어감
     
     ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2011.png)
+    
+
+- `wrap-reverse`
+    
+    위에서부터 거꾸로 줄세우기
+    
+    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2012.png)
+    
+
+### flex-flow
+
+`flex-flow: direction wrap여부`
+
+flex-direction, flex-wrap을 혼합해서 쓸 수 있음
+
+### justify-content
+
+아이템을 배치하는 방법
+
+### 기본축 설정
+
+컨테이너는 주축과 교차축을 가지고 있음
+
+![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2013.png)
+
+- **y축 정렬**
+    
+    `align-items: ~;`
+    
+    body의 height 설정하고 적용해야 함 (height: 100vh)
+    
+    - 설정하지 않으면 body가 안의 tag의 값에 맞춰져 있어서 변화 없을 수 있음
+
+- **속성값**
+    - `center`
+    - `flex-end` : 끝 정렬
+    - `flex-start`: 기본값
+    - `space-evenly`: 빈 공간 같은 크기로 나누어 배치
+    - `space-around` / `space-between` …
+    
+    ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/fcbf428a-9564-4056-8ce9-c70a0ff44839.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/fcbf428a-9564-4056-8ce9-c70a0ff44839.png)
     
 
 # **position**
@@ -736,7 +757,7 @@ div 안에서 초록박스 움직임
 - 숫자가 작을수록 밑의 layer, 클수록 위의 layer
 - `position: fixed/absolute` 에 이용 가능.
 
-![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2012.png)
+![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2014.png)
 
 # **states**
 
@@ -748,7 +769,7 @@ div 안에서 초록박스 움직임
 
 ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/d03dee8d-3ae1-4eed-8f89-cb998ec7927f.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/d03dee8d-3ae1-4eed-8f89-cb998ec7927f.png)
 
-![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2013.png)
+![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2015.png)
 
 ## **hover**
 
@@ -772,15 +793,10 @@ input 같은 경우, 입력하려고 하면 속성 적용
 
 `tag: focus, tag: active {outline: none; }`
 
-## **visited**
+## link / **visited**
 
-`a:visited {…}`
-
-링크에만 적용, 눌러서 방문 후에 적용
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/92209acc-b4c6-4c42-9386-7df1b257f558.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/92209acc-b4c6-4c42-9386-7df1b257f558.png)
-
-![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/1e9d836d-009f-45ec-bc27-84b6f73bd739.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/1e9d836d-009f-45ec-bc27-84b6f73bd739.png)
+- `a:link {…}` : 방문한 적 없는 링크에 적용
+- `a:visited {…}` : 방문한 적 있는 링크에 적
 
 ## **focus-within**
 
@@ -859,24 +875,27 @@ form 위에 마우스 올라가있고, input 선택되니까 실행
 - width/ height 하나만 써도, 비율에 맞춰 크기 조정 됨
 - vh= viewpoint height (screen 화면을 꽉 채우는 높이)
     
-    vw= viewpoint width
+    vw= viewpoint width (100vw썼는데 스크롤바 생겼다면 기본 margin, padding이 설정되어있을 가능성 있음)
     
 
 ## backgrond
 
 - `background-color : color`
 - `background-image : url(이미지 경로)`
-- `background-repeat`
-    
-    : `no-repeat` 반복 x
-    
-    : `repeat-x` x축으로 반복
-    
-    : `repeat-y` y축으로 반복
-    
+    - `<img>` vs `background-image`
+        - 디자인적으로 꾸밀 수 있는건 ⇒ background-image
+        - 콘텐츠, 정보 전달 ⇒ img (alt를 표기함으로써 웹접근성에 좋고, 성능 측면에서 효율적)
+- `background-repeat: ~`
+    - `no-repeat` 반복 x
+    - `repeat-x` x축으로 반복
+    - `repeat-y` y축으로 반복
 - `background-position : top/ bottom/ center/ left/ right`
     
     공간 안에서 이미지의 좌표를 변경
+    
+- `background: color url(이미지 경로) no-repeat left;`
+    
+    이렇게 한 줄에 함께 쓸 수도 있음
     
 
 ## **색상 설정**
@@ -916,15 +935,15 @@ form 위에 마우스 올라가있고, input 선택되니까 실행
         
         - 하위 input 에 name 설정할 것
         
-        ![html 작성/ 위 username, 아래 password](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2014.png)
+        ![html 작성/ 위 username, 아래 password](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2016.png)
         
         html 작성/ 위 username, 아래 password
         
-        ![input에 입력해서 login 클릭하면](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2015.png)
+        ![input에 입력해서 login 클릭하면](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2017.png)
         
         input에 입력해서 login 클릭하면
         
-        ![url에 이렇게 표시된다](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2016.png)
+        ![url에 이렇게 표시된다](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2018.png)
         
         url에 이렇게 표시된다
         
@@ -985,3 +1004,7 @@ i는 텍스트와 같기 때문에 움직이려면 span이나 다른 블럭으�
 `<a href="파일명/링크”><i class=”아이콘”></i></a>`
 
 a태그로 아이콘 감싸주기
+
+![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2019.png)
+
+![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2020.png)
