@@ -61,7 +61,7 @@ html 파일 → <head> 태그 → <style> 태그 안에 css코드 작성
 </head>
 ```
 
-### External Style Sheet👑
+### External Style Sheet 👑
 
 css 파일 따로 만들고, 링크 연결
 
@@ -424,15 +424,15 @@ inline&block의 특성 동시 적용
 
 margin-right 값을 준다고 해도… 과하게 주면 다음줄로 넘어감
 
-![스크롤에 따라 크기가 달라짐](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled.png)
+![스크롤에 따라 크기가 달라짐](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled.png)
 
 스크롤에 따라 크기가 달라짐
 
 ### float
 
-- 원 사용법 : 이미지와 텍스트 자연스럽게 어우러지게 배치할 때 사용~
+- 원 사용법 : 이미지와 텍스트 자연스럽게 정리하기 위한 기능
     
-    ![2022-09-13 21;17;28.PNG](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/2022-09-13_211728.png)
+    ![2022-09-13 21;17;28.PNG](CSS%205fa503ac80d8450cbf12551077c7cad6/2022-09-13_211728.png)
     
 - 구 사용법 : (flex, grid 탄생 전) 이를 이용해서 container 정렬했음
     
@@ -453,22 +453,24 @@ margin-right 값을 준다고 해도… 과하게 주면 다음줄로 넘어감
 
 # F**lexbox**
 
+![css-flexbox-poster.png](CSS%205fa503ac80d8450cbf12551077c7cad6/css-flexbox-poster.png)
+
 inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가변적
 
 - 한 줄로 배치
 - 내용물의 크기만큼 width 차지
     
-    ![block](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%201.png)
+    ![block](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%201.png)
     
     block
     
-    ![flex](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%202.png)
+    ![flex](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%202.png)
     
     flex
     
 - height는 컨테이너의 높이만큼 늘어남
     
-    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%203.png)
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%203.png)
     
 - flex-direction: column을 적용하면 height가 지정됨
     
@@ -491,7 +493,7 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
         }
         ```
         
-        ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%204.png)
+        ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%204.png)
         
     
     - flex 설정 시
@@ -503,7 +505,7 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
         }
         ```
         
-        ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%205.png)
+        ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%205.png)
         
     
     - flex-direction: column; 적용시
@@ -516,7 +518,7 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
         }
         ```
         
-        ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%206.png)
+        ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%206.png)
         
         - 다시 늘어난 이유?
             
@@ -533,12 +535,16 @@ inline-block의 단점 극복 → 기본 값 유지하면서 창 크기에 가�
         }
         ```
         
-        ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%207.png)
+        ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%207.png)
         
         다시 줄어들었다
         
         이유는... 나도 모름
         
+
+![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%208.png)
+
+---
 
 ## container 속성
 
@@ -548,17 +554,19 @@ flex item들의 부모인 container에 지정하는 속성
 
 ### flex-direction
 
-정렬 방향 지정
+아이템이 배치되는 축의 방향 결정
+
+![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%209.png)
 
 - `row` 왼→오 정렬
     
-    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%208.png)
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2010.png)
     
 - `row-reverse` 오→왼 정렬
     
     (reverse: start 와 end의 순서도 뒤바뀜)
     
-    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%209.png)
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2011.png)
     
 - `column` 위→아래 정렬
     
@@ -613,21 +621,21 @@ container안의 요소들이 강제로 한줄에 배치 or 여러행으로 나�
     
     화면 크기를 줄여도 요소 크기를 줄여 한 줄에 모두 배치
     
-    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2010.png)
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2012.png)
     
 
 - `wrap`
     
     화면이 꽉 차면 다음 줄로 넘어감
     
-    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2011.png)
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2013.png)
     
 
 - `wrap-reverse`
     
     위에서부터 거꾸로 줄세우기
     
-    ![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2012.png)
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2014.png)
     
 
 ### flex-flow
@@ -636,33 +644,249 @@ container안의 요소들이 강제로 한줄에 배치 or 여러행으로 나�
 
 flex-direction, flex-wrap을 혼합해서 쓸 수 있음
 
-### justify-content
+### justify-content / align-content
 
-아이템을 배치하는 방법
+중심축/ 교차축에서 아이템을 배치 방식 설정 (각 item 순서는 유지)
 
-### 기본축 설정
-
-컨테이너는 주축과 교차축을 가지고 있음
-
-![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2013.png)
-
-- **y축 정렬**
+1. `center` 가운데 정렬
+2. `flex-start`: 왼→오 정렬
     
-    `align-items: ~;`
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2015.png)
     
-    body의 height 설정하고 적용해야 함 (height: 100vh)
+3. `flex-end` : 오→왼 정렬
     
-    - 설정하지 않으면 body가 안의 tag의 값에 맞춰져 있어서 변화 없을 수 있음
-
-- **속성값**
-    - `center`
-    - `flex-end` : 끝 정렬
-    - `flex-start`: 기본값
-    - `space-evenly`: 빈 공간 같은 크기로 나누어 배치
-    - `space-around` / `space-between` …
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2016.png)
+    
+4. `space-around` / `space-evenly` / `space-between`
     
     ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/fcbf428a-9564-4056-8ce9-c70a0ff44839.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/image_upload/cfbeaa4ea93f4c8d883e09a2f471fb40/fcbf428a-9564-4056-8ce9-c70a0ff44839.png)
     
+
+### align-items
+
+반대축에서 아이템 배치 방식 설정 (각 item 순서는 유지)
+
+1. `stretch` (기본값) 아이템들이 수직축 방향으로 쭉 늘어남
+2. `center` 가운데 정렬
+3. `flex-start` 시작점으로 정렬
+4. `flex-end` 끝점으로 정렬
+5. `baseline` 텍스트 베이스라인 기준으로 정렬
+    
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2017.png)
+    
+- 주의사항
+    
+    body의 height 설정하고 적용해야 함
+    
+    ⇒ 설정하지 않으면 body가 안의 tag의 값에 맞춰져 있어서 변화 없을 수 있음
+    
+
+---
+
+## flex item 속성
+
+### order
+
+`order: n`
+
+아이템의 순서를 숫자로 설정(기본값=0)
+
+### flex-grow
+
+`flex-grow: n`
+
+아이템의 증가 너비 비율 설정
+
+(기본값은 0 ⇒ 화면이 커져도 아이템 크기 변하지 않음)
+
+- ex) item1에만 `flex-grow: 1` 설정 ⇒ 화면 늘리면 1만 늘어남
+
+![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2018.png)
+
+### flex-shrink
+
+`flex-shrink: n`
+
+아이템의 감소 너비의 비율의 설정
+
+(기본값은 0 ⇒ 화면이 작아져도 아이템 크기 변하지 않음)
+
+- ex) 1은 `flex-shrink: 2` 설정, 2&3은 `flex-shrink: 1` 설정 ⇒ 화면 줄이면 1이 더 줄어듬
+    
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2019.png)
+    
+
+### flex-basis
+
+`flex-basis: ~`
+
+아이템의 기본 너비 설정
+
+- 기본 점유 크기 설정 ⇒ width가 작으면 그만큼 늘어나고, 크면 크기변경 없음
+
+```css
+.item {
+	flex-basis: auto; /* 기본값 */
+	/* flex-basis: 0; */
+	/* flex-basis: 50%; */
+	/* flex-basis: 300px; */
+	/* flex-basis: 10rem; */
+	/* flex-basis: content; */
+}
+```
+
+### align-self
+
+교차 축에서 각 아이템 별로 정렬 방법 설정 (align-items의 아이템 버전)
+
+1. `stretch` (기본값) 아이템들이 수직축 방향으로 쭉 늘어남
+2. `center` 가운데 정렬
+3. `flex-start` 시작점으로 정렬
+4. `flex-end` 끝점으로 정렬
+5. `baseline` 텍스트 베이스라인 기준으로 정렬
+- ex) 1에만 `align-self: flex-end` 설정
+    
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2020.png)
+    
+
+# Grid
+
+2차원(행, 열)의 레이아웃을 배치 가능
+
+(flexbox는 단순한 1차원 레이아웃으로 좀 더 복잡한 레이아웃은 grid 이용)
+
+- Flex vs Grid
+    
+    ![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2021.png)
+    
+- grid 요약 그림
+    
+    ![css-grid-poster.png](CSS%205fa503ac80d8450cbf12551077c7cad6/css-grid-poster.png)
+    
+
+![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2022.png)
+
+## container 속성
+
+`display: grid`
+
+### grid-template
+
+- `grid-template-row : [이름] size, size, ...`
+    
+    `grid-template-column : [이름] size, size, ...`
+    
+    행/열의 크기 정의
+    
+    - size: fr(fraction, 공간비율), px, % …
+    - `repeat()` 사용 가능: `repeat(반복횟수, size)`
+- `grid-auto-rows: size`
+    
+    `grid-auto-columns: size`
+    
+    행/ 열 개수 상관없이 자동 배치
+    
+    - minmax(minsize, maxsize) 최소, 최대값을 지정하는 함수
+        
+        ex) `grid-auto-rows: minmax(100px, auto)` ⇒ 최소 100px 크기지만 컨텐츠가 많아지면 값 자동으로 늘어남
+        
+    
+    ![`grid-auto-rows: 100px`](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2023.png)
+    
+    `grid-auto-rows: 100px`
+    
+    ![`grid-auto-rows: minmax(100px, auto)`](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2024.png)
+    
+    `grid-auto-rows: minmax(100px, auto)`
+    
+
+### gap
+
+- `(grid-)gap` 행,열 사이 간격 지정
+- `(grid-)row/column-gap` 행or열 사이 간격 지정
+
+셀 사이 간격만 생기기 때문에 전체적으로 균등한 간격 주고 싶다면 padding 이용
+
+![`grid-gap: 10px`](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2025.png)
+
+`grid-gap: 10px`
+
+![`padding: 10px`](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2026.png)
+
+`padding: 10px`
+
+---
+
+## grid item 속성
+
+### grid-row/column-start/end
+
+![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2027.png)
+
+![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2028.png)
+
+아이템을 배치하기 위해 그리드 선의 시작 위치와 끝 위치를 지정
+
+- 속성값: 숫자 or 선 이름 or span n (startLine부터 n개의 칸 차지)
+1. `grid-row-start: n` 시작 행  
+    
+    `grid-row-end: n` 끝 행
+    
+2. `grid-column-start: n` 시작 열
+    
+    `grid-column-end: n` 끝 열
+    
+- 단축속성
+    - `grid-row: startLine / endLine`
+    - `grid-column: startLine / endLine`
+
+![`grid-colunm: 2/ -1`  `grid-row: 1 / 3`](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2029.png)
+
+`grid-colunm: 2/ -1`  `grid-row: 1 / 3`
+
+### grid-area
+
+각 영역에 이름을 붙이고, 이를 이용해서 배치하는 방식
+
+![보통 이와 같은 영역이름 사용](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2030.png)
+
+보통 이와 같은 영역이름 사용
+
+- **grid container에 적용 ⇒ 영역 만들기**
+    
+    각 영역이 차지하는 셀의 개수만큼 해당 위치에 이름 쓰기
+    
+    - 행이나 셀을 구분하거나, 빈칸은 `none` or `.` 사용
+    
+    ```css
+    .container {
+    	grid-template-areas:
+    		"header header header"
+    		"main . sidebar"
+    		"footer footer footer";
+    }
+    ```
+    
+
+- **각 grid item에 적용 ⇒ 이름 매칭**
+    
+    `grid-area: 지정이름`
+    
+    ```css
+    .header { grid-area: header; }
+    .main { grid-area: main; }
+    .sidebar { grid-area: sidebar; }
+    .footer { grid-area: footer; }
+    /* 이름 값에 따옴표가 없는 것에 주의하세요 */
+    ```
+    
+
+### 이외
+
+- `align-self` : 단일 아이템의 교차축 정렬
+- `justify-self` : 단일 아이템의 메인축 정렬
+- `order` : 아이템 배치 순서 지정
+- `z-index` : 아이템의 레이어 지정
 
 # **position**
 
@@ -757,7 +981,7 @@ div 안에서 초록박스 움직임
 - 숫자가 작을수록 밑의 layer, 클수록 위의 layer
 - `position: fixed/absolute` 에 이용 가능.
 
-![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2014.png)
+![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2031.png)
 
 # **states**
 
@@ -769,7 +993,7 @@ div 안에서 초록박스 움직임
 
 ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/d03dee8d-3ae1-4eed-8f89-cb998ec7927f.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/cfbeaa4ea93f4c8d883e09a2f471fb40/d03dee8d-3ae1-4eed-8f89-cb998ec7927f.png)
 
-![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2015.png)
+![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2032.png)
 
 ## **hover**
 
@@ -935,15 +1159,15 @@ form 위에 마우스 올라가있고, input 선택되니까 실행
         
         - 하위 input 에 name 설정할 것
         
-        ![html 작성/ 위 username, 아래 password](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2016.png)
+        ![html 작성/ 위 username, 아래 password](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2033.png)
         
         html 작성/ 위 username, 아래 password
         
-        ![input에 입력해서 login 클릭하면](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2017.png)
+        ![input에 입력해서 login 클릭하면](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2034.png)
         
         input에 입력해서 login 클릭하면
         
-        ![url에 이렇게 표시된다](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2018.png)
+        ![url에 이렇게 표시된다](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2035.png)
         
         url에 이렇게 표시된다
         
@@ -1005,6 +1229,8 @@ i는 텍스트와 같기 때문에 움직이려면 span이나 다른 블럭으�
 
 a태그로 아이콘 감싸주기
 
-![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2019.png)
+![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2036.png)
 
-![Untitled](CSS%20e3b504eef37142fa8ab9b5d9e7f08432/Untitled%2020.png)
+![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2037.png)
+
+![Untitled](CSS%205fa503ac80d8450cbf12551077c7cad6/Untitled%2038.png)
