@@ -150,7 +150,7 @@ from& to 대신에 n%로 단계별로 지정
  }
 ```
 
-![AC_[20200805-161944].gif](ADVANCED%20CSS%201fff9834c7924f97812a5aa4554edd65/AC_20200805-161944.gif)
+![AC_[20200805-161944].gif](ADVANCED%20CSS%20eae3aa6e815b4214abaa01b484424b54/AC_20200805-161944.gif)
 
 ### **애니메이션 안정화**
 
@@ -199,11 +199,31 @@ from& to 대신에 n%로 단계별로 지정
 
 pc / mobile / 태블릿에도 대응되는 반응형, 적응형 웹사이트 만들기 위해 사용하는 구문
 
+## 구문
+
+`@media 미디어 유형 / 논리연산자 / 특성`
+
+### 미디어 유형
+
+- `@media all {}` 모든 디바이스 대상
+- `@media print {}` 인쇄 결과물, 인쇄 미리보기 문서
+- `@media screen {}` 컴퓨터 스크린, 태블릿, 스마트폰 등
+- `@media speech {}` 스크린 리더기 or 리더기 읽어주는 미디어
+
+### 논리연산자
+
+- `@media all and {}` 모든 쿼리가 참이어야 적용
+- `@media all not {}` 모든 쿼리가 거짓이어야 작용
+- `@media all, (comma) {}` 어느 하나라도 참이면 적용(or)
+- `@media only screen {}` 미디어쿼리를 지원하는 브라우저만 적용
+
+## 속성
+
 ### 화면 크기 변경에 반응
 
 - `@media screen and (max/min-width/height: …px) {tag {속성:속성값;}}`
-    - min: width/ height가 ~px보다 클때 적용
-    - max: width/ height가 ~px보다 클때 적용
+    - min: width/ height가 ~px보다 클 때 적용
+    - max: width/ height가 ~px보다 작을 때 적용
 - `@media screen and (min-width: …px) and (max-width: …px) {tag {속성:속성값;}}`
     
     min 과 max의 사잇값에 속성 적용
