@@ -2,7 +2,7 @@
 
 ---
 
-# 기본
+# 기본 설정
 
 ## **git**
 
@@ -19,30 +19,33 @@ git으로 관리하는 파일, 변경 내역을 올리는 공간
 
 ## 기본 명령어
 
-- `git version` : git의 버전 확인
-- `git config (--global) user.name "<이름>"` : git관련 작업 기록에 남는 이름 설정/수정
+- git의 버전 확인 : `git version`
+- git의 모든 설정 확인 : `git config --list`
+- 폴더 만들기 : `mkdir`
+- 파일 생성 & 파일 내용으로 추가 : `echo '내용' > 파일.확장자`
+- 문자 에디터 변경 : `git config --global core.editor "~"`
+    - `"code"` vsc로 변경
+    - `"vim"` vim으로 변경
     
-    `git config (--global) user.email "<이름>"` : git관련 작업 기록에 남는 이메일 설정/수정
+    옵션 `—wait` 붙이면 ⇒ 처리될 때까지 터미널이 기다림 ex) `"code --wait"`
     
-    (디렉토리 설정 전에는 `--global` 넣어야 함)
+- 개행문자 차이 해결 : `git config --global core.autocrlf true/input` (윈도우: `true` / 맥: `input`)
     
-- `git config --list` : git 설정 확인
+    윈도우와 맥의 줄바꿈 기호가 달라서 깃에서 주고 받을 때 발생한 문제 해결
     
-    ```jsx
-    // 예시 응답
-    user.email=elice@elice.io
-    user.name=Elice
-    log.decorate=short
-    ```
+- 단축어 생성 : `git config --global alias.단축어 단축할명령어`
     
-- `echo 'content' > 파일.확장자` 파일 생성 & 파일 내용으로 content 추가
+    ex) `git config --global alias.st status` ⇒ `git st` = `git status` 실행
+    
 
 ### 경로 관련 코드
 
-- `./` : 현재 working 디렉토리
-- `cd` : 경로를 변경하는 코드
-- `pwd` : 작업경로를 출력하는 코드
-- `ls` : 현재 디렉토리에 존재하는 파일이나 디렉토리를 확인하는 코드
+- `./` 현재 working 디렉토리
+- `cd '폴더명'` 경로를 변경하는 코드
+    - `cd ..` 한 경로 뒤로 나가기
+    - `cd /n` N드라이브로 이동
+- `pwd` 작업경로를 출력하는 코드
+- `ls` 현재 디렉토리에 존재하는 파일이나 디렉토리를 확인하는 코드
     - 명령어 옵션 (`명령어-` 뒤에 붙이면 됨, 여러개 가능)
         - a : 숨김 파일 및 디렉토리 함께 표시
         - l : 파일, 디렉토리의 상세정보 함께 표시
@@ -54,12 +57,12 @@ git으로 관리하는 파일, 변경 내역을 올리는 공간
 
 ### 계정 만들기
 
-```css
-git config --global user.email "email"
-git config --global user.name "name"
-
-git config --list // 확인
-```
+- `git config (--global) user.name/user.email` 유저 name or email 확인
+- `git config (--global) user.name "이름"` : git관련 작업 기록에 남는 이름 설정/수정
+- `git config (--global) user.email "메일주소"` : git관련 작업 기록에 남는 이메일 설정/수정
+    
+    (디렉토리 설정 전에는 `--global` 넣어야 함)
+    
 
 ### 저장소 만들기
 
@@ -68,6 +71,8 @@ git config --list // 확인
 성공시 ⇒ Initialized empty Git repository in/파일경로/파일명/.git/ 출력
 
 .git 이라는 하위 디렉토리를 만듬. .git 디렉토리에는 저장소에 필요한 뼈대 파일(Skeleton)이 들어 있음
+
+- 저장소 삭제 `rm -rf .git`
 
 ### 홈페이지에서 repository 만들기
 
@@ -101,17 +106,17 @@ git config --list // 확인
     ![https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/564966e0ed5740d29dfd84368ef3168d/f250e85e-67e9-464f-9ad4-aa2ecd39be6f.png](https://slid-capture.s3.ap-northeast-2.amazonaws.com/public/capture_images/564966e0ed5740d29dfd84368ef3168d/f250e85e-67e9-464f-9ad4-aa2ecd39be6f.png)
     
 
----
-
 # 커밋하기
 
-![파일의 상태 사이클](1%20basic%20bfe5dec398fc4dde8da049cb69106dd9/Untitled.png)
+![file status](1%20basic%20bfe5dec398fc4dde8da049cb69106dd9/Untitled.png)
+
+file status
+
+![파일의 상태 사이클](1%20basic%20bfe5dec398fc4dde8da049cb69106dd9/Untitled%201.png)
 
 파일의 상태 사이클
 
 ## 처리 영역
-
-![Untitled](1%20basic%20bfe5dec398fc4dde8da049cb69106dd9/Untitled%201.png)
 
 1.  **working area** (working directory)
     
@@ -207,6 +212,7 @@ repository에 존재하는 히스토리(커밋 기록) 확인
 
 `git add .` : 현재 폴더의 모든 파일 보내기
 
+- `git add .txt` : txt 확장자 파일 모두 보내기
 - `git status` : staging area의 파일 상태 확인
 - `git reset 파일명.확장자` stageing area에서 파일 내리기
     
