@@ -106,6 +106,32 @@
     - Nest.js : TS를 사용하며, 고정된 구조를 제공하는 웹 프레임워크
     - Hapi, Sails.js, Merteor.js 등등 많음
 
+### 프레임워크 vs 라이브러리
+
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%208.png)
+
+1. **프레임워크**
+    
+    소프트웨어의 특정 문제를 해결하기 위해서 상호 협력하는 클래스와 인터페이스의 집합
+    
+    ⇒ 원하는 기능 구현에 집중하여 개발할 수 있도록 일정한 형태와 필요한 기능을 갖추고 있는 골격, 뼈대를 의미
+    
+2. **라이브러리**
+    
+    단순 활용이 가능한 도구들의 집합
+    
+    ⇒ 소프트웨어를 개발할 때 컴퓨터 프로그램이 사용하는 비휘발성 자원의 모임. 즉 특정 기능을 모아둔 코드, 함수들의 집합이며 코드 작성 시 활용 가능한 도구들
+    
+- **차이점**은 ‘제어 흐름의 권한이 있는 위치’
+    - 프레임워크: 프레임워크에게 있음 ⇒ 제어의 역전이 적용
+        
+        전체적인 흐름을 자체적으로 가지고 있고, 프로그래머가 그 안에 필요한 코드를 작성
+        
+    - 라이브러리: 프로그래머에게 있음
+        
+        사용자가 프름에 대해 제어하며, 필요한 상황에 라이브러리를 가져다  씀
+        
+
 ### 사용 이유
 
 - 웹 서비스를 구성하려면 매우 많은 기능이 필요
@@ -126,7 +152,9 @@
     
     ⇒ HTTP 요청 URL에 해당하는 알맞은 응답의 경로를 미리 설정함
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%208.png)
+    ex) 회사 1층 안내데스크 : 요청으로 오면 안내를 받아 알맞은 위치로 감
+    
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%209.png)
     
 - **HTML Templating**
     
@@ -145,7 +173,7 @@ node.js로 서버를 구축하는 프레임워크
 
 ### 생성한 서버의 구조
 
-![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%209.png)
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2010.png)
 
 ### 생성 코드
 
@@ -193,11 +221,11 @@ npm start // 서버 시작
     
     - 터미널에서 npm start → 터미널에 `listen()` 콜백 함수 실행
         
-        ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2010.png)
+        ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2011.png)
         
     - 서버에는 get으로 받은 내용 입력됨
         
-        ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2011.png)
+        ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2012.png)
         
 
 ### express-generator 사용하기
@@ -261,7 +289,7 @@ $npm start // 프로젝트 실행
     
     middleware를 등록하고, URL로 들어온 요청에 미들웨어 실행
     
-    - URL을 생략: 모든 요청이 미들웨어를 거쳐감
+    - URL을 생략: 모든 요청이 미들웨어를 거쳐감 (주로 페이지 로드될 때 실행시키려고 사용)
     - `URL/~/...` 처럼 경로가 더 붙어도 URL을 통과한 것으로 봐서 미들웨어함수 실행
     - URL의 하위에 미들웨어 함수를 등록하는 것이라서, 계층적 구조로 사용할 수 있음
         - 계층적 구조의 라우터 사용시, 선언에 `Router({ mergeParams: true })`를 사용해야 이전 라우터에서 전달된 path parameter을 사용 가능
@@ -293,6 +321,8 @@ $npm start // 프로젝트 실행
 
 요청을 여러 갈래로 나누어서 올바른 곳으로 이어주는 것
 
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2013.png)
+
 ### 1. **app 라우팅**
 
 `app.httpMethod('URL',(req, res) => {callbakc});`
@@ -311,6 +341,7 @@ app객체에 직접 HTTP method(get/post/put/delete)를 사용하여 라우팅
         
 - all 함수를 사용하면 HTTP method에 상관없이 라우팅 가능
 - 사실 모든 콜백함수는 미들웨어다 ⇒ 미들웨어 생성법과 같음
+- 콜백함수 여러개 쓸 수 있음 ⇒ 순서대로 실행됨
 
 ```jsx
 // index.js
@@ -410,7 +441,7 @@ HTTP 요청 정보를 가진 객체 ⇒ 요청의 path parameter, query paramete
     
 - **req.get('')**
     
-    HTTP Request의 헤더값을 가져올 수 있음 
+    HTTP Request의 헤더값이 key-value로 묶어진 객체 반환
     
     `req.get('Authorization')`등으로 값을 가져옴 
     
@@ -448,26 +479,29 @@ app.get('/:follow', (req, res) => {
 
 ---
 
-![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2012.png)
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2014.png)
 
 요청과 응답 중간에 목적에 맞춰 거쳐가는 함수들 (남이 만든, 내가 만든 함수를 가져와서 사용)
 
 - HTTP 요청이 들어오는 순간부터 실행 시작
 - HTTP 요청과 응답 객체를 처리 or 다음 미들웨어를 실행 가능
     
-    ⇒ HTTP 응답이 마무리될 때까지 미들웨어 동작 사이클이 진행됨
+    ⇒ HTTP 응답이 마무리될 때까지 미들웨어 동작 사이클이 진행되고, 사이클을 끝낼 수 있음
     
 
-### 기본 작성법
+### 기본 형태
+
+`function(req, res, next) {~; next() }`
 
 인자로 req, res, next를 가진 함수를 작성하면 해당 함수는 미들웨어도 동작
 
-- req : HTTP 요청 처리 객체
-- res : HTTP 응답 처리 객체
-- next : 다음 미들웨어 실행 함수
+- **req** : HTTP 요청 처리 객체
+- **res** : HTTP 응답 처리 객체
+- **next** : 다음 미들웨어 실행 함수
     
     next 함수가 호출 X ⇒ 미들웨어 사이클이 멈춤
     
+    - `res.send()` or `res.json()` 같이 데이터를 보내는 경우, 생략 가능
 
 ### 1. 어플리케이션 미들웨어
 
@@ -535,9 +569,27 @@ app.get('/', Logger, (req, res, next) => {
 
 오류를 처리하는 미들웨어
 
-- err, req, res, next 인자를 가짐 (생략되면 안됨)
+- 인자: err, req, res, next (하나라도 생략 X)
 - 앞선 미들웨어에서 next 함수에 인자가 전달 → 중간 미들웨어 뛰어넘음 → 오류처리 미들웨어 실행
-- 보통 가장 마지막에 위치함 ⇒ 모든 라우팅에 공통적인 오류처리 로직 적용 가능
+    - middleware/handler가 동기 함수 ⇒ `next(error)` & `throw(error)`로도 오류처리 미들웨어로 넘길 수 있음
+    - middleware/handler가 비동기 함수 ⇒ try-catch로 error 잡아서 `next(error)`로 전달해야함
+        
+        (프로미스 안에서 발생한 에러는 catch가 없다면 잡지 못함)
+        
+        ```jsx
+        app.get('/person', async(req, res, next) => {
+        	try {
+        		const promise = new Promise((resolve, reject) => {
+        			// do something
+        			resolve();
+        		});
+        	} catch(error) {
+        			next(error)
+        	}
+        }
+        ```
+        
+- 보통 가장 마지막에 위치 ⇒ 모든 라우팅에 공통적인 오류처리 로직 적용 가능
 
 ```jsx
 app.use((req, res, next) => {
@@ -622,6 +674,8 @@ app.use('/users', auth(), userRouter); // 관리자가 아니니 인자x
 
 외부 라이브러리의 미들웨어를 가져와서 사용
 
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2015.png)
+
 ```jsx
 // terminal
 // body-parser 사용해보기
@@ -632,9 +686,58 @@ const bodyParser = requier('body-parser');
 // 이후는 각 라이브러리의 API 문서 참고해서 적용
 ```
 
+- third-party middleware 종류와 사용법
+    
+    ## body-parser
+    
+    ---
+    
+    req.body 값을 받아올 수 있는 도구
+    
+    ### 사용 이유
+    
+    ```jsx
+    // POST request를 통해 전달한 req.body
+    {
+      userID : "jiwoo",
+      password : "1234"
+    }
+    
+    // 실행한 코드
+    app.post('/profile', function(req, res) => {
+      console.log(req.body) // undefined
+    })
+    ```
+    
+    req.body 값을 전달해도 기본값인 undefined로 받아와짐
+    
+    ⇒ body parser를 이용해서 값 받아와야함
+    
+    ### 사용법
+    
+    ```jsx
+    const bodyParser = require('body parser');
+    
+    app.use(bodyParser.json()); // JSON 형식으로 데이터 전달
+    app.use(bodyParser.urlencoded({extended: false})); // URL로 받으면 객체로 데이터 전달
+    // 두 줄 모두 작성해야함
+    ```
+    
+    - bodyParser.urlencoded({extended: false})
+        
+        `age=20&name=뽀뽀뽀&hobby=캠핑`로 값을 전달 →  `{'age':20, 'name':'뽀뽀뽀', 'hobby':'캠핑'}` 형태로 request의 body에 추가
+        
+        - {extended:false}
+            - true : Express에 기본 내장된 querystring 모듈을 사용
+            - false : querystring 모듈의 기능이 좀 더 확장된 qs 모듈을 사용 (qs 모듈 별도 설치 필요)
+        - querystring 모듈
+            
+            url 주소 뒤에 붙어서 넘어오는 파라미터인 querystring을 쉽게 조작할 수 있는 기능을 제공하는 모듈이다.
+            
+
 # Rest API
 
-![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2013.png)
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2016.png)
 
 REST를 준수해서 만든 HTTP API
 
@@ -736,19 +839,19 @@ JS에서 객체를 표현하는 표현식
     
 3. **메모 작성 구현**
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2014.png)
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2017.png)
     
 4. **메모 수정 구현**
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2015.png)
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2018.png)
     
 5. **메모 삭제 구현**
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2016.png)
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2019.png)
     
 6. **JSON 데이터 처리 미들웨어 사용**
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2017.png)
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2020.png)
     
     express.js는 기본적으로 HTTP body에 전달되는 JSON 데이터를 처리 못함 ⇒ express에서 기본 제공되는 `express.json()` 미들웨어를 사용해야 JSON 데이터 사용 가능
     
@@ -756,4 +859,42 @@ JS에서 객체를 표현하는 표현식
     
     가장 마지막 미들웨어로 오류 처리 미들웨어 구현 ⇒ 모든 라우팅에 공통적인 오류처리 로직 적용 가능
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2018.png)
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2021.png)
+    
+
+# 다른 라이브러리
+
+## dotenv
+
+---
+
+환경변수를 `.env`파일에 저장하고 `process.env`로 로드하는 의존성 모듈
+
+- **환경변수** : 프로세스가 컴퓨터에서 동작하는 방식에 영향을 미치는 동적인 값들의 모임 (OS입장에서 해당 프로세스를 실행시키기 위하여 참조하는 변수)
+
+⇒ 환경변수는 민감한 정보라서 오픈 소스로 공개되면 위험함
+
+⇒ dotenv 패키지를 이용하여 환경변수 파일을 외부에 만들어 접근할 수 있게 하고, 개발 초기 단계에서 세팅 가능함
+
+```jsx
+npm install dotenv
+```
+
+```jsx
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=thisispassword
+ELICE=DREAM
+```
+
+```jsx
+const dotenv = require("dotenv")
+dotenv.config();
+// = require("dotenv").config() 이것만 이렇게도 사용 가능
+
+// env.js에서 설정해놓은 변수를 process.env.variable로 가져와서 사용
+console.log("DB_HOST:", process.env.DB_HOST);
+console.log("DB_USER:", process.env.DB_USER);
+console.log("DB_PASS:", process.env.DB_PASS);
+console.log("DB_PASS:", process.env.ELICE);
+```
