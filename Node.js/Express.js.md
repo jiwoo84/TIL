@@ -1,99 +1,5 @@
 # Express.js
 
-# Web Service
-
-- 프론트엔드: 클라이언트  /  백엔드: 서버
-
-![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled.png)
-
-## HTTP
-
----
-
-- Hypertext Transfer Protocol
-    - Hypertext : 컴퓨터 화면이나 전자 기기에서 볼 수 있는 데이터. 다른 데이터와 연결될 수 있는 주소를 참조하고 있음
-    - Transfer : 사람들이 브라우저를 통해 확인하는 웹 상의 데이터는 HTTP에 의해 전달됨
-    - Protocool : 규칙 or 규약
-
-![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%201.png)
-
-- HTTP : 웹 서버와 웹 브라우저 간의 멀티미디어 통신 규약
-- HTTPS : HTTP의 보안 취약점을 보완한 것으로, 웹 서버와 웹 브라우저 간의 보안이 강화된통신에 사용
-
-### 통신 과정
-
-(클라이언트) 요청 → (서버) 응답 → 클라이언트에게 전달
-
-- 요청 예시
-    
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%202.png)
-    
-- 응답 예시
-    
-    ![전송된 데이터 / 사용자가 요청한 데이터](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%203.png)
-    
-    전송된 데이터 / 사용자가 요청한 데이터
-    
-
-### 구성 요소
-
-1. **HTTP Messsage**
-    
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%204.png)
-    
-    - 서버 주소, 요청 메서드, 상태 코드, target path, 헤더 정보, 바디 정보 등이 포함
-    - 요청 메세지, 응답 메시지의 모양이 다름
-    - HTTP/1.1 버전의 메세지는 사람이 읽을 수 있음 (HTTP2는 불가)
-2. **HTTP Header**
-    - 콘텐츠, 인증, 쿠키, 캐시 관련 정보 등 서버와 클라이언트의 통신 시 필요한 내용 담김
-    - 클라이언트 & 서버 응답 시 모두 헤더에 정보 담을 수 있음
-3. **HTTP status**
-    - HTTP 요청시, 클라이언트 요청의 결과에 대한 상태 정보
-    - 숫자 코드(200, 400, 500), 문자 코드(OK / NOT FOUND)로 이루어짐
-        - 100 : 정보 제공 (응답)
-        - 200 : 성공적인 응답
-        - 300 : 다른 곳으로 이동 처리 (리다이렉트)
-        - 400 : 클라이언트 잘못된 요청 처리
-        - 500 : 서버의 잘못된 응답 처리
-4. **요청 메서드**
-    - 요청할 때 요청 메서드로 특정 요청에 대한 동작을 정의함
-    
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%205.png)
-    
-
-## 동적 웹(web 2.0)
-
----
-
-사용자와 상호작용을 함 ⇒ 양방향 통신
-
-- 구글 맵, 웹 채팅 등 다양한 기능 수행 가능
-- 프론트엔드 & 백엔드가 유기적으로 통신하며 동작
-- 현대적인 웹은 대부분 동적 웹
-
-### 구현방법
-
-- **CSR** (Client-Side Rendering)
-    
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%206.png)
-    
-    프론트엔드에서 사용자가 페이지에서 보는 동적인 부분을 대부분 처리하는 방식
-    
-    - 프론트엔드 코드에 페이지 리소스들이 미리 정의되어 있음
-    - 서버와의 통신은 API 통신을 이용
-    - 반응은 빠르지만 페이지의 본문은 API 호출이 완료되야 보여짐
-    - 프로젝트의 구성이 복잡하고 개발 사이즈가 커짐
-- **SSR** (Server-Side Rendering)
-    
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%207.png)
-    
-    백엔드에서 페이지 대두분의 영역을 처리해서 프론트엔드로 전달하는 방식
-    
-    - 벡엔드에서 HTML 파일을 작성해서 프론트엔드로 전달
-    - 로딩이 완료되면 페이지와 데이터가 한 번에 표시 ⇒ 사용자가 보기에 상대적으로 느려보임
-    - 페이지 이동할 때마다 로딩되기 때문에 페이지 깜빡임이 있음
-    - CSR에 비해 구성이 쉽고 개발 사이즈가 작아짐
-
 # 웹 프레임워크
 
 웹 서비스에 필요한 기능들을 제공해주는 다양한 도구들의 모음
@@ -108,7 +14,7 @@
 
 ### 프레임워크 vs 라이브러리
 
-![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%208.png)
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled.png)
 
 1. **프레임워크**
     
@@ -154,7 +60,7 @@
     
     ex) 회사 1층 안내데스크 : 요청으로 오면 안내를 받아 알맞은 위치로 감
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%209.png)
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%201.png)
     
 - **HTML Templating**
     
@@ -165,7 +71,7 @@
 
 # Express.js
 
-node.js로 서버를 구축하는 프레임워크
+node.js로 서버를 구축하는, node.js로 만들어진 **웹 프레임워크**
 
 ## 서버 생성
 
@@ -173,9 +79,13 @@ node.js로 서버를 구축하는 프레임워크
 
 ### 생성한 서버의 구조
 
-![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2010.png)
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%202.png)
 
 ### 생성 코드
+
+`app` ⇒ `express()` 인스턴스가 할당된 변수 => 어플리케이션
+
+- 어플리케이션을 통해 기본적인 express 서버 설정이 가능, 라우팅 및 서버요청 대기 상태를 만들 수 있음
 
 ```jsx
 // terminal
@@ -185,13 +95,15 @@ $npm i express // express 설치
 
 // index.js 작성
 const express = require('express'); // express 모듈 추가
-const app = express();
+const app = express(); // 어플리케이션 => express 인스턴스
 
 app.get('/', (req, res) => { // 라우팅 추가
   res.send('Hello World!');
 })
 
-app.listen(3000); // 서버 시작
+app.listen(3000, function() { // 서버 시작
+	console.log('서버 시작');
+}); 
 
 // terminal
 npm start // 서버 시작
@@ -221,12 +133,31 @@ npm start // 서버 시작
     
     - 터미널에서 npm start → 터미널에 `listen()` 콜백 함수 실행
         
-        ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2011.png)
+        ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%203.png)
         
     - 서버에는 get으로 받은 내용 입력됨
         
-        ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2012.png)
+        ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%204.png)
         
+- 타입스크립트 사용
+    
+    ```jsx
+    import { Response, Request, NextFunction } from 'express';
+    // req, res, next의 타입은 express의 내부 모듈에서 받아옴
+    
+    const getTodos = async (
+      req: Request,
+      res: Response,
+      next: NextFunction
+    ): Promise<void> => {
+      try {
+        res.status(200);
+      } catch (error) {
+        next(error);
+      }
+    };
+    ```
+    
 
 ### express-generator 사용하기
 
@@ -273,19 +204,17 @@ $npm start // 프로젝트 실행
 
 ### 주요 기능
 
-- **app.locals**
+- **`app.locals.variable = value`**
     
     app에서 사용할 공통 상수
     Express.js에선 global 변수를 선언하지 않고 이 값 사용 가능
     
-- **app.listen()**
+- **`app.listen()`**
     
     http서버를 생성해주는 함수
     express-generator를 사용하면 `http.createServer`를 사용하는데 `app.listen` 함수로 대체할 수 있음
     
-- **app.use()**
-    
-    `app.use(['URL',] 미들웨어함수)`
+- `**app.use(['URL',] 미들웨어함수)**`
     
     middleware를 등록하고, URL로 들어온 요청에 미들웨어 실행
     
@@ -321,7 +250,7 @@ $npm start // 프로젝트 실행
 
 요청을 여러 갈래로 나누어서 올바른 곳으로 이어주는 것
 
-![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2013.png)
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%205.png)
 
 ### 1. **app 라우팅**
 
@@ -450,19 +379,77 @@ HTTP 요청 정보를 가진 객체 ⇒ 요청의 path parameter, query paramete
 
 HTTP 응답을 처리하는 객체 ⇒ 응답의 데이터를 전송 or 응답 상태 및 헤더 설정 가능
 
-- **res.send()** : text 형식의 HTTP 응답을 전송함
+- **`res.send()`** : text 형식의 HTTP 응답을 전송함
     - 데이터를 한 번 전송하고 종료해줌
         
         ⇒ http 모듈의 `end('content')` or `write('content') + end()`역할
         
-- **res.json()** : json 형식의 HTTP 응답을 전송함
+- **`res.json()`** : json 형식의 HTTP 응답을 전송함
     - 보내는 데이터 형식이 json인 경우 `send()`보다 `json()`사용할 것
         
         ⇒ `res.json()`의 로직이 실행과정이 짧아서 효율적임
         
-- **res.render()** : HTML Template을 사용하여 화면을 전송함
-- **res.set()** : HTTP 응답의 헤더를 설정
-- **res.status()** : HTTP 응답의 상태값을 설정함
+- **`res.status()`** : HTTP 응답의 상태값을 설정함
+- **`res.render()`** : HTML Template을 사용하여 화면을 전송함
+- **`res.set()`** : HTTP 응답의 헤더를 설정
+- `**req.method**` : 요청 종류에 따라 ‘GET’, ‘POST’ 등 반환
+- `**res.on('event', callback)**` : 이벤트 발생시 콜백함수 실행
+    
+    ex) `res.on('error', (err) => console.error(err.stack))`
+    
+    ⇒ 에러 발생시 오류 메시지와 스택 트레이스 출력
+    
+    - form 데이터 받기
+        
+        `res.on('data', function(data) {~}` : form으로 들어온 데이터를 콜백함수의 인자값(data)로 조각내서 넣어줌
+        
+        ⇒ 값을 계속 저장하려면 `let body = ‘’` 선언 후, `body += data` 이런식으로 저장해야함
+        
+- `**res.redirect('url')**` : 처리가 완료되면 해당 url로 이동
+    
+    ⇒ 항상 get 요청으로 넘어감
+    
+- http 서버 생성시 주로 쓰이는 메서드
+    - `**res.writeHead(상태코드, {'Content-Type':'text/html'})**`
+        
+        해더 정보 내보내기
+        
+        - 상태코드: 웹서버로 들어오는 요청이 정상적으로 실행될 때 사용하는 http 상태코드
+        - `{'Content-Type' : 'text/html'}` : 응답으로 반송하는 콘텐츠의 종류를 나타내는 헤더 정보, 이것이 표준 텍스트라는 것을 클라이언트에 전달
+    - `**res.write('content')`** : 바디 부분 콘텐츠 내보내기
+        - 여러번 호출 가능, 계속해서 추가됨
+    - `**res.end('추가컨텐츠')**` : 컨텐츠 출력 완료(응답 종료)
+        - 인자로 내보낼 값 추가로 작성 가능 (내보내고 종료됨)
+        - 요청 마지막에 반드시 작성해야함
+            - 비동기 코드가 있다면, 해당 함수 내부에 작성해야 함
+                
+                ⇒ 비동기 동작이 아니라서 전체 코드의 마지막에 쓰면 먼저 실행됨
+                
+                ```jsx
+                var http = require('http');
+                var fs = require('fs');
+                
+                function onRequest(request, response) {
+                
+                  response.writeHead(200, { 'Content-Type': 'text/html' });
+                
+                  fs.readFile('index.html', 'utf-8', (err, data) => {
+                    if (err) {
+                      response.writeHead(404);
+                      response.write('file not found');
+                      response.end(); // 이렇게 비동기 함수 안에 넣을 것
+                    }
+                    response.write(data);
+                    response.end(); // 이렇게!
+                  });
+                  
+                	response.end() // 만약 여기에만 있다면 fs.readFile보다 먼저 실행됨
+                }
+                
+                http.createServer(onRequest).listen(8080);
+                ```
+                
+    - `**res.statusCode = 200**` : 응답 상태값 설정
 
 ```jsx
 app.get('/:follow', (req, res) => {
@@ -470,8 +457,8 @@ app.get('/:follow', (req, res) => {
      "Content-Type": "text/json",
      ETag: "10000",
     })
-        .status(201)
-        .json(req.params); // 체이닝 가능
+		.status(201)
+		.json(req.params); // 체이닝 가능
 })
 ```
 
@@ -479,7 +466,7 @@ app.get('/:follow', (req, res) => {
 
 ---
 
-![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2014.png)
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%206.png)
 
 요청과 응답 중간에 목적에 맞춰 거쳐가는 함수들 (남이 만든, 내가 만든 함수를 가져와서 사용)
 
@@ -590,6 +577,7 @@ app.get('/', Logger, (req, res, next) => {
         ```
         
 - 보통 가장 마지막에 위치 ⇒ 모든 라우팅에 공통적인 오류처리 로직 적용 가능
+- 오류 처리 미들웨어가 여러개라면 그 안에서도 `next()`를 써줘야 다음 오류처리 미들웨어로 넘어감
 
 ```jsx
 app.use((req, res, next) => {
@@ -674,7 +662,7 @@ app.use('/users', auth(), userRouter); // 관리자가 아니니 인자x
 
 외부 라이브러리의 미들웨어를 가져와서 사용
 
-![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2015.png)
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%207.png)
 
 ```jsx
 // terminal
@@ -737,7 +725,7 @@ const bodyParser = requier('body-parser');
 
 # Rest API
 
-![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2016.png)
+![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%208.png)
 
 REST를 준수해서 만든 HTTP API
 
@@ -771,6 +759,12 @@ REST를 준수해서 만든 HTTP API
     컴퓨터와 인간을 연결시키는 사용자 인터페이스(UI)와 반대로, API는 컴퓨터나 소프트웨어를 서로 연결함
     
     - 서버는 자신이 제공하고자 하는 데이터나 기능을 제어할 수 있는 API 만들어서 제공
+- RESTful API
+    
+    최대한 REST 제약조건을 지켜가면서 만든 API
+    
+    완벽 REST API를 만들기 힘드니까 이렇게 표현함ㅋㅋ 
+    
 
 ### 기본 규칙
 
@@ -790,6 +784,20 @@ REST를 준수해서 만든 HTTP API
     
     ex) `/users/1/posts` ⇒ 1번 유저의 게시글 전체
     
+
+### CRUD & HTTP method
+
+| CRUD | 요청의 뜻 | 메소드 |
+| --- | --- | --- |
+| Create | 올려줘 | POST |
+| Read | 불러와줘 | GET |
+| Update | 바꿔줘 | PUT(전체)/PATCH(일부) |
+| Delete | 지워줘 | DELETE |
+
+```bash
+router.post('/createTodo', addTodo) // x 의미의 중첩, post만 봐도 의도 알수 있음
+router.post('/todo', addTodo) // 이렇게만 쓰면 됨
+```
 
 ## JSON
 
@@ -822,6 +830,8 @@ JS에서 객체를 표현하는 표현식
     주로 Controller에 의해 데이터를 전달받고, 전달받은 데이터를 화면에 표시해주는 기능 담당
     - **Controller** : Model을 통해 데이터에 접근하여 처리 결과를 View로 전달하는 기능을 수행
     웹 서비스에서는 주로 라우팅 함수가 해당 기능을 수행함
+        - 요청을 받아 데이터를 처리하고 응답하는 코드
+        - 데이터에 직접 접근 x
 
 ### 구현 예시
 
@@ -839,19 +849,19 @@ JS에서 객체를 표현하는 표현식
     
 3. **메모 작성 구현**
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2017.png)
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%209.png)
     
 4. **메모 수정 구현**
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2018.png)
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2010.png)
     
 5. **메모 삭제 구현**
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2019.png)
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2011.png)
     
 6. **JSON 데이터 처리 미들웨어 사용**
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2020.png)
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2012.png)
     
     express.js는 기본적으로 HTTP body에 전달되는 JSON 데이터를 처리 못함 ⇒ express에서 기본 제공되는 `express.json()` 미들웨어를 사용해야 JSON 데이터 사용 가능
     
@@ -859,7 +869,7 @@ JS에서 객체를 표현하는 표현식
     
     가장 마지막 미들웨어로 오류 처리 미들웨어 구현 ⇒ 모든 라우팅에 공통적인 오류처리 로직 적용 가능
     
-    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2021.png)
+    ![Untitled](Express%20js%205e0f84d1b917473bb9c51a91fc4ce299/Untitled%2013.png)
     
 
 # 다른 라이브러리
@@ -897,4 +907,81 @@ console.log("DB_HOST:", process.env.DB_HOST);
 console.log("DB_USER:", process.env.DB_USER);
 console.log("DB_PASS:", process.env.DB_PASS);
 console.log("DB_PASS:", process.env.ELICE);
+```
+
+# 로깅
+
+에러를 파악하려면 console.log로는 역부족이기 때문에 다른 프레임워크를 이용함 (console.log는 로깅에 부적합하기에 프로덕션 환경에는 절대 사용되지 않음)
+
+## winston
+
+---
+
+process.env의 NODE_ENV에서 제공하는 서버 환경이 어떠한지에 따라 로그 관리의 레벨을 info와 silly로 관리하고 있음
+
+```jsx
+// middlewares/error-logger.ts
+
+import { Request, Response, NextFunction } from 'express';
+import fs from 'fs';
+import winston from 'winston';
+
+const logger = winston.createLogger({
+  transports: [
+    new winston.transports.Console({
+      level: process.env.NODE_ENV === 'production' ? 'info' : 'silly',
+      format: winston.format.combine(winston.format.timestamp()),
+    }),
+  ],
+});
+
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(), // 색깔 넣어서 출력
+        winston.format.simple() // `${info.level}: ${info.message} JSON.stringify({ ...rest })` 포맷으로 출력
+      ),
+    })
+  );
+}
+
+function errorLogger(
+  error: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const current_datetime = new Date();
+
+  const dateFormatted =
+    current_datetime.getFullYear() +
+    '-' +
+    (current_datetime.getMonth() + 1) +
+    '-' +
+    current_datetime.getDate() +
+    ' ' +
+    current_datetime.getHours() +
+    ':' +
+    current_datetime.getMinutes() +
+    ':' +
+    current_datetime.getSeconds();
+
+  const method = req.method;
+  const url = req.url;
+  const errorContent = error.stack;
+
+  logger.error(`[${dateFormatted}] ${method}:${url}\n${errorContent}\n\n`);
+  const errorLog = `[${dateFormatted}] ${method}:${url}\n${errorContent}\n\n`;
+
+  fs.appendFile('error.log', errorLog, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+
+  next(error);
+}
+
+export { errorLogger };
 ```
