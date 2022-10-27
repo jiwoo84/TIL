@@ -194,6 +194,30 @@ $npm start // 프로젝트 실행
         2. npm start로 Express.js 프로젝트 실행
         3. [localhost:3000](http://localhost:3000)에 접속하여 페이지 확인
 
+### express.static
+
+이미지, CSS 파일 및 JS 파일과 같은 **정적 파일을 제공**하기 위해서 사용 + 폴더도 가능
+
+```bash
+app.use(express.static('public'));
+
+// --> http://localhost:3000/js/app.js
+// --> http://localhost:3000/images/bg.png
+// --> http://localhost:3000/hello.html
+
+app.use('/static', express.static('public'));
+// --> http://localhost:3000/static/js/app.js
+// --> http://localhost:3000/static/images/bg.png
+// --> http://localhost:3000/static/hello.html
+```
+
+- 경로는 프로세스가 실행되는 디렉토리에 대해 `상대적`이기 때문에 다음과 같이 제공하기 원하는 디렉토리의 절대 경로를 사용하는 것이 더 안전
+    
+    ```bash
+    app.use('/static', express.static(__dirname + '/public'));
+    ```
+    
+
 ## app 객체
 
 ---
@@ -908,6 +932,73 @@ console.log("DB_USER:", process.env.DB_USER);
 console.log("DB_PASS:", process.env.DB_PASS);
 console.log("DB_PASS:", process.env.ELICE);
 ```
+
+## Path
+
+---
+
+Path 모듈은 파일과 디렉토리 **경로 작업**을 위한 Utility를 제공
+
+- path.join([…paths])
+    - String을 주게 되면 플랫폼별(windows, mac) 구분자를 사용하여 경로를 정규화하여 리턴
+    
+    ```jsx
+    const path = require("path");
+    myPath = path.join("/this", "is", "a", "////path//", "join");
+    
+    /* MAC */
+    console.log(myPath); //   /this/is/a/path/join
+    
+    /* WINDOWS */
+    console.log(myPath); //   \this\is\a/path\join
+    ```
+    
+- path.nomalize(path)
+    - path를 넣으면 경로를 nomalize해서 리턴
+    
+    ```jsx
+    const path = require("path");
+    let myPath = path.normalize("/this/is//a//my/.././path/normalize");
+    
+    console.log(myPath); //   /this/is/a/path/normalize
+    ```
+    
+- path.dirname(path)
+    - 현재 작업하고 있는 디렉토리 이름을 출력
+    
+    ```jsx
+    const path = require("path");
+    myPath = path.dirname("/foo/bar/baz/asdf/image.png");
+    console.log(myPath); ///foo/bar/baz/asdf
+    ```
+    
+- path.basename(path[, ext])
+    - 현재 작업하고 있는 파일 이름을 출력
+    - 옵션 값을 포함하면 뒤의 확장자 제거 가능
+    
+    ```jsx
+    const path = require("path");
+    myPath = path.basename("/foo/bar/baz/asdf/image.png");
+    console.log(myPath); //image.png
+    
+    myPath = path.basename("/foo/bar/baz/asdf/image.png", ".png");
+    console.log(myPath); //image
+    ```
+    
+- path.parse(path)
+    - path를 파싱
+    
+    ```jsx
+    const path = require("path");
+    myPath = path.parse("/home/user/dir/file.txt");
+    console.log(myPath);
+    // { root: '/',
+    //   dir: '/home/user/dir',
+    //   base: 'file.txt',
+    //   ext: '.txt',
+    //   name: 'file' }
+    ```
+    
 
 # 로깅
 
