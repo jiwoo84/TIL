@@ -74,14 +74,11 @@ ex) MySQL, Oracle DB, MariaDB, PostgreSQL, SQLite
 
 ### 관련 툴
 
-<<<<<<< HEAD
 - MongoDB shell(mongosh) : CLI로 제어 (터미널)
 - MongoDB Compass : GUI로 제어
 - mongodump / mongorestore : database 하나를 binary 파일로 추출, 추출된 binary파일을 MongoDB로 복구
 - MongoDB driver : 프로그래밍 언어 별로 MongoDB와 연결을 맺어주는 드라이버
 
-=======
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 ## NoSQL
 
 ---
@@ -107,10 +104,11 @@ SQL처럼 구조화되지 않은 데이터 저장 방식
 
 1. **RDB**
     
-    관계형 데이터베이스
+    관계형 데이터베이스 (엑셀형이라고 생각하면 됨)
     
     - 자료들과의 관계를 주요하게 다룸
     - SQL 질의어를 사용하기 위해 데이터를 구조화해야함
+    - 규칙을 지켜서 넣어야 하니 데이터의 정확성, 안정성이 높음
 2. **NoSQL**
     
     (Non SQL 또는 Not Only SQL) 구조화된 질의어를 사용하지 않는 데이터베이스
@@ -118,15 +116,15 @@ SQL처럼 구조화되지 않은 데이터 저장 방식
     - 자료와의 관계에 초점을 두지 않음
     - 데이터를 구조화하지 않고, 유연하게 저장함
 - **NoSQL을 사용하는 이유**
-    
-    SQL을 사용하기 위해서는 데이터를 구조화하는 것이 필수(DDL)
-    
-    ⇒ 스키마에 정의된 데이터가 아니면 저장할 수 없는 제약이 있음
-    
-    NoSQL을 사용하면 사전작업 없이 데이터 베이스를 사용 가능
-    
-    ⇒ 데이터베이스 작업에 크게 관여하지 않고 프로젝트를 빠르게 진행 가능
-    
+    - SQL을 사용하기 위해서는 데이터를 구조화하는 것이 필수(DDL)
+        
+        ⇒ 스키마에 정의된 데이터가 아니면 저장할 수 없는 제약이 있음
+        
+        NoSQL을 사용하면 사전작업 없이 데이터 베이스를 사용 가능
+        
+        ⇒ 데이터베이스 작업에 크게 관여하지 않고 프로젝트를 빠르게 진행 가능
+        
+    - RDB보다 속도가 빠름
 
 ## 기본 개념
 
@@ -134,33 +132,21 @@ SQL처럼 구조화되지 않은 데이터 저장 방식
 
 Database > Collection > Document
 
-<<<<<<< HEAD
 ![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled.png)
 
 ### Database 🗄
-=======
-### Database
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 
 하나 이상의 collection을 가질 수 있는 저장소
 
 - SQL의 database와 유사
 
-<<<<<<< HEAD
 ### Collection 📂
-=======
-### Collection
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 
 하나 이상의 Document가 저장되는 공간
 
 - SQL의 table과 유사, 하지만 collection이 document의 구조를 정의하지 않음
 
-<<<<<<< HEAD
 ### Document 📃
-=======
-### Document
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 
 MongoDB에 저장되는 자료
 
@@ -173,7 +159,6 @@ MongoDB에 저장되는 자료
     - SQL의 primary key와 유사
     - 하나씩 증가하는 값이 아니라 document를 생성할 때 자동으로 생성됨
     - ObjectID = timestamp + random value + auto increament
-<<<<<<< HEAD
 - 주의사항
     - 필드명 제한
         - “_id”는 사용할 수 없다. Primary key(고유값)로 예약되어 있는 이름임
@@ -281,19 +266,6 @@ db.inventory.deleteMany({price: {$gte: 5000}});
     ⇒ 개발자는 이를 이용해 데이터를 객체지향 방식으로 수정 가능
     
 - 검증 파트(Schema 모듈 담당) + CRUD & 모델화 (Model 모듈 담당) 파트로 나뉨
-=======
-
-# MongoDB ODM
-
-(Object Data Modeling)
-
-MongoDB의 Collection에 집중하여 관리하도록 도와주는 패키지
-
-Collection을 모델화하여 관련 기능들을 쉽게 사용할 수 있도록 도와줌
-
-### 사용이유
-
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 - 연결 관리
     
     MongoDB의 기본 Node.js 드라이버는 연결 상태를 관리하기 어려움
@@ -313,7 +285,6 @@ Collection을 모델화하여 관련 기능들을 쉽게 사용할 수 있도록
     ⇒ Mongoose의 populate를 사용하여 간단하게 구현 가능
     
 
-<<<<<<< HEAD
 ### Express.js + Mongoose ODM
 
 정해진 방법은 없지만 주로 사용되는 방법
@@ -326,22 +297,16 @@ Collection을 모델화하여 관련 기능들을 쉽게 사용할 수 있도록
     (어플리케이션 시작을 의미하는 부분이므로 데이터베이스 연결을 명시하는 mongoose.connect가 위치함)
     
 
-=======
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 ## 사용 순서
 
 ---
 
-<<<<<<< HEAD
 ![InkedUntitled.jpg](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/InkedUntitled.jpg)
 
-=======
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 ### 1. **스키마 정의**
 
 다양한  형식을 미리 지정하여 생성, 수정 작업 시 데이터 형식을 체크하는 기능 제공
 
-<<<<<<< HEAD
 - 스키마(Schema)
     
     한 collection의 document의 구조를 명시화한 객체
@@ -349,9 +314,14 @@ Collection을 모델화하여 관련 기능들을 쉽게 사용할 수 있도록
     - mongoose가 데이터를 CRUD할 때 스키마를 이용해서 데이터 검증(각 필드 별 타입 검증)을 수행함 + 커스텀 함수로 추가적인 검증도 할 수 있음
     - `mongooseSchema` 의 리턴값은 객체
 - timestamps 옵션을 사용하면 생성, 수정 시간을 자동으로 기록해줌
+    
+    ![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%206.png)
+    
+    - createAt, updatedAt으로 날짜, 시간이 데이터에  저장됨
 - 스키마의 수정을 쉽지만, 이미 생성된 데이터가 수정되지는 않음
 
 ```jsx
+const mongoose = require('mongoose');
 // 1. 스키마 생성자 함수 불러오기
 const { Schema } = require('mongoose');
 
@@ -367,22 +337,44 @@ const userSchema = new Schema({
   any: [mongoose.Schema.Types.Mixed ],
   id: mongoose.Schema.Types.ObjectId,
 });
-=======
-- timestamps 옵션을 사용하면 생성, 수정 시간을 자동으로 기록해줌
-
-```jsx
-// ./models/schemas/board.js
-const { Schema } = require('mongoose');
-const PostSchema = new Schema({
-	title: String,
-	content: String,
-}, {
-	timestamps: true,
-});
-
-module.exports = PostSchema;
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 ```
+
+- 타입스크립트 이용
+    
+    ```jsx
+    import { model, Schema } from 'mongoose';
+    import { ITodo } from '../../types/todo';
+    
+    const TodoSchema: Schema = new Schema<ITodo>(
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+    
+        description: {
+          type: String,
+          required: true,
+        },
+    
+        status: {
+          type: Boolean,
+          required: true,
+        },
+      },
+      { timestamps: true }
+    );
+    
+    export default model<ITodo>('Todo', TodoSchema);
+    
+    // tpyes/todo.ts
+    export interface ITodo {
+      name: string;
+      description: string;
+      status: boolean;
+    }
+    ```
+    
 
 ### 2. **모델 만들기**
 
@@ -390,37 +382,40 @@ module.exports = PostSchema;
 
 모델의 이름을 지정하여 Populate 등에서 해당 이름으로 모델 호출 가능
 
-<<<<<<< HEAD
 - 모델(Model)
     
     스키마 객체를 사용해서 MongoDB에 있는 document 데이터를 JS 객체 형태로 나타낼 수 있게 해줌
     
     - MongoDB에 있는 모든 document들에 대한 CRUD를 책임짐
     - JS 코드 상에서 실질적으로 다루는 것은 모델
-    - `mongoose.model` 의 리턴값은 class
-        
-        ⇒ 이를 이용해 새로운 document 객체를 생성해 DB에 저장 가능
-        
-        class의 static 메서드를 사용해서 document CRUD도 가능 (CRUD의 리턴값 = 이 클래스의 객체)
-        
-
-```jsx
-// ./models/index.js
-const mongoose = require('mongoose');
-const PostSchema = require('./schemas/board');
-export.Post = mongoose.model('Post', PostSchema);
-
-// 스키마 생성한 파일에서 모델 내보내기
-module.exports = mongoose.model('Post', PostSchema);
-// index.js 에서는 require하면 모델 받아짐
-=======
-```jsx
-// ./models/index.js
-const moongoose = require('mongoose');
-const PostSchema = require('./schemas/board');
-exports.Post = mongoose.model('Post', PostSchema);
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
-```
+- 모델 생성 : `var Variable = mongoose.model('클래스이름', '스키마')`
+    - `mongoose.model`은 모델이 아니라 생성기 ⇒ 리턴값은 class
+        - 이를 이용해 새로운 document 객체를 생성해 DB에 저장 가능
+        - class의 static 메서드를 사용해서 document CRUD도 가능 (CRUD의 리턴값 = 이 클래스의 객체)
+1. 스키마 파일에서 모델로 내보냄
+    
+    ```jsx
+    // ./models/schemas (스키마 생성 파일)
+    module.exports = mongoose.model('User', userSchema);
+    
+    // index.js
+    const User = require('./models/schemas');
+    ```
+    
+2. 스키마 파일에서 스키마 내보냄 → 받는 파일에서 모델로 받음
+    
+    ```jsx
+    // ./models/schemas (스키마 생성 파일)
+    // 위에서 스키마 생성
+    // 내보내기
+    module.exports = userSchema;
+    
+    // ./index.js (모델 생성 파일)
+    const mongoose = require('mongoose');
+    const userSchema = require("./models/schemas");
+    const User = mongoose.model("User", userSchema);
+    ```
+    
 
 ### 3. **데이터 베이스 연결하기**
 
@@ -429,7 +424,6 @@ connect 함수를 이용해서 간단하게 데이터베이스와 연결
 mongoose는 자동으로 연결을 관리 ⇒ 직접 연결 상태 체크하지 않아도 모델 사용 시 연결 상태를 확인하여 사용이 가능할 때 작업을 실행
 
 ```jsx
-<<<<<<< HEAD
 const mongoose = require('mongoose');
 
 // 기본 연결 함수
@@ -474,19 +468,63 @@ mongoose
     mongoose.connection.on('connectionEvent내용', () => {~})
     ```
     
+- 타입스크립트
+    
+    ```jsx
+    import { Response, Request, NextFunction } from 'express';
+    import mongoose from 'mongoose';
+    
+    export const db = async (req: Request, res: Response, next: NextFunction) => {
+      const DB_URL =
+        process.env.MONGODB_URL ||
+        'MongoDB 서버 주소가 설정되지 않았습니다.\n./db/index.ts 파일을 확인해 주세요. \n.env 파일도 필요합니다.\n';
+    
+      await mongoose.connect(DB_URL);
+      const db = mongoose.connection;
+    
+      db.on('connected', () =>
+        console.log('정상적으로 MongoDB 서버에 연결되었습니다.  ' + DB_URL)
+      );
+      db.on('error', (error) =>
+        console.error(
+          '\nMongoDB 연결에 실패하였습니다...\n' + DB_URL + '\n' + error
+        )
+      );
+      next();
+    };
+    ```
+    
+    - process.env.MONGODB_URL을 사용했습니다. 프로젝트를 적용할 때 반드시 외부에 노출되어서는 안되는 정보는 .env에서 별도로 관리해야함
+        - 만약 외부 노출 되었을 시, 해커가 리소스를 갉아 먹을 수 있고 소중한 정보 노출
 
-=======
-// index.js
-const mongoose = require('mongoose');
-const { Post } = require('./models');
-mongoose.connect('mongodb://localhose:27017/myapp');
-// Post 바로 사용 가능
-```
-
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 ### 4. 모델 사용하기
 
 작성된 모델을 이용하여 CRUD를 수행 가능
+
+- 모델에 직접 CRUD하면 됨
+
+```jsx
+// routers/todo-router.ts
+
+import { Router } from 'express';
+import {
+  getTodos,
+  addTodo,
+  updateTodo,
+  deleteTodo,
+} from '../controllers/todo-controller';
+
+const todoRouter: Router = Router();
+
+// localhost:3000/todos
+
+todoRouter.get('/todos', getTodos);
+todoRouter.post('/todos', addTodo);
+todoRouter.put('/todos/:id', updateTodo);
+todoRouter.delete('/todos/:id', deleteTodo);
+
+export { todoRouter };
+```
 
 ## CRUD
 
@@ -494,38 +532,51 @@ mongoose.connect('mongodb://localhose:27017/myapp');
 
 ### **CREATE**
 
-- `create` : Document 생성 & 반환
+- `create()` : Document 생성 & 반환
     - create(Document Object) ⇒ 단일 Document 생성
     - create(Document Object 배열) ⇒ 복수 Document 생성
+- `save()` : 매번 document의 데이터 검증을 수행함
+- `inservMany()` : 여러 개의 데이터 삽입
 
 ```jsx
-<<<<<<< HEAD
 // 새로운 커피 생성 : Create
 const coffee = new Coffee({ type: "Americano", orderedBy: "John Doe" });
 await coffee.save(); //  collection에 document를 insert하기 전에 데이터가 스키마에 맞게 구성되어있는 지 검증을 진행
 
 // 다른 방법의 새로운 커피 생성 : Create
 await Coffee.create([{ type: "Latte", orderedBy: "Someone" }, {type: "Cappuccino", orderedBy: "Stephan Dahl" }]);
-=======
-// index.js
-const { Post } = require('./models');
-
-async function main() {
-	const created = await Post.create({ // Document Object 전달
-		title: 'first title',
-		content: 'second title',
-	});
-	const multpleCreated = await Post.create([
-		item1,
-		item2
-	_]);
-}
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 ```
+
+- 타입스크립트
+    
+    ```jsx
+    // todo-model.ts
+    import Todo from '../schemas/todo-schema';
+    import { ITodo, TodoInfo } from '../../types/todo';
+    
+    async create(userInfo: TodoInfo): Promise<ITodo> { // 비동기 처리되어 전달
+        const createdTodo = await Todo.create(userInfo);
+        return createdTodo;
+      }
+    
+    // tpyes/todo.ts
+    
+    export interface ITodo {
+      name: string;
+      description: string;
+      status: boolean;
+    }
+    
+    export interface TodoInfo {
+      name: string;
+      description: string;
+      status: boolean;
+    }
+    ```
+    
 
 ### **READ**
 
-<<<<<<< HEAD
 query를 사용하여 검색 (findById는 ObjectID로 검색)
 
 1. `Users.find(조건, 프로젝션, 콜백함수(err, result))` 조건에 해당하는 모든 것
@@ -533,6 +584,16 @@ query를 사용하여 검색 (findById는 ObjectID로 검색)
 3. `Users.findById(아이디, 프로젝션, 콜백함수(err, result))`
 - 콜백 함수는 넣어주면 콜백 형식으로 결과를 받고,넣어주지 않으면 프로미스로 받음 ⇒ 비동기 처리 가능
 - ObjectID 값으로 검색 : data에 `_id` 속성값으로 저장되어 있음
+- id로 찾을 때 숫자로 변환 후, 검색할 것
+- find + And 함수
+    
+    find와 Delete, Update를 함께 수행 가능
+    
+    - `findByIdAndUpdate` / `findoneAndUpdate` : 검색된 Document에 업데이트를 반영하여 반환
+        - 반환값 : 수정 전 모델
+            
+            수정 후 반환받고 싶다면 ⇒ 마지막 인자로 `{new: true}`전달
+            
 
 ```jsx
 // 모든 커피를 가져오기 : Read
@@ -569,19 +630,6 @@ router.get('/:book_id', async(req, res) => {
         console.log(e);
     }
 })
-=======
-`find` `findById` `findOne`
-
-query를 사용하여 검색 (findById는 ObjectID로 검색)
-
-```jsx
-const { Post } = require('./models');
-
-async function main() {
-	const listPost = await Post.find(query);
-	const ondPost = await Post.findOne(query);
-	const postById = await Post.findById(id);
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 ```
 
 - **query**
@@ -599,10 +647,7 @@ async function main() {
             ```
             
     - 다중 조건 검색: `$or`
-<<<<<<< HEAD
     - 속성 존재 유무 체크: `{ status: { $exists: false } }`
-=======
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
     
     ```jsx
     Person.find({
@@ -615,36 +660,24 @@ async function main() {
     		Sin: ['ko', 'en'], // 'ko' or 'en' 둘 중 하나 가지고 있으면 찾음
     	},
     	$or: [
-<<<<<<< HEAD
             {category: {$exists: false}}, // 카테고리 값이 없거나
             {category: 'notice'}, // notice이면 찾음
         ]
-=======
-    		{ status: 'ACTIVE' }, // 둘 중 하나 가지고 있으면 찾음
-    		{ isFresh: true }, 
-    	],
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
     });
     ```
     
 
 ### **UPDATE**
 
-<<<<<<< HEAD
 1. `updateOne(조건, 변경된내용)` : 첫 발견한 한 개의 Document 수정 
 2. `updateMany(조건, 변경된내용)` :  조건과 일치하는 전체 Document 수정
-3. `findByIdAndUpdate` `findoneAndUpdate` : 검색된 Document에 업데이트를 반영하여 반환
-=======
-1. `updateOne` `updateMany` : Document 수정
-2. `findByIdAndUpdate` `findoneAndUpdate` : 검색된 Document에 업데이트를 반영하여 반환
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 - 기본적으로 `$set operator`를 사용하여 Document를 통째로 변경x
     
     ⇒ 있는 속성은 수정, 없다면 추가
     
+1. `prototype.save()` :  objectId를 이용하여 중복되는 document가 있다면 update를 수행하고 없으면 insert를 수행
 
 ```jsx
-<<<<<<< HEAD
 // 하나의 커피를 업데이트 : UpdateOne
 await Coffee.updateOne({ _id: "<some-coffee-id>"}, {orderedBy: "Max Doe" });
 // 다수의 커피를 업데이트 : UpdateMany
@@ -660,43 +693,18 @@ router.post('/', async(req, res) => {
         console.log(e);
     }
 });
-=======
-async function main() {
-	const updateResult = await Post.updateOne (query, {
-		...
-	});
-	const updateResults = await Post.updateMany (query, {
-		...
-	});
-	const postById = await Post.findByIdAndUpdate(id, {
-		...
-	});
-	const onePost = await Post.findOneAndUpdate(query, {
-		...
-	});
-}
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 ```
 
 ### **DELETE**
 
-1. `deleteone` `deleteMany` : Document 삭제
+1. `deleteOne` / `deleteMany` : Document 삭제
 2. `findByIdAndDelete` `findOneAndDelete` : 검색된 Document 반환함
 
 ```jsx
-<<<<<<< HEAD
 // 하나의 커피를 삭제 : Delete
 await Coffee.deleteOne({ _id: "<some-coffee-id>" });
 // 다수의 커피를 삭제 : Delete
 await Coffee.deleteMany({ type: "Americano" });
-=======
-async function main() {
-	const deleteResult = await Post.deleteOne (query);
-	const deleteResults = await Post.deleteMany (query);
-	const onePost = await Post.findOneAndDelete (query);
-	const postById await Post. findByIdAndDelete (query);
-}
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 ```
 
 ## populate
@@ -708,10 +716,7 @@ RDB의 join과 유사한 기능을 제공하는 mongoose 자체 함수
 Document안에 참조하는 ObjectID를 저장하고, 사용할 때 populate하여 하위 Document처럼 사용할 수 있게 해줌
 
 ```jsx
-<<<<<<< HEAD
 // 참조값 저장하는 스키마 작성
-=======
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
 const Post = new Schema ({
 	...
 	user: {
@@ -723,13 +728,230 @@ const Post = new Schema ({
 		ref: 'Comment',
 	}],
 });
-<<<<<<< HEAD
 
 // populate 수행
 // 함수.populate('속성') // 여러개면 배열
 const post = await Post
 	.find().populate(['user', 'comments']); // => populate 한 값 찾음
 ```
+
+## API 예시
+
+---
+
+- Create 메서드 만들어보기
+    - 먼저 To do 데이터를 저장하는 API를 함께 만들어보겠습니다.
+    - 클라이언트가 서버에게 API 요청을 한다면, app.ts에 있는 코드들이 순차적으로 진행될 것입니다.
+    
+    ```jsx
+    import cors from 'cors';
+    import express from 'express';
+    import { todoRouter } from './routers';
+    import { errorLogger, errorHandler } from './middlewares';
+    import morgan from 'morgan';
+    import * as dotenv from 'dotenv';
+    import { db } from './db/config';
+    
+    dotenv.config();
+    
+    const app = express();
+    
+    // CORS 에러 방지
+    app.use(cors());
+    
+    // 로그 출력
+    app.use(morgan('dev'));
+    
+    // Content-Type: application/json 형태의 데이터를 인식하고 핸들링할 수 있게 함.
+    app.use(express.json());
+    
+    // Content-Type: application/x-www-form-urlencoded 형태의 데이터를 인식하고 핸들링할 수 있게 함.
+    app.use(express.urlencoded({ extended: false }));
+    
+    // DB 연결
+    app.use(db);
+    
+    // api 라우팅
+    app.use('/api', todoRouter);
+    
+    // 미들웨어 (에러를 error.log 파일에 기록 및, 에러를 프론트엔드에 전달)
+    app.use(errorLogger);
+    app.use(errorHandler);
+    
+    export { app };
+    ```
+    
+    - 이 때 app.use('/api', todoRouter) 미들웨어를 실행하면서 todoRouters를 실행합니다.
+- routers
+    
+    ```jsx
+    // routers
+    import { Router } from 'express';
+    import {
+      addTodo,
+    } from '../controllers/todo-controller';
+    
+    const todoRouter: Router = Router();
+    
+    todoRouter.post('/todos', addTodo);
+    
+    export { todoRouter };
+    ```
+    
+    - todoRouter에는 express의 Router() 객체가 값으로 할당되어 있습니다.
+    - todoRouter의 post 메서드를 실행시켜서 인자값으로 /todos와 콜백 함수로 addTodo를 넣었습니다.
+    - todoRouter.post('/todos', addTodo)의 역할은 URL 중 todos라는 곳으로 사용자가 post 방식으로 요청했을 때 addTodo라는 콜백함수를 전달한다라는 뜻입니다.
+    - 그럼 addTodo는 어떻게 구성되어 있는지 살펴보겠습니다.
+    
+- controllers
+    
+    ```jsx
+    // controllers
+    const addTodo = async (
+      req: Request,
+      res: Response,
+      next: NextFunction
+    ): Promise<void> => {
+      try {
+        if (is.emptyObject(req.body)) {
+          throw new Error(
+            'headers의 Content-Type을 application/json으로 설정해주세요'
+          );
+        }
+    
+        const { name, description, status } = req.body as Pick<
+          ITodo,
+          'name' | 'description' | 'status'
+        >;
+    
+        const newTodo: ITodo | null = await todoService.addTodo({
+          name,
+          description,
+          status,
+        });
+        const allTodos: ITodo[] = await todoService.getTodos();
+    
+        res
+          .status(201) -> 201은 데이터를 생성했다는 상태코드. 응답코드. 
+          .json({ message: 'Todo added', todo: newTodo, todos: allTodos });
+      } catch (error) {
+        next(error);
+      }
+    };
+    
+    export { addTodo };
+    ```
+    
+    - addTodo는 컨트롤러에 존재하는 함수입니다.
+    
+    ```jsx
+      if (is.emptyObject(req.body)) {
+          throw new Error(
+            'headers의 Content-Type을 application/json으로 설정해주세요'
+          );
+        }
+    ```
+    
+    - 위 코드는, 만약 req 요청 객체의 body 값이 빈 객체면 에러를 throw(던진다) 라는 뜻입니다.
+    
+    ```jsx
+    		 const { name, description, status } = req.body as Pick<
+          ITodo,
+          'name' | 'description' | 'status'
+        >;
+    ```
+    
+    - 위 코드는 req.body 객체에서 구조분해할당을 통해 데이터를 가져오고 있습니다.
+    - 여기서 타입스크립트의 Pick 타입을 사용했습니다.
+    - Pick 타입은 단어의 뜻 그대로 ITodo라는 인터페이스의 타입에서 특정 타입만 뽑아온다는 뜻입니다.
+    
+    ```jsx
+    const newTodo: ITodo | null = await todoService.addTodo({
+          name,
+          description,
+          status,
+        });
+    ```
+    
+    - newTodo에서는 todoService.addTodo 메서드를 통해 값을 할당받고 있습니다.
+    - newTodo의 타입은 ITodo 혹은 null으로, 만약 데이터가 제대로 저장됐다면 ITodo 타입이 지정될 것이고, 제대로 지정되지 않는다면 null 타입을 받는 다는 뜻입니다.
+    
+    ```jsx
+    const allTodos: ITodo[] = await todoService.getTodos();
+    ```
+    
+    - 우리가 저장하려고 한 데이터가 제대로 저장됐는지 확인하기 위해 DB에 저장된 모든 데이터를 가져오는 로직을 allTodos에 추가했습니다.
+    
+    ```jsx
+    res
+          .status(201)
+          .json({ message: 'Todo added', todo: newTodo, todos: allTodos });
+    ```
+    
+    - 데이터를 모두 처리했다면, express의 response 객체를 통해 클라이언트에게 서버의 응답을 전달합니다.
+    - status를 통해 서버의 상태 코드를 전달하고, json을 통해 데이터를 json 객체로 전달합니다.
+    - 이렇게 controller 코드를 살펴봤습니다. 여기서 중요한 점이 있습니다.
+    - controller 코드에서 중요하게 살펴볼 것은, controller에서는 데이터베이스를 직접적으로 다루는 로직이 없다는 것입니다.
+    - 데이터베이스를 다루는 로직은 service 계층의 메서드를 통해 받아오고 있습니다.
+    - controller 코드에서는 클라이언트로부터 받은 요청을 서비스 계층으로 전달하고, 서비스 계층에서 코드를 처리하면, 사용자에게 응답을 전달하는 로직을 작성합니다.
+    - 그럼 controller 코드까지 살펴봤다면, 서비스 코드를 마저 살펴보겠습니다.
+- service
+    
+    ```jsx
+    // service
+    import { todoModel, TodoModel } from '../db';
+    import { ITodo, TodoInfo, TodoInfoById } from '../types/todo';
+    
+    class TodoService {
+      constructor(private todoModel: TodoModel) {}
+    
+      async getTodos(): Promise<ITodo[]> {
+        const model = this.todoModel.findAll();
+        return model;
+      }
+    
+    	async addTodo(userInfo: TodoInfo): Promise<ITodo> {
+        return this.todoModel.create(userInfo);
+      }
+    }
+    
+    const todoService = new TodoService(todoModel);
+    
+    export { todoService };
+    ```
+    
+    - service 계층의 코드는 비즈니스 로직을 작성하는 계층입니다.
+    - service 계층에는 현재 addTodo와 getTodos라는 메서드가 존재합니다.
+    - addTodo 메서드를 활용해서 데이터를 저장하고, getTodos 메서드를 활용해서 데이터를 조회합니다.
+    - addTodo 메서드를 보면, todoModel.create 메서드를 활용해서 데이터 값을 model이라는 변수에 할당하고 있습니다.
+    - getTodos 메서드는 todoModel.findAll 메서드를 활용하여 데이터를 조회하고 있습니다.
+    - 그럼 빠르게 model 부분으로 넘어가겠습니다.
+- model
+    
+    ```jsx
+    // model
+    
+    import { ITodo, TodoInfo, TodoInfoById } from '../../types/todo';
+    import Todo from '../schemas/todo-schema';
+    
+    export class TodoModel {
+      async create(userInfo: TodoInfo): Promise<ITodo> {
+        const createdTodo = await Todo.create(userInfo);
+        return createdTodo;
+      }
+    }
+    
+    const todoModel = new TodoModel();
+    
+    export { todoModel };
+    ```
+    
+    - model 클래스에는 create 메서드가 존재합니다.
+    - 여러분들은 MVC라는 개념을 배우셨을겁니다. 여기서 M을 뜻하는 model을 관리하는 코드를 model 클래스에서 다루고 있다고 보시면 됩니다.
+    - 우리는 데이터를 생성하는 API를 만들고 있기 때문에 create 메서드만 먼저 살펴보겠습니다.
+    - create 메서드를 실행하면, createdTodo 변수에 await Todo.create(userInfo); 의 값이 할당됩니다.
+    - 이는 Todo DB에 create, 즉 데이터를 생성한다라는 의미의 mongoose 메서드입니다.
+    - 메서드가 성공적으로 실행된다면 리턴값으로 인터페이스인 ITodo 값이 서비스 계층으로 전달될 것입니다.
 
 # Sequelize ORM
 
@@ -752,30 +974,24 @@ MySQL, PostgreSQL 등의 RDBMS를 이용하는 간단한 방법
 
 ### 디비 연결
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%206.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%207.png)
 
 ### 스키마 작성
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%207.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%208.png)
 
 ### 관계 정의
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%208.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%209.png)
 
 ## 쿼리
 
 ---
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%209.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%2010.png)
 
 ## Synchronization
 
 ---
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%2010.png)
-=======
-const post = await Post
-	.find().populate(['user', 'comments']);
-// post.user.name, post.comments[0].content
-```
->>>>>>> 21def86b4dfd3762ae43cca4c8bc19bd9e1cf675
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%2011.png)
