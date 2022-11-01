@@ -71,6 +71,12 @@ ex) MySQL, Oracle DB, MariaDB, PostgreSQL, SQLite
 - MongoDB Compass
     - database, collection, document 등을 시각화하여 관리할 수 있게 도와주는 도구
     - MySQL을 사용할 때 MySQL Workbench와 유사함
+1. 서비스 시작하기
+    
+    ![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled.png)
+    
+    오른쪽 마우스 클 → 시작 → 중지할 때는 중지
+    
 
 ### 관련 툴
 
@@ -132,7 +138,7 @@ SQL처럼 구조화되지 않은 데이터 저장 방식
 
 Database > Collection > Document
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%201.png)
 
 ### Database 🗄
 
@@ -196,7 +202,7 @@ views: NumberLong(1250000)
 - `db.collection.insertOne()` : 하나의 document 생성
 - `db.collection.insertMany()` : 다수의 document 생성
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%201.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%202.png)
 
 ```jsx
 db.inventory.insertOne( // inventory => collection
@@ -213,7 +219,7 @@ db.inventory.insertMany([
 
 - `db.collection.find()` : 하나/다수의 document 찾기
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%202.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%203.png)
 
 ```jsx
 // type 필드 값 "americano" && price < 5000 찾기 => and 조건
@@ -228,7 +234,7 @@ db.inventory.find({$or: [{type: "ice americano"}, {qty: {$gt: 5000}}]})
 - `db.collection.updateOne()` : 하나의 document 수정 (맨 처음에 발견되는 하나)
 - `db.collection.updateMany()` : 다수의 document 수정
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%203.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%204.png)
 
 ```jsx
 // type 필드 값 americano인 document 중 첫 번째 찾음
@@ -246,7 +252,7 @@ db.inventory.updateOne(
 - `db.collection.deleteMany()` : 다수의 document 삭제
     - `db.collection.deleteMany({})` ⇒ 전체 document 삭제
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%204.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%205.png)
 
 ```jsx
 // price 필드 값이 5000 이상인 document를 전부 삭제
@@ -289,7 +295,7 @@ db.inventory.deleteMany({price: {$gte: 5000}});
 
 정해진 방법은 없지만 주로 사용되는 방법
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%205.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%206.png)
 
 - modle 디렉터리: Schema + Model
 - app 객체: mongoose.connect
@@ -315,7 +321,7 @@ db.inventory.deleteMany({price: {$gte: 5000}});
     - `mongooseSchema` 의 리턴값은 객체
 - timestamps 옵션을 사용하면 생성, 수정 시간을 자동으로 기록해줌
     
-    ![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%206.png)
+    ![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%207.png)
     
     - createAt, updatedAt으로 날짜, 시간이 데이터에  저장됨
 - 스키마의 수정을 쉽지만, 이미 생성된 데이터가 수정되지는 않음
@@ -974,24 +980,24 @@ MySQL, PostgreSQL 등의 RDBMS를 이용하는 간단한 방법
 
 ### 디비 연결
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%207.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%208.png)
 
 ### 스키마 작성
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%208.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%209.png)
 
 ### 관계 정의
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%209.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%2010.png)
 
 ## 쿼리
 
 ---
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%2010.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%2011.png)
 
 ## Synchronization
 
 ---
 
-![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%2011.png)
+![Untitled](MongoDB%20b2eb3ea6bc734fb391054b9ab49f48f9/Untitled%2012.png)
